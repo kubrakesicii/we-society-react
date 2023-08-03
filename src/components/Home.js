@@ -5,6 +5,7 @@ import { GetAllCategories } from "../services/Requests/Category";
 import Category from "./Category";
 import { useEffect, useState } from "react";
 import Footer from "./Footer";
+import CategoryList from "./CategoryList";
 
 const Home = () => {
     const [articleList,setArticles]  = useState([])
@@ -54,139 +55,13 @@ const Home = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8">
+                            <CategoryList categories={categoryList} />
+
                                 <h2 className="spanborder h4">
                                     <span>Most Recent</span>
                                 </h2>
  
                                 <ArticleList articles={articleList}/> 
-
-
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">Editors' Pick</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Home Internet Is Becoming a Luxury for the Wealthy</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   And black on meretriciously regardless well fearless irksomely as about hideous wistful bat less oh much and occasional useful rat darn jeepers far.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Dave Gershgorn</a> in <a href="archive.html">OneZero</a><br/>
-                                                <span>May 21</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">5 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-800x495.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">based on your reading history</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Why Lack of Sleep is So Bad For You</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                  A lack of sleep is linked to an incredibly wide range of ailments, from heart disease and Type 2 diabetes to obesity, depression, poor cognitive function, and even Alzheimer's disease..
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a className="author-avatar" href="#"><img src="assets/images/author-avata-1.jpg" alt=""/></a>
-                                                <a href="author.html">Darcy Reeder</a> in <a href="archive.html">OneZero</a><br/>
-                                                <span>Jun 17</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">3 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">Culture</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Regulators Just Put a Target on Apple's Back</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   Excellence is the most important habit you can curate in life because it requires doing things you don't want to do and getting uncomfortable on a daily basis.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Azimi ??kalo</a> in <a href="archive.html">Freedom</a><br/>
-                                                <span>May 12</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">8 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">Technology</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Apple Is Designing for a Post-Facebook World</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   And black on meretriciously regardless well fearless irksomely as about hideous wistful bat less oh much and occasional useful rat darn jeepers far.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Dave Gershgorn</a> in <a href="archive.html">OneZero</a><br/>
-                                                <span>Jun 12</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">7 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-3.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">based on your reading history</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">What Really Happens to AirPods When They Die</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   At WWDC, Apple debuted a slew of new features that let users connect with their families and friends right inside Apple's apps'''no social.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Johan Doan</a> in <a href="archive.html">Lifestyle</a><br/>
-                                                <span>May 15</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">5 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-4.jpg'})`}}></div>
-                                </article>
 {/* 
                                 <div className="row justify-content-between">
                                     <div className="divider-2"></div>
@@ -268,82 +143,6 @@ const Home = () => {
                                     </article>
                                 </div> */}
 
-
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">Editors' Pick</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Home Internet Is Becoming a Luxury for the Wealthy</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   And black on meretriciously regardless well fearless irksomely as about hideous wistful bat less oh much and occasional useful rat darn jeepers far.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Dave Gershgorn</a> in <a href="archive.html">OneZero</a><br/>
-                                                <span>May 21</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">5 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-800x495.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">based on your reading history</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Why Lack of Sleep is So Bad For You</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                  A lack of sleep is linked to an incredibly wide range of ailments, from heart disease and Type 2 diabetes to obesity, depression, poor cognitive function, and even Alzheimer's disease..
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Darcy Reeder</a> in <a href="archive.html">OneZero</a><br/>
-                                                <span>Jun 17</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">3 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512.jpg'})`}}></div>
-                                </article>
-                                <article className="row justify-content-between mb-5 mr-0">
-                                    <div className="col-md-9 ">
-                                        <div className="align-self-center">
-                                            <div className="capsSubtle mb-2">Culture</div>
-                                            <h3 className="entry-title mb-3"><a href="single.html">Regulators Just Put a Target on Apple's Back</a></h3>
-                                            <div className="entry-excerpt">
-                                                <p>
-                                                   Excellence is the most important habit you can curate in life because it requires doing things you don't want to do and getting uncomfortable on a daily basis.
-                                                </p>
-                                            </div>
-                                            <div className="entry-meta align-items-center">
-                                                <a href="author.html">Azimi ??kalo</a> in <a href="archive.html">Freedom</a><br/>
-                                                <span>May 12</span>
-                                                <span className="middotDivider"></span>
-                                                <span className="readingTime" title="3 min read">8 min read</span>
-                                                <span className="svgIcon svgIcon--star">
-                                                    <svg className="svgIcon-use" width="15" height="15">
-                                                        <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div>
-                                </article>
                                 <ul className="page-numbers heading">
                                     <li><span aria-current="page" className="page-numbers current">1</span></li>
                                     <li><a className="page-numbers" href="#">2</a></li>
@@ -615,37 +414,7 @@ const Home = () => {
                     </div> 
                 </div>
 
-                <div className="content-widget">
-                    <div className="container">
-                        <div className="row justify-content-between post-has-bg ml-0 mr-0">
-                            <div className="col-lg-6 col-md-8">
-                                <div className="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
-                                    <div className="capsSubtle mb-2">Editors' Pick</div>
-                                    <h2 className="entry-title mb-3"><a href="single.html">What I Wish I'd Known When I Made a Drastic Career Change</a></h2>
-                                    <div className="entry-excerpt">
-                                        <p>
-                                          Eight people who took the plunge share the biggest challenges and surprises of starting over. We spend a considerable portion of our time using a web browser and may sometimes need to get a screenshot of a full page in your browser.
-                                        </p>
-                                    </div>
-                                    <div className="entry-meta align-items-center">
-                                        <a href="author.html">Steven Job</a> in <a href="archive.html">OneZero</a><br/>
-                                        <span>July 15</span>
-                                        <span className="middotDivider"></span>
-                                        <span className="readingTime" title="3 min read">5 min read</span>
-                                        <span className="svgIcon svgIcon--star">
-                                            <svg className="svgIcon-use" width="15" height="15">
-                                                <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0" style={{backgroundImage:`url(${'assets/images/thumb/thumb-800x495.jpg'})`}}></div>
-                        </div>
-                        <div className="divider"></div>
-                    </div>
-                </div>
-
+              
                 <div className="content-widget">
                     <div className="container">
                         <div className="row">

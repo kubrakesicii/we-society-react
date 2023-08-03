@@ -1,14 +1,16 @@
 import { Form, redirect } from "react-router-dom";
-import classes from "../styles/Register.module.css"
 import {RegisterUser} from '../services/Requests/Auth'
 
 
 function Register(){
     return (
         <>
-        <div className={classes.registerContainer}>
-                <div className={classes.registerForm}>
-                <header>Kendi Makalelerini Paylaşabilmek için Kayıt Ol</header>
+        <div className="container">
+            <div className=''>
+                <div className='registerForm'>
+                <h2 className="authHeader">
+                    <span>WeSociety</span>
+                </h2>
                     <Form method="post">
                         <input type="text" required name="fullname" placeholder="Tam Ad giriniz.." />
                         <input type="text" required name="email" placeholder="Mailinizi Girin.." />
@@ -16,15 +18,11 @@ function Register(){
                         <input type="password" required name="password" placeholder="Şifrenizi girin.." />
 
 
-                        <input type="submit" className={classes.button} value="Kayıt Ol" />
+                        <input type="submit" className='button' value="Register" />
                     </Form>
-                    <div className={classes.signup}>
-                    <span className={classes.signup}>Already have an account?
-                    <label htmlFor="check">Login</label>
-                    </span>
-                </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }

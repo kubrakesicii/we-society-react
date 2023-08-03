@@ -793,38 +793,41 @@ header {
   font-size: 0;
 }
 
-#main-menu .menu-primary ul.sub-menu {
+ul.sub-menu {
   display: none;
 }
 
-#main-menu .menu-primary li:hover ul.sub-menu {
+li:hover ul.sub-menu {
+  display: block;
+}
+li:hover ul.sub-menu {
   display: block;
 }
 
-#main-menu .menu-primary ul.sub-menu {
+ul.sub-menu {
   border: medium none;
   border-top: 0 none;
   display: none;
   position: absolute;
-  text-align: left;
+  text-align: right;
   top: 100%;
   z-index: 100;
-  left: 0;
+  right: 0;
   padding: 0;
   background: #fff;
-  padding: 10px 20px;
-  min-width: 220px;
+  padding: 20px 10px;
+  min-width: 100px;
   margin-left: -20px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,.12);
 }
 
-#main-menu .menu-primary li ul.sub-menu li {
+li ul.sub-menu li {
   display: block;
   line-height: 1.2;
-  padding: 10px 0 !important;
+  padding: 10px 10px !important;
 }
 
-#main-menu .menu-primary li ul.sub-menu a {
+li ul.sub-menu a {
   display: inherit;
   line-height: 1;
 }
@@ -1473,3 +1476,164 @@ pre {
 button.owl-prev:hover, button.owl-next:hover {
   background: none !important;
 }
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.loginContainer{
+  padding-top: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 430px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.loginContainer .registration{
+  display: none;
+}
+#check:checked ~ .registration{
+  display: block;
+}
+#check:checked ~ .loginForm{
+  display: none;
+}
+#check{
+  display: none;
+}
+.loginContainer .loginForm{
+  padding: 2rem;
+}
+.loginForm header{
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+ .loginForm input{
+   height: 60px;
+   width: 100%;
+   padding: 0 15px;
+   font-size: 17px;
+   margin-bottom: 1.3rem;
+   border: 1px solid #ddd;
+   border-radius: 6px;
+   outline: none;
+ }
+ .loginForm input:focus{
+   box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+ }
+.loginForm a{
+  font-size: 16px;
+  color: #009579;
+  text-decoration: none;
+}
+.loginForm a:hover{
+  text-decoration: underline;
+}
+.loginForm input.button{
+  color: #fff;
+  background: #009579;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.loginForm input.button:hover{
+  background: #006653;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.registerContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  }
+  .registerContainer .registration{
+    display: none;
+  }
+  #check:checked ~ .registration{
+    display: block;
+  }
+  #check:checked ~ .registerForm{
+    display: none;
+  }
+  #check{
+    display: none;
+  }
+  .registerContainer .registerForm{
+    padding: 2rem;
+  }
+  .registerForm header{
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+   .registerForm input{
+     height: 60px;
+     width: 100%;
+     padding: 0 15px;
+     font-size: 17px;
+     margin-bottom: 1.3rem;
+     border: 1px solid #ddd;
+     border-radius: 6px;
+     outline: none;
+   }
+   .registerForm input:focus{
+     box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+   }
+  .registerForm a{
+    font-size: 16px;
+    color: #009579;
+    text-decoration: none;
+  }
+  .registerForm a:hover{
+    text-decoration: underline;
+  }
+  .registerForm input.button{
+    color: #fff;
+    background: #009579;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  .registerForm input.button:hover{
+    background: #006653;
+  }
+  
+
+  .authHeader {
+    text-align: center;
+    font-style: bold;
+    padding: 2rem;
+  }

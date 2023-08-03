@@ -1,4 +1,4 @@
-import classes from "../styles/Login.module.css"
+import classNamees from "../styles/Login.module.css"
 import {LoginUser} from '../services/Requests/Auth'
 import { Form, redirect } from "react-router-dom";
 import { useEffect, useReducer, useState } from "react";
@@ -96,31 +96,30 @@ const Login = (props) => {
 
     return(
         <>
-            <div className={classes.loginContainer}>
-                <div className={classes.loginForm}>
-                    <header>WeSociety</header>
-                    <Form method="post" action="/login">
+            <div className="container"> 
+                <div className="">
+                <div className='loginForm'>
+                <h2 className="authHeader">
+                    <span>WeSociety</span>
+                </h2>                    
+                <Form method="post" action="/login">
                         <input type="text" required name="email" placeholder="Mailinizi girin.." 
-                            className={` ${classes.control} ${emailState.isValid === false ? classes.invalid : ''} `}
+                            className={`control ${emailState.isValid === false ? classNamees.invalid : ''} `}
                             value={emailState.value}
                             onChange={emailChangeHandler} 
                             onBlur={validateEmailHandler}/>
                         <input type="password" required name="password" placeholder="Sifrenizi girin.." 
-                            className={` ${classes.control} ${passwordState.isValid === false ? classes.invalid : ''} `}
+                            className={`control ${passwordState.isValid === false ? classNamees.invalid : ''} `}
                             value={passwordState.value}
                             onChange={passwordChangeHandler} 
                             onBlur={validatePasswordHandler}/>
 
                         <a href="#">Forgot password?</a>
-                        <input type="submit" className={classes.button} value="Giriş Yap"/>
+                        <input type="submit" className='button' value="Login"/>
                     </Form>
-                    <div className={classes.signup}>
-                        <span className={classes.signup}>Don't have an account?
-                        <label htmlFor="check">Signup</label>
-                        </span>
-                    </div>
                 </div>
             </div>
+        </div>         
         </>
     )
 }

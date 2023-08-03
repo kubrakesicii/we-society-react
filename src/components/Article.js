@@ -8,9 +8,8 @@ function Article(props){
                         <div className="capsSubtle mb-2">Editors' Pick</div>
                         <h3 className="entry-title mb-3"><a href="single.html">{props.title}</a></h3>
                         <div className="entry-excerpt">
-                            <p>
-                               {props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}
-                            </p>
+                            <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
+                            </div>
                         </div>
                         <div className="entry-meta align-items-center">
                             <a href="author.html">{props.fullName}</a> in <a href="archive.html">{props.categoryName}</a><br/>
@@ -25,7 +24,7 @@ function Article(props){
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-800x495.jpg'})`}}></div>
+                <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div>
             </article>
         </>
     )

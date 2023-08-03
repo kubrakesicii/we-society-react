@@ -10,8 +10,8 @@ export const GetAllArticles = async () => {
 }
 
 
-export const GetAllArticlesByUser = async () => {
-    const response = await fetch(`${BASE_URL}/Articles/ByUser`)
+export const GetAllArticlesByUser = async (userProfileId) => {
+    const response = await fetch(`${BASE_URL}/Articles/ByUser?userProfileId=${userProfileId}`)
     const resData = await response.json();
     return resData.data.items;
 }

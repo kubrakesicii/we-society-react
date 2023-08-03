@@ -1,15 +1,16 @@
+import { GetToken } from "../../utils/Token";
 import { BASE_URL } from "../BaseUrl";
 
 
-export const GetProfile = async (id) => {
+export const GetUserProfile = async (id) => {
     const response = await fetch(`${BASE_URL}/UserProfiles/${id}`)
     const resData = await response.json();
-    return resData.data.items;
+    return resData.data;
 }
 
 export const UpdateUserProfile = async (form) => {
     const putData = Object.fromEntries(form);
-    const token = getToken();
+    const token = GetToken();
 
     await fetch(`${BASE_URL}/UserProfiles`, {
         method:'PUT',

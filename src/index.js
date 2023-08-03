@@ -10,6 +10,7 @@ import App from './App';
 import Home , {loadArticles as loader} from './components/Home';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import UserProfile from './components/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {  
         path:'/home',
         element:<Home/>
+      },
+      {  
+        path:'/user-profile',
+        element:<UserProfile/>
       }
     ]
   }
