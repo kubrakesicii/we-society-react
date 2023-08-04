@@ -11,11 +11,12 @@ import Home , {loadArticles as loader} from './components/Home';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import UserProfile from './components/UserProfile';
+import Default from './layouts/Default';
 
 const router = createBrowserRouter([
   {
     path:'/',
-    element:<App />,
+    element:<Default />,
     children: [
       {
         path:'/login',
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
         element:<Home/>
       },
       {  
-        path:'/user-profile',
+        path:'/user-profile/:userProfileId',
         element:<UserProfile/>
       }
     ]

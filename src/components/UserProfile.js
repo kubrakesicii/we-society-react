@@ -3,22 +3,35 @@ import { GetAllArticlesByUser } from "../services/Requests/Article"
 import ArticleList from "./ArticleList"
 import { GetUserProfile } from "../services/Requests/UserProfile"
 import UserProfileInfo from "./UserProfileInfo"
+import { useSelector } from "react-redux"
+import Pagination from "./Pagination"
+import { useLocation, useParams } from "react-router-dom"
 
 const UserProfile = () => {
     const [articlesByUser,setArticles]  = useState([])
-    const [userInfo, setUserInfo] = useState({})
+
+    const [pageCount, setPageCount] = useState(0)
+    const [pageSize, setPageSize] = useState(3)
+    const [pageIndex, setPageIndex] = useState(1)
+    const pageIndexHandler = (pageInd) => setPageIndex(pageInd)
+
+    const activeUser = useSelector(state => state.auth.activeUser)
+    const { userProfileId } = useParams();
 
     useEffect(() => {
+        console.log("user params id : ", userProfileId);
+
         const loadData = async() => {
                 const [articles, userInfo] = await Promise.all([
-                    GetAllArticlesByUser(1),
-                    GetUserProfile(3)
+                    GetAllArticlesByUser(activeUser.userProfileId,pageIndex,pageSize),
+                    //GetUserProfile(activeUser.userProfileId)
                 ])
-                setArticles(articles)
-                setUserInfo(userInfo)
+                setPageCount(Math.ceil(articles.count/pageSize))
+                setArticles(articles.items)
+                //setUserInfo(userInfo)
         }
         loadData()
-    }, [])
+    }, [pageIndex])
 
     return(
         <>
@@ -27,21 +40,11 @@ const UserProfile = () => {
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8">
-                                <UserProfileInfo info={userInfo}/>
+                                <UserProfileInfo userProfileId={userProfileId}/>
 
                                 <h4 class="spanborder"><span>Latest Posts</span></h4>
                                 <ArticleList articles={articlesByUser}/>
-
-                                <ul class="page-numbers heading">
-                                    <li><span aria-current="page" class="page-numbers current">1</span></li>
-                                    <li><a class="page-numbers" href="#">2</a></li>
-                                    <li><a class="page-numbers" href="#">3</a></li>
-                                    <li><a class="page-numbers" href="#">4</a></li>
-                                    <li><a class="page-numbers" href="#">5</a></li>
-                                    <li><a class="page-numbers" href="#">...</a></li>
-                                    <li><a class="page-numbers" href="#">98</a></li>
-                                    <li><a class="next page-numbers" href="#"><i class="icon-right-open-big"></i></a></li>
-                                </ul>
+                                <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
 
                             </div> 
 

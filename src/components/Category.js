@@ -3,7 +3,9 @@
 const Category = (props) => {
     return(
         <>
-            <li className="menu-primary"><a href="typography.html">{props.name}</a></li>
+            <li className="menu-primary" 
+            onClick={() => {props.selectedCategoryHandler(props.id)}}>
+                <a>{props.name}</a></li>
         </>
     )
 }

@@ -35,32 +35,28 @@ import { BASE_URL } from "../BaseUrl";
 // export default AuthService;
 
 export const RegisterUser = async (form) => {
-    const postData = Object.fromEntries(form);
-
-    console.log("post data: ", postData);
-
     return await fetch(`${BASE_URL}/Auth/Register`, {
         method:'POST',
         headers:{
             'Content-type': 'application/json'
         },
-        body:JSON.stringify(postData)
+        body:JSON.stringify(form)
     });
 }
 
 export const LoginUser = async (form) => {
-    const postData = Object.fromEntries(form);
-
     return await fetch(`${BASE_URL}/Auth/Login`, {
         method:'POST',
         headers:{
             'Content-type': 'application/json'
         },
-        body:JSON.stringify(postData)
+        body:JSON.stringify(form)
     })
     .then(res => res.json())
     .then(resData => {
-        console.log("Resdata : ", resData.data);
-        SetUser(resData.data.token,resData.data.fullName)
+        console.log("Resdata : ", resData);
+        //SetUser(resData.data.token,resData.data.fullName)
+        
+        return resData
     })
 }

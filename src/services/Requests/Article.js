@@ -3,17 +3,19 @@ import { GetToken } from "../../utils/Token";
 
 //export const GetAllArticles = async(searchKey,pageIndex,pageSize)
 // Get all articles, search and paginateion will be added.
-export const GetAllArticles = async () => {
-    const response = await fetch(`${BASE_URL}/Articles`)
+export const GetAllArticles = async (pageIndex,pageSize,categoryId=0,searchKey) => {
+    const url = `${BASE_URL}/Articles?pageIndex=${pageIndex}&pageSize=${pageSize}&categoryId=${categoryId}`;
+    if(searchKey != null) url += `searchKey=${searchKey}`;
+    const response = await fetch(url)
     const resData = await response.json();
-    return resData.data.items;
+    return resData.data;
 }
 
 
-export const GetAllArticlesByUser = async (userProfileId) => {
-    const response = await fetch(`${BASE_URL}/Articles/ByUser?userProfileId=${userProfileId}`)
+export const GetAllArticlesByUser = async (userProfileId,pageIndex,pageSize) => {
+    const response = await fetch(`${BASE_URL}/Articles/ByUser?pageIndex=${pageIndex}&pageSize=${pageSize}&userProfileId=${userProfileId}`)
     const resData = await response.json();
-    return resData.data.items;
+    return resData.data;
 }
 
 

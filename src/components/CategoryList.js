@@ -6,8 +6,10 @@ const CategoryList = (props) => {
             <div className="container">
                 <div className="menu-primary">
                 <ul>
-                    <li className="current-menu-item"><a href="index.html">Home</a></li>
-                    {props.categories.map((c) => <Category key={c.id} id={c.id} name={c.name} />)}
+                <li className="menu-primary" 
+                    onClick={() => {props.selectedCategoryHandler(0)}}>
+                        <a>All</a></li>
+                    {props.categories.map((c) => <Category key={c.id} id={c.id} name={c.name} selectedCategoryHandler={props.selectedCategoryHandler} />)}
                 </ul>
                 <span></span>
             </div>

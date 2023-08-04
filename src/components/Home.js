@@ -6,32 +6,41 @@ import Category from "./Category";
 import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import CategoryList from "./CategoryList";
+import Pagination from "./Pagination";
 
 const Home = () => {
     const [articleList,setArticles]  = useState([])
     const [categoryList,setCategories]  = useState([])
+    const [pageCount, setPageCount] = useState(0)
+    const [pageSize, setPageSize] = useState(3)
+    const [pageIndex, setPageIndex] = useState(1)
+
+    const [selectedCategoryId, setSelectedCategoryId] = useState(0)
+    const [searchKey, setSearchKey] = useState(null)
 
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setError] = useState(null)  //try catch ile err yakala ve set et
 
     //const {articles,categories} = useLoaderData()
 
+    const pageIndexHandler = (pageInd) => setPageIndex(pageInd)
+    const selectedCategoryHandler = (categoryId) => setSelectedCategoryId(categoryId)
 
     useEffect(() => {
         const loadData = async() => {
                 setIsLoading(true)
                 const [articles,categories] = await Promise.all([
-                    GetAllArticles(),
+                    GetAllArticles(pageIndex,pageSize,selectedCategoryId,searchKey),
                     GetAllCategories()
                 ]);
-        
-                setArticles(articles)
+                setPageCount(Math.ceil(articles.count/pageSize))
+                setArticles(articles.items)
                 setCategories(categories)
                 setIsLoading(false)           
         }
 
         loadData()
-    }, [])
+    }, [pageIndex,selectedCategoryId])
 
     console.log("Home- laoder data : ", articleList);
     return(
@@ -55,7 +64,7 @@ const Home = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8">
-                            <CategoryList categories={categoryList} />
+                            <CategoryList categories={categoryList} selectedCategoryHandler={selectedCategoryHandler} />
 
                                 <h2 className="spanborder h4">
                                     <span>Most Recent</span>
@@ -143,16 +152,7 @@ const Home = () => {
                                     </article>
                                 </div> */}
 
-                                <ul className="page-numbers heading">
-                                    <li><span aria-current="page" className="page-numbers current">1</span></li>
-                                    <li><a className="page-numbers" href="#">2</a></li>
-                                    <li><a className="page-numbers" href="#">3</a></li>
-                                    <li><a className="page-numbers" href="#">4</a></li>
-                                    <li><a className="page-numbers" href="#">5</a></li>
-                                    <li><a className="page-numbers" href="#">...</a></li>
-                                    <li><a className="page-numbers" href="#">98</a></li>
-                                    <li><a className="next page-numbers" href="#"><i className="icon-right-open-big"></i></a></li>
-                                </ul>
+                                <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
 
                             </div>
                             <div className="col-md-4 pl-md-5 sticky-sidebar">
