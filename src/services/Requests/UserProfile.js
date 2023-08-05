@@ -8,16 +8,19 @@ export const GetUserProfile = async (id) => {
     return resData.data;
 }
 
-export const UpdateUserProfile = async (form) => {
-    const putData = Object.fromEntries(form);
+export const UpdateUserProfile = async (id,form) => {
     const token = GetToken();
+    const formData = new FormData();
+    //formData.append('image', form.image)
+    formData.append('fullName', form.fullName)
+    formData.append('bio', form.bio)
 
-    await fetch(`${BASE_URL}/UserProfiles`, {
+    return await fetch(`${BASE_URL}/UserProfiles/${id}`, {
         method:'PUT',
         headers:{
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            //'Content-type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
         },
-        body:JSON.stringify(putData)
+        body:formData
     });
 }

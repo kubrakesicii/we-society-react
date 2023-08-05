@@ -12,7 +12,7 @@ export default function Default() {
         //işlem bitince apploaded true
         setTimeout(() => {
             setIsAppLoaded(true)
-        }, 2000);
+        }, 500);
     },[])
 
 

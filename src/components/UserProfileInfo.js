@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import { GetUserProfile } from "../services/Requests/UserProfile";
 import { Link, useNavigate } from "react-router-dom";
 import { FollowUser, UnfollowUser } from "../services/Requests/FollowRelationship";
+import EditProfileModal from "./EditProfileModal";
 
 
 const UserProfileInfo = (props) => {
     const [isCurrentUser, setIsCurrentUser] = useState(false)
     const [isFollowing, setIsFollowing] = useState(true)
     const [userInfo, setUserInfo] = useState({})
+    const [isModal, setIsModal] = useState(false)
     
     const navigate = useNavigate();
 
@@ -32,6 +34,10 @@ const UserProfileInfo = (props) => {
         loadData()
     }, [isFollowing,props.userProfileId])
 
+    const onModalClosedHandler = async () => {
+        console.log("modal close handler");
+        setIsModal(true)
+    }
 
     const followHandler = async () => {
         await FollowUser(activeUser.userProfileId, props.userProfileId)
@@ -71,9 +77,13 @@ const UserProfileInfo = (props) => {
                             <li><a href="#"><i className="icon-facebook"></i></a></li>
                             <li><a href="#"><i className="icon-instagram"></i></a></li>
 
+
+                            <EditProfileModal userInfo={userInfo} onModalClosed={onModalClosedHandler}/>
+
                             {
                                 isCurrentUser ? (
-                                    <li><button className="btn btn-outline-dark ml-3">Edit Profile</button></li>
+                                    <li><button className="btn btn-outline-dark ml-3"
+                                    data-toggle="modal" data-target="#edit-modal">Edit Profile</button></li>
                                 ) : 
                                 (
                                     !isFollowing ? (
