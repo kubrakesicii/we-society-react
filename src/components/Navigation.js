@@ -1,17 +1,21 @@
 import {GetUser, RemoveUser } from "../utils/Token"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../store/auth.slice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Navigation = () => {
     const isAuth = useSelector(state => state.auth.isAuthenticated)
+    const activeUser = useSelector(state => state.auth.activeUser)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Store'da logout action tetikleniyor, burada da global auth verisi false yapılıyor
     const logoutHandler = () => {
         dispatch(authActions.logout())
         RemoveUser()
     }
+
+    console.log("NAVIG ACTIVEUSER : ",activeUser);
 
     return(
         <> 
@@ -39,9 +43,15 @@ const Navigation = () => {
                                         <li><a href="#" className="btn">Write</a></li>
                                     </ul>
                                     <ul className="top-menu heading navbar-nav w-100 d-lg-flex align-items-center">
-                                        <li className="menu-item-has-children"> <a className="author-avatar" href="#"><img src="assets/images/author-avata-1.jpg" alt="" /></a>      
+                                        <li className="menu-item-has-children"> 
+                                        <a className="author-avatar" href="#">
+                                            <img src={`${activeUser.image != "" ? `data:image/jpeg;base64,${activeUser.image}` : '/assets/images/default.jpg'}`} /></a>      
                                             <ul className="sub-menu">
-                                                <li><Link to="/user-profile">Profile</Link></li>
+                                                <li onClick={() => {
+                                                    console.log("user prof id : ",activeUser.userProfileId);
+                                                    navigate(`/user-profile/${activeUser.userProfileId}`)
+                                                    }}>
+                                                      <a href="#">Profile</a></li>
                                                 <li><Link to="/login" onClick={logoutHandler}>Logout</Link></li>
                                             </ul>
                                         </li>
@@ -52,11 +62,11 @@ const Navigation = () => {
                                      
                                 
                         </div>
-                        <form action="#" method="get" class="search-form d-lg-flex float-right">
-                            <a href="javascript:void(0)" class="searh-toggle">
-                                    <i class="icon-search"></i>
+                        <form action="#" method="get" className="search-form d-lg-flex float-right">
+                            <a href="javascript:void(0)" className="searh-toggle">
+                                    <i className="icon-search"></i>
                             </a>
-                            <input type="text" class="search_field" placeholder="Search..." value="" name="s" />
+                            <input type="text" className="search_field" placeholder="Search..." value="" name="s" />
                         </form>
                     </div>
 

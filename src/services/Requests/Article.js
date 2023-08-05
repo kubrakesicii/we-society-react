@@ -11,6 +11,12 @@ export const GetAllArticles = async (pageIndex,pageSize,categoryId=0,searchKey) 
     return resData.data;
 }
 
+export const GetAllPopularArticles = async (categoryId=0) => {
+    const url = `${BASE_URL}/Articles/Popular?categoryId=${categoryId}`;
+    const response = await fetch(url)
+    const resData = await response.json();
+    return resData.data;
+}
 
 export const GetAllArticlesByUser = async (userProfileId,pageIndex,pageSize) => {
     const response = await fetch(`${BASE_URL}/Articles/ByUser?pageIndex=${pageIndex}&pageSize=${pageSize}&userProfileId=${userProfileId}`)
@@ -22,7 +28,7 @@ export const GetAllArticlesByUser = async (userProfileId,pageIndex,pageSize) => 
 export const GetArticleDetail = async (id) => {
     const response = await fetch(`${BASE_URL}/Articles/${id}`)
     const resData = await response.json();
-    return resData.data.items;
+    return resData.data;
 }
 
 

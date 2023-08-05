@@ -12,7 +12,7 @@ const Pagination = (props) => {
         </li> */}
         {
         Array.from({length:props.count}, (el,ind) =>
-        <li class="page-item"
+        <li class="page-item" key={ind}
             // onClick={(e) => e.currentTarget.classList.add("active")}
             >
             <a className="page-link" data-value={ind+1}

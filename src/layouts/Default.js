@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MainHeader from '../components/MainHeader'
+import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
 
 export default function Default() {
@@ -21,8 +22,9 @@ export default function Default() {
      {
         isAppLoaded ? (
             <div id="wrapper">
-            <MainHeader/>
-            <Outlet/>
+                <MainHeader/>
+                <Outlet/>
+                <Footer />
             </div>  
         ) : (
             <div>Loading</div>

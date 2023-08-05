@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import UserProfile from './components/UserProfile';
 import Default from './layouts/Default';
+import ArticleDetail from './components/ArticleDetail';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {  
         path:'/user-profile/:userProfileId',
         element:<UserProfile/>
+      },
+      {  
+        path:'/article-detail/:id',
+        element:<ArticleDetail/>
       }
     ]
   }

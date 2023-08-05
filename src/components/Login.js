@@ -15,6 +15,7 @@ const Login = () => {
         event.preventDefault();
         var res = await LoginUser(form)
         if(res.message == "OK"){
+            console.log("Dispatch user data : ", res.data);
             dispatch(authActions.login(res.data))
             navigate("/home")
         } else alert("yanlış giriş")
