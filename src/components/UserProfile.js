@@ -19,11 +19,12 @@ const UserProfile = () => {
     const { userProfileId } = useParams();
 
     useEffect(() => {
-        console.log("user params id : ", userProfileId);
-
         const loadData = async() => {
+            console.log("user params id : ", userProfileId)
+
                 const [articles, userInfo] = await Promise.all([
-                    GetAllArticlesByUser(activeUser.userProfileId,pageIndex,pageSize),
+
+                    GetAllArticlesByUser(userProfileId,pageIndex,pageSize),
                     //GetUserProfile(activeUser.userProfileId)
                 ])
                 setPageCount(Math.ceil(articles.count/pageSize))

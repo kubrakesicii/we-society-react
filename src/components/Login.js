@@ -14,7 +14,7 @@ const Login = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
         var res = await LoginUser(form)
-        if(res.message == "OK"){
+        if(res.message === "OK"){
             console.log("Dispatch user data : ", res.data);
             dispatch(authActions.login(res.data))
             navigate("/home")

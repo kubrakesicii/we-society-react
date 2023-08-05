@@ -19,6 +19,7 @@ export const GetAllPopularArticles = async (categoryId=0) => {
 }
 
 export const GetAllArticlesByUser = async (userProfileId,pageIndex,pageSize) => {
+    console.log("user prof id request : ", userProfileId);
     const response = await fetch(`${BASE_URL}/Articles/ByUser?pageIndex=${pageIndex}&pageSize=${pageSize}&userProfileId=${userProfileId}`)
     const resData = await response.json();
     return resData.data;
@@ -33,7 +34,6 @@ export const GetArticleDetail = async (id) => {
 
 
 export const InsertArticle = async (form) => {
-    const postData = Object.fromEntries(form);
     const token = GetToken()
     await fetch(`${BASE_URL}/Articles`, {
         method:'POST',
@@ -41,7 +41,7 @@ export const InsertArticle = async (form) => {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body:JSON.stringify(postData)
+        body:JSON.stringify(form)
     });
 }
 

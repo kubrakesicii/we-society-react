@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { GetUserProfile } from "../services/Requests/UserProfile";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FollowUser, UnfollowUser } from "../services/Requests/FollowRelationship";
 
 
 const UserProfileInfo = (props) => {
     const [isCurrentUser, setIsCurrentUser] = useState(false)
+    const [isFollowing, setIsFollowing] = useState(true)
     const [userInfo, setUserInfo] = useState({})
+    
+    const navigate = useNavigate();
 
     const activeUser = useSelector(state => state.auth.activeUser)
 
@@ -21,12 +25,25 @@ const UserProfileInfo = (props) => {
         const loadData = async() => {
             console.log("user id : ", props.userProfileId);
 
-                const userInfo = await GetUserProfile(props.userProfileId)
-                console.log("user inf : ", userInfo);
-                setUserInfo(userInfo)
+            const userInfo = await GetUserProfile(props.userProfileId)
+            console.log("user inf : ", userInfo);
+            setUserInfo(userInfo)
         }
         loadData()
-    }, [])
+    }, [isFollowing,props.userProfileId])
+
+
+    const followHandler = async () => {
+        await FollowUser(activeUser.userProfileId, props.userProfileId)
+        setIsFollowing(true)
+    }
+
+    const unfollowHandler = async () => {
+        console.log("Un Follow handler");
+        await UnfollowUser(activeUser.userProfileId, props.userProfileId)
+        setIsFollowing(false)
+    }
+
 
     return(
         <div class="box box-author m_b_2rem">
@@ -55,15 +72,30 @@ const UserProfileInfo = (props) => {
                             <li><a href="#"><i className="icon-instagram"></i></a></li>
 
                             {
-                                isCurrentUser && (
+                                isCurrentUser ? (
                                     <li><button className="btn btn-outline-dark ml-3">Edit Profile</button></li>
+                                ) : 
+                                (
+                                    !isFollowing ? (
+                                        <li><button className="btn btn-outline-dark ml-3" 
+                                    onClick={() => {
+                                        if(activeUser.id == 0 ) navigate('/login')
+                                        else {
+                                            followHandler()
+                                        }
+                                    }}>Follow</button></li>  
+                                    ): 
+                                    (
+                                        <li><button className="btn btn-success ml-3" 
+                                        onClick={() => {
+                                            if(activeUser.id == 0 ) navigate('/login')
+                                            else {
+                                                unfollowHandler()
+                                            }
+                                        }}>Following</button></li>
+                                    )                      
                                 )
-                            }
-                            {
-                                !isCurrentUser && (
-                                    <li><button className="btn btn-outline-dark ml-3">Follow</button></li>
-                                )
-                            }
+                            }                                             
                         </ul>
                     </div>
                 </div>

@@ -56,7 +56,14 @@ export const LoginUser = async (form) => {
     .then(resData => {
         console.log("Resdata : ", resData);
         //SetUser(resData.data.token,resData.data.fullName)
-        
+
+        if(resData.message === 'OK'){
+            console.log("message ok");
+            SetUser(resData.data.token,resData.data.fullName)
+        }  
+        else{
+            alert("not ok")
+        }      
         return resData
     })
 }
