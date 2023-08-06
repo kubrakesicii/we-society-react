@@ -23,8 +23,10 @@ export default function Default() {
         isAppLoaded ? (
             <div id="wrapper">
                 <MainHeader/>
-                <Outlet/>
-                <Footer />
+                <main id="content"> 
+                    <Outlet/>
+                    <Footer />
+                </main>
             </div>  
         ) : (
             <div>Loading</div>

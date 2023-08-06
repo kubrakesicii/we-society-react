@@ -50,7 +50,6 @@ const UserProfileInfo = (props) => {
         setIsFollowing(false)
     }
 
-
     return(
         <div class="box box-author m_b_2rem">
             <div class="post-author row-flex">

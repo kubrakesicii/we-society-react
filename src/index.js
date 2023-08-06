@@ -13,6 +13,7 @@ import store from './store/store';
 import UserProfile from './components/UserProfile';
 import Default from './layouts/Default';
 import ArticleDetail from './components/ArticleDetail';
+import NewArticle from './components/NewArticle';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {  
         path:'/article-detail/:id',
         element:<ArticleDetail/>
+      },
+      {  
+        path:'/new-article',
+        element:<NewArticle/>
       }
     ]
   }

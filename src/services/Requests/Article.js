@@ -35,13 +35,21 @@ export const GetArticleDetail = async (id) => {
 
 export const InsertArticle = async (form) => {
     const token = GetToken()
+    const formData = new FormData();
+
+    //formData.append('image', form.image)
+    formData.append('title', form.title)
+    formData.append('content', form.content)
+    formData.append('userProfileId', form.userProfileId)
+    formData.append('categoryId', form.categoryId)
+    formData.append('isPublished', form.isPublished)
+
     await fetch(`${BASE_URL}/Articles`, {
         method:'POST',
         headers:{
-            'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body:JSON.stringify(form)
+        body:formData
     });
 }
 
