@@ -14,6 +14,7 @@ export const UpdateUserProfile = async (id,form) => {
     //formData.append('image', form.image)
     formData.append('fullName', form.fullName)
     formData.append('bio', form.bio)
+    formData.append('image', form.image)
 
     return await fetch(`${BASE_URL}/UserProfiles/${id}`, {
         method:'PUT',

@@ -49,10 +49,10 @@ const MainHeader = (props) => {
                     <h1 className="logo navbar-brand"><a href="index.html" className="logo">Merinda</a></h1>
                 </div>
                 <form action="#" method="get" className="search-form d-lg-flex float-right">
-                    <a href="javascript:void(0)" className="searh-toggle">
+                    <a className="searh-toggle">
                             <i className="icon-search"></i>
                     </a>
-                    <input type="text" className="search_field" placeholder="Search..." value="" name="s" />
+                    <input type="text" className="search_field" placeholder="Search..." value="" onChange={()=>{}} name="s" />
                 </form>
             </div>
         </div> 

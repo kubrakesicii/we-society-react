@@ -13,6 +13,7 @@ const UserProfile = () => {
     const [userDrafts,setUserDrafts]  = useState([])
     const [userReadingLists,setUserReadingLists]  = useState([])
     const [popularArticles,setPopularArticles]  = useState([])
+    const [isCurrentUser, setIsCurrentUser] = useState(false)
 
 
     const [pageCount, setPageCount] = useState(0)
@@ -25,6 +26,9 @@ const UserProfile = () => {
 
     const [selectedTab, setSelectedTab] = useState(1)
 
+    useEffect(() => {
+        if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
+    },[])
 
     useEffect(() => {
         const loadData = async() => {
@@ -41,7 +45,7 @@ const UserProfile = () => {
                 setPopularArticles(popularArticles)
         }
         loadData()
-    }, [pageIndex])
+    }, [pageIndex,userProfileId])
 
     return(
         <>
@@ -50,7 +54,7 @@ const UserProfile = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8">
-                                <UserProfileInfo userProfileId={userProfileId}/>
+                                <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
 
                                 {/* PROFILE TABS */}
                                 <ul className="nav nav-tabs mb-5" id="myTab" role="tablist">
@@ -58,10 +62,16 @@ const UserProfile = () => {
                                         <a onClick={() => {setSelectedTab(1);}} 
                                         className={`nav-link ${selectedTab === 1 ? 'active' : ''}`} id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">Latest Posts</a>
                                     </li>
-                                    <li className="nav-item" role="presentation">
-                                        <a onClick={() => {setSelectedTab(2)}} 
-                                        className={`nav-link ${selectedTab === 2 ? 'active' : ''}`} id="drafts-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button" role="tab" aria-controls="draft" aria-selected="false">Drafts</a>
-                                    </li>
+
+                                    {
+                                        isCurrentUser && (
+                                            <li className="nav-item" role="presentation">
+                                            <a onClick={() => {setSelectedTab(2)}} 
+                                            className={`nav-link ${selectedTab === 2 ? 'active' : ''}`} id="drafts-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button" role="tab" aria-controls="draft" aria-selected="false">Drafts</a>
+                                        </li>
+                                        )
+                                    }
+
                                     <li className="nav-item" role="presentation">
                                         <a onClick={() => {setSelectedTab(3)}} 
                                         className={`nav-link ${selectedTab === 3 ? 'active' : ''}`} id="reading-tab" data-bs-toggle="tab" data-bs-target="#reading" type="button" role="tab" aria-controls="reading" aria-selected="false">Reading List</a>

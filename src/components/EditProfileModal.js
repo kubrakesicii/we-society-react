@@ -4,21 +4,28 @@ import { UpdateUserProfile } from '../services/Requests/UserProfile';
 import { useSelector } from 'react-redux';
 
 const EditProfileModal = (props) => {
+    console.log("Props user : ",props);
+
     const activeUser = useSelector(state => state.auth.activeUser)
     const [form,setForm] = useState({
         fullName: props.userInfo.fullName,
-        bio: props.userInfo.bio
+        bio: props.userInfo.bio,
+        image:props.userInfo.image
     })
 
     const submitHandler = async (event) => {
         event.preventDefault();
+        console.log("submit handler");
+        console.log("Sent form : ", form);
         var res = await UpdateUserProfile(activeUser.userProfileId,form)
+        props.onModalClosedHandler()
     }
 
     useEffect(() => {
         setForm({
             fullName: props.userInfo.fullName,
-            bio: props.userInfo.bio})
+            bio: props.userInfo.bio,
+            image:[]})
 
             console.log("EDIT form: ", form);
     },[])
@@ -40,21 +47,24 @@ const EditProfileModal = (props) => {
                             <div className='registerForm'>
                                 <Form onSubmit={submitHandler}>
                                     <div className='row mb-4'>
-                                            <div class="author-img ml-3">
-                                                <img alt="author avatar" 
-                                               src={`${props.userInfo.image != "" ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
-                                                id="edit-author-avatar" />
-                                            </div>  
-                                            <label htmlFor="updImg" 
-                                                class="btn btn-outline-success d-inline mb-auto ml-2 mr-2">
-                                                Upload 
-                                            </label>
-                                            <input className='d-none' type='file' name='image' id='updImg' href='#' title=''/>
+                                        <div class="author-img ml-3">
+                                            <img alt="author avatar" 
+                                            src={`${props.userInfo.image != "" ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
+                                            id="edit-author-avatar" />
+                                        </div>  
+                                        <label htmlFor="updImg" 
+                                            class="btn btn-outline-success d-inline mb-auto ml-2 mr-2">
+                                            Upload 
+                                        </label>
+                                        <input className='d-none' type='file' name='image' id='updImg' href='#' title=''
+                                        // value={form.image}
+                                        onChange={(e) => {setForm({...form, image:e.target.files[0]}); console.log("New img upl : ",form);}}/>
 
-                                            <label htmlFor="updImg" 
-                                                class="btn btn-outline-success d-inline mb-auto">
-                                                Remove 
-                                            </label>
+                                        <label
+                                            class="btn btn-outline-success d-inline mb-auto"
+                                            onClick={() => {setForm({...form,image:null}); console.log("removed existing img : ",form);}}>
+                                            Remove 
+                                        </label>
                                     </div>
                                         
                                     <input type="text" hidden name="id"  
@@ -72,7 +82,7 @@ const EditProfileModal = (props) => {
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="submit" onClick={submitHandler} class="btn btn-primary" data-dismiss="modal">Save changes</button>
                                     </div>
 
                                 </Form>
