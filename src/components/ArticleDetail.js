@@ -7,22 +7,26 @@ const ArticleDetail = () => {
     const { id } = useParams();
     const [article, setArticle] = useState({})
 
+    console.log("HERE DETAIL : ",id);
+    
     useEffect(() => {
+        console.log("HERE DETAIL2 : ",id);
+
         const loadData = async() => {     
             const article = await GetArticleDetail(id);
             setArticle(article)
 
             console.log("ARTICLE DETAIL : ",article);
-            console.log("ARTICLE DETAIL user : ",article.userProfile.fullName);
+            console.log("ARTICLE DETAIL user prof : ",article.userProfile);
             console.log("ARTICLE DETAIL id : ",article.userProfile.id);
         }
         loadData();
-    },[id])
+    },[])
 
   return (
   <div className="container">
 
-    {/* User and article info */}
+{/* User and article info  */}
     <div className="entry-header">
         <div className="mb-5">
             <h1 className="entry-title m_b_2rem">
@@ -30,7 +34,7 @@ const ArticleDetail = () => {
             </h1>
             <div className="entry-meta align-items-center">
                 <a className="author-avatar" href="#">
-                  {/* <img src={`${article.userProfile.image != "" ? `data:image/jpeg;base64,${article.userProfile.image}` : '/assets/images/default.jpg'}`} alt="" /> */}
+                  <img src={`${article.userProfile.image != "" ? `data:image/jpeg;base64,${article.userProfile.image}` : '/assets/images/default.jpg'}`} alt="" />
                   </a>
                 <a href="author.html"> {article.userProfile.fullName} </a> in <a href="archive.html"> {article.category.name} </a><br/>
                 <span>{article.createdTime} </span>
@@ -44,6 +48,8 @@ const ArticleDetail = () => {
             </div>
         </div>
     </div> 
+
+
 
     {/* Main image */}
     <figure className="image zoom mb-5">
@@ -85,7 +91,11 @@ const ArticleDetail = () => {
         </div>
 
         {/* AUTHOR BOX */}
-        <UserProfileInfo userProfileId={article.userProfile.id}/>
+        {/* {
+            article.userProfile !== undefined && (
+                <UserProfileInfo userProfileId={article.userProfile.id}/>
+            )
+        } */}
         {/* <div className="box box-author m_b_2rem">
             <div className="post-author row-flex">
                 <div className="author-img">
@@ -209,6 +219,7 @@ const ArticleDetail = () => {
            </div>
         </section>
     </div>
+
     </div> 
   )
 }

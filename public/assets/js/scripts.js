@@ -38,7 +38,7 @@
   }
   
   $(function() {
-      $('.lazy').Lazy({
+      $('.lazy').Lazy( {
         scrollDirection: 'vertical',
         effect: 'fadeIn',
         visibleOnly: true,

@@ -383,7 +383,11 @@ input.search_field {
   color: rgba(0,0,0,.54) !important;
 }
 .header-right .search-form input.search_field {
-  width: 0; display: none; height: 30px;
+  width: 250px; height: 30px;  background: none;
+  border: 1px solid #d7d6d6;
+  border-radius: 7px;
+  display: inline-block;
+
 }
 .search-form.open-search .search_field:focus {
   background: none;
@@ -636,7 +640,7 @@ header .logo-wrapper {
 
 header {
 	position: relative;
-  	padding: 1rem 0 0 0;
+  	padding: 1rem 0 1rem 0;
 	width: 100%;
 	color: #fff;
 	text-align: center;
@@ -772,8 +776,8 @@ header {
 
 #article-row:hover{
   cursor: pointer;
-  background-color: #e5dcdc;
-  opacity: 0.7;
+  background-color: #ffffff;
+  opacity: 0.8;
 }
 
 #main-menu .menu-primary ul {

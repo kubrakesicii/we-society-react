@@ -25,7 +25,7 @@ const EditProfileModal = (props) => {
 
 
   return (
-    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="edit-modal" tabIndex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,20 +45,21 @@ const EditProfileModal = (props) => {
                                                src={`${props.userInfo.image != "" ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
                                                 id="edit-author-avatar" />
                                             </div>  
-                                            <label for="updImg" 
+                                            <label htmlFor="updImg" 
                                                 class="btn btn-outline-success d-inline mb-auto ml-2 mr-2">
                                                 Upload 
                                             </label>
                                             <input className='d-none' type='file' name='image' id='updImg' href='#' title=''/>
 
-                                            <label for="updImg" 
+                                            <label htmlFor="updImg" 
                                                 class="btn btn-outline-success d-inline mb-auto">
                                                 Remove 
                                             </label>
                                     </div>
                                         
                                     <input type="text" hidden name="id"  
-                                        value={activeUser.userProfileId}                                    
+                                        value={activeUser.userProfileId}   
+                                        onChange={()=>{}}                                 
                                     />
                                     <input type="text" required name="fullName" placeholder="Tam Ad giriniz.."  
                                         onChange={(e) => setForm({...form, fullName: e.target.value})}

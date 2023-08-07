@@ -1,13 +1,19 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function PopularArticle(props) {
+    const navigate = useNavigate()
+    
   return (
     <li className="d-flex">
         <div className="post-count">0{props.order}</div>
         <div className="post-content">
             <h5 className="entry-title mb-3"><a href="single.html">{props.title}</a></h5>
             <div className="entry-meta align-items-center">
-                <a href="author.html">{props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>
+                <a onClick={() => {
+                        console.log("user prof id : ",props.userProfile.id);
+                        navigate(`/user-profile/${props.userProfile.id}`)
+                        }}>{props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>
                 <span>{props.createdTime}</span>
                 <span className="middotDivider"></span>
                 <span className="readingTime" title="3 min read">3 min read</span>

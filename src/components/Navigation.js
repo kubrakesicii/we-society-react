@@ -2,6 +2,7 @@ import {GetUser, RemoveUser } from "../utils/Token"
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../store/auth.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from "react";
 
 const Navigation = () => {
     const isAuth = useSelector(state => state.auth.isAuthenticated)
@@ -9,13 +10,13 @@ const Navigation = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [searchKey,setSearchKey] = useState("")
+
     // Store'da logout action tetikleniyor, burada da global auth verisi false yapılıyor
     const logoutHandler = () => {
         dispatch(authActions.logout())
         RemoveUser()
     }
-
-    console.log("NAVIG ACTIVEUSER : ",activeUser);
 
     return(
         <> 
@@ -63,44 +64,16 @@ const Navigation = () => {
                                 
                         </div>
                         <form action="#" method="get" className="search-form d-lg-flex float-right">
-                            <a href="javascript:void(0)" className="searh-toggle">
-                                    <i className="icon-search"></i>
-                            </a>
-                            <input type="text" className="search_field" placeholder="Search..." value="" name="s" />
+                            {/* <a href="#" className="searh-toggle"> */}
+                            <a className="searh-toggle"><i className="icon-search"></i></a>
+                            <input type="text" className="search_field" placeholder="Search..." 
+                            onChange={(e) => {setSearchKey(e.target.value)}} value="" name="s" />
                         </form>
                     </div>
 
                 </div>
                 <div className="clearfix"></div>
             </div>
-
-            {
-            !isAuth && (
-                <>
-                    <Link to="/login"
-                className="btn btn-outline-light me-4">
-                <small>Giriş Yap</small>
-                    </Link>
-                    <Link to="/register"
-                    className="btn btn-outline-light">
-                    <small>Kayıt Ol</small>
-                </Link>
-                </>
-            )
-            }
-            { isAuth &&(
-                <>
-                    <a className="btn btn-outline-light me-4" href="index.html" aria-label="Homepage">
-                    {GetUser()} Kübra
-                    </a>
-                    <Link to="/login"
-                    onClick={logoutHandler}
-                    className="btn btn-outline-light me-4">
-                    <small>Çıkış</small>
-                    </Link>
-                </>
-            )   
-            }
         </>
     )
 }

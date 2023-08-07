@@ -53,7 +53,7 @@ const UserProfile = () => {
                                 <UserProfileInfo userProfileId={userProfileId}/>
 
                                 {/* PROFILE TABS */}
-                                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                <ul className="nav nav-tabs mb-5" id="myTab" role="tablist">
                                     <li className="nav-item" role="presentation">
                                         <a onClick={() => {setSelectedTab(1);}} 
                                         className={`nav-link ${selectedTab === 1 ? 'active' : ''}`} id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">Latest Posts</a>
