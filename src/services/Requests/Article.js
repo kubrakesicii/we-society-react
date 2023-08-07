@@ -25,6 +25,13 @@ export const GetAllArticlesByUser = async (userProfileId,pageIndex,pageSize) => 
     return resData.data;
 }
 
+export const GetAllArticleDraftsByUser = async (userProfileId,pageIndex,pageSize) => {
+    const response = await fetch(`${BASE_URL}/Articles/Drafts?pageIndex=${pageIndex}&pageSize=${pageSize}&userProfileId=${userProfileId}`)
+    const resData = await response.json();
+    return resData.data;
+}
+
+
 
 export const GetArticleDetail = async (id) => {
     const response = await fetch(`${BASE_URL}/Articles/${id}`)
