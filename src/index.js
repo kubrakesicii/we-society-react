@@ -14,6 +14,8 @@ import UserProfile from './components/UserProfile';
 import Default from './layouts/Default';
 import ArticleDetail from './components/ArticleDetail';
 import NewArticle from './components/NewArticle';
+import FollowerList from './components/FollowerList';
+import FollowingList from './components/FollowingList';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {  
         path:'/user-profile/:userProfileId',
         element:<UserProfile/>
+      },
+      {  
+        path:'/follower/:userProfileId',
+        element:<FollowerList/>
+      },
+      {  
+        path:'/following/:userProfileId',
+        element:<FollowingList/>
       },
       {  
         path:'/article-detail/:id',

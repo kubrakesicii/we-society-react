@@ -27,7 +27,7 @@ const UserProfileInfo = (props) => {
         loadData()
     }, [isFollowing,isModal,props.userProfileId])
 
-    const onModalClosedHandler = async () => {
+    const onModalClosedHandler = () => {
         console.log("modal close handler");
         setIsModal(true)
     }
@@ -47,7 +47,7 @@ const UserProfileInfo = (props) => {
         <div className="box box-author m_b_2rem">
             <div className="post-author row-flex">
                 <div className="author-img">
-                    <img alt="author avatar" src={`${userInfo.image != "" ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" />
+                    <img alt="author avatar" src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" />
                 </div>
                 <div className="author-content">
                 <div className="top-author">
@@ -57,8 +57,8 @@ const UserProfileInfo = (props) => {
                     <div className="content-social-author">
                         <ul className="heading navbar-nav d-lg-flex align-items-left">
                         <div className="entry-meta align-items-center">
-                            <span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span>
-                            <span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span>
+                            <button type="button" onClick={() => {navigate(`/follower/${props.userProfileId}`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></button>
+                            <button onClick={() => {navigate(`/following/${props.userProfileId}`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></button>              
                         </div>                        
                         </ul>
                     </div>

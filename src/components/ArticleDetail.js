@@ -34,7 +34,7 @@ const ArticleDetail = () => {
             </h1>
             <div className="entry-meta align-items-center">
                 <a className="author-avatar" href="#">
-                  <img src={`${article.userProfile.image != "" ? `data:image/jpeg;base64,${article.userProfile.image}` : '/assets/images/default.jpg'}`} alt="" />
+                  <img src={`${article.userProfile.image !== null ? `data:image/jpeg;base64,${article.userProfile.image}` : '/assets/images/default.jpg'}`} alt="" />
                   </a>
                 <a href="author.html"> {article.userProfile.fullName} </a> in <a href="archive.html"> {article.category.name} </a><br/>
                 <span>{article.createdTime} </span>

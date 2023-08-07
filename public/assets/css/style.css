@@ -638,6 +638,13 @@ header .logo-wrapper {
   max-width: unset;
 }
 
+.follow-avatar img {
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  max-width: unset;
+}
+
 header {
 	position: relative;
   	padding: 1rem 0 1rem 0;

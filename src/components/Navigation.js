@@ -46,7 +46,7 @@ const Navigation = () => {
                                     <ul className="top-menu heading navbar-nav w-100 d-lg-flex align-items-center">
                                         <li className="menu-item-has-children"> 
                                         <a className="author-avatar" href="#">
-                                            <img src={`${activeUser.image != "" ? `data:image/jpeg;base64,${activeUser.image}` : '/assets/images/default.jpg'}`} /></a>      
+                                            <img src={`${activeUser.image !== null ? `data:image/jpg;base64,${activeUser.image}` : '/assets/images/default.jpg'}`} /></a>      
                                             <ul className="sub-menu">
                                                 <li onClick={() => {
                                                     console.log("user prof id : ",activeUser.userProfileId);
