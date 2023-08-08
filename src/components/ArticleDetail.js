@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { GetAllArticles, GetArticleDetail } from "../services/Requests/Article";
 import UserProfileInfo from "./UserProfileInfo";
 import RelatedArticleList from "./RelatedArticleList";
+import moment from "moment";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -56,7 +57,7 @@ const ArticleDetail = () => {
                 <a href="author.html"> {article.userProfile.fullName} </a> in{" "}
                 <a href="archive.html"> {article.category.name} </a>
                 <br />
-                <span>{article.createdTime} </span>
+                <span>{moment().format('ll',article.createdTime)} </span>
                 <span className="middotDivider"></span>
                 <span className="readingTime" title="3 min read">
                   3 min read

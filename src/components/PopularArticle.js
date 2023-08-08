@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -14,7 +15,7 @@ export default function PopularArticle(props) {
                         console.log("user prof id : ",props.userProfile.id);
                         navigate(`/user-profile/${props.userProfile.id}`)
                         }}>{props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>
-                <span>{props.createdTime}</span>
+                <span>{moment().format('ll',props.createdTime)}</span>
                 <span className="middotDivider"></span>
                 <span className="readingTime" title="3 min read">3 min read</span>
                 <span className="svgIcon svgIcon--star">

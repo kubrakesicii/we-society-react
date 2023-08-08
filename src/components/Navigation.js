@@ -41,7 +41,7 @@ const Navigation = () => {
                                 isAuth && (
                                     <>
                                     <ul className="top-menu heading navbar-nav d-lg-flex align-items-center">
-                                        <li><Link to='/new-article' className="btn">Write</Link></li>
+                                        <li><Link to='/new-article?action=insert' className="btn">Write</Link></li>
                                     </ul>
                                     <ul className="top-menu heading navbar-nav w-100 d-lg-flex align-items-center">
                                         <li className="menu-item-has-children"> 

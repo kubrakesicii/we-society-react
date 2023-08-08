@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 import { Link, useNavigate } from "react-router-dom"
 
 function Article(props){
@@ -34,7 +35,7 @@ function Article(props){
             </div>
             <div className="row mb-5 justify-content-start align-items-center">
                 <div className="entry-meta mr-3">
-                    <span>{props.createdTime}</span>
+                    <span>{moment().format('ll',props.createdTime)}</span>
                     <span className="middotDivider"></span>
                     <span className="readingTime" title="3 min read">5 min read</span>
                     <span className="svgIcon svgIcon--star">

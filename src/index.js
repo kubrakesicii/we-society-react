@@ -56,6 +56,10 @@ const router = createBrowserRouter([
       {  
         path:'/new-article',
         element:<NewArticle/>
+      },
+      {  
+        path:'/new-article-editor',
+        element:<NewArticleEditor/>
       }
     ]
   }

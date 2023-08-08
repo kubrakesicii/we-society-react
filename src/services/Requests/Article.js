@@ -60,17 +60,23 @@ export const InsertArticle = async (form) => {
     });
 }
 
-export const UpdateArticle = async (form) => {
-    const postData = Object.fromEntries(form);
-    const token = GetToken();
+export const UpdateArticle = async (id,form) => {
+    const token = GetToken()
+    const formData = new FormData();
 
-    await fetch(`${BASE_URL}/Articles`, {
+    console.log("Form upd : ", form);
+
+    //formData.append('image', form.image)
+    formData.append('title', form.title)
+    formData.append('content', form.content)
+    formData.append('categoryId', form.categoryId)
+
+    await fetch(`${BASE_URL}/Articles/${id}`, {
         method:'PUT',
         headers:{
-            'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body:JSON.stringify(postData)
+        body:formData
     });
 }
 

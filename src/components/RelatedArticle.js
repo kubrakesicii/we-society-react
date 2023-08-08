@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react'
 
 const RelatedArticle = (props) => {
@@ -11,7 +12,7 @@ const RelatedArticle = (props) => {
                 <h5 className="entry-title mb-3"><a href="single.html">{props.article.title}</a></h5>
                 <div className="entry-meta align-items-center">
                     <a href="author.html">{props.article.userProfile.fullName}</a> in <a href="archive.html">{props.article.category.name}</a><br/>
-                    <span>{props.article.createdTime}</span>
+                    <span>{moment().format('ll',props.article.createdTime)}</span>
                     <span className="middotDivider"></span>
                     <span className="readingTime" title="3 min read">6 min read</span>
                     <span className="svgIcon svgIcon--star">

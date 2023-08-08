@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
 import Image from '@editorjs/image'; 
+import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 
 
 const NewArticleEditor =() => {
@@ -53,6 +54,19 @@ const NewArticleEditor =() => {
             holder:EDITOR_HOLDER_ID,
             logLevel: "ERROR",
             readOnly:false,
+            config : {
+                uploader: {
+                    async uploadByFile(file) {
+                        const imageUrl = UPLOAD_IMAGE(file)
+                        return{
+                            success:1,
+                            file:{
+                                url:imageUrl
+                            }
+                        }
+                    }
+                }
+            },
             data:editorData,
             placeholder: 'Let`s write an awesome story!',
             onReady : () => {
