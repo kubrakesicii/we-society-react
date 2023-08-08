@@ -6,7 +6,7 @@ const RelatedArticle = (props) => {
     <article className="col-md-4">
         <div className="mb-3 d-flex row">
             <figure className="col-md-5"><a href="single.html">
-                <img src="assets/images/thumb/thumb-512x512-2.jpg" alt="post-title" /></a>
+                 <img src={`${props.article.mainImage !== null ? `data:image/jpeg;base64,${props.article.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
             </figure>
             <div className="entry-content col-md-7 pl-md-0">
                 <h5 className="entry-title mb-3"><a href="single.html">{props.article.title}</a></h5>

@@ -59,8 +59,8 @@ const UserProfileInfo = (props) => {
                     <div className="content-social-author">
                         <ul className="heading navbar-nav d-lg-flex align-items-left">
                         <div className="entry-meta align-items-center">
-                            <button type="button" onClick={() => {navigate(`/follower/${props.userProfileId}`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></button>
-                            <button onClick={() => {navigate(`/following/${props.userProfileId}`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></button>              
+                            <a onClick={() => {navigate(`/follower/${props.userProfileId}`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></a>
+                            <a onClick={() => {navigate(`/following/${props.userProfileId}`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></a>              
                         </div>                        
                         </ul>
                     </div>

@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom"
 function Article(props){
     const navigate = useNavigate();
 
+    console.log("Main ımg : ", props.mainImage);
+
     return(
         <>
-        <div className="container mb-4">
+        <div className="container mb-5">
             <div className="row mb-3">
                 <div className="entry-meta align-items-center">
                     <a onClick={() => {
@@ -16,21 +18,29 @@ function Article(props){
                         {props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>                  
                 </div>
             </div>
-            <div className="row" id="article-row"
+            <div className="row mb-0"
                 onClick={() => {
                     navigate(`/article-detail/${props.id}`)
-                }}>
-                <article className="row justify-content-between mb-3 mr-0">
-                    <div className="col-md-9 ">
-                        <div className="align-self-center">
-                            <h3 className="entry-title mb-3"><a href="single.html">{props.title}</a></h3>
-                            <div className="entry-excerpt">
-                                <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
+                }}>                                
+                <article className="justify-content-between mr-0">
+                    <div className="col-md-12 ">
+                        <div class="mb-1 d-flex row">
+                            <div class="entry-content col-md-8 pl-md-0">
+                                <h3 className="entry-title mb-3"><a href="single.html">{props.title}</a></h3>
+                                <div className="entry-excerpt">
+                                    <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
+                                    </div>
                                 </div>
                             </div>
+
+                            <figure class="col-md-4"><a href="#">
+                                {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
+                                {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
+                                <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
+                            </figure>
                         </div>
                     </div>
-                    <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div>
+                    {/* <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div> */}
                 </article>
             </div>
             <div className="row mb-5 justify-content-start align-items-center">

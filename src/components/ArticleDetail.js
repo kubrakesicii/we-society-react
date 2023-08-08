@@ -72,12 +72,9 @@ const ArticleDetail = () => {
           </div>
 
           {/* Main image */}
-          <figure className="image zoom mb-5">
-            {/* <img src={`${article.mainImage !== null ? `data:image/jpeg;base64,${article.mainImage}` : '/assets/images/default.jpg'}`} alt="post-title" /> */}
-            <img
-              src="assets/images/thumb/thumb-1240x700defaul.jpg"
-              alt="post-title"
-            />
+          <figure className="image zoom mb-5 d-flex bd-highlight">
+             <img className="p-2 flex-grow-1 bd-highlight"
+             src={`${article.mainImage !== null ? `data:image/jpg;base64,${article.mainImage}` : '/assets/images/default.jpg'}`} />    
           </figure>
 
           <article className="entry-wraper mb-5">
