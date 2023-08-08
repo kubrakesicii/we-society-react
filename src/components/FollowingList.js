@@ -41,7 +41,7 @@ const FollowingList = (props) => {
                             id={f.id}
                             image={f.image}
                             fullName={f.fullName}
-                            bio={f.bio}  />)}                   
+                            bio={f.bio}  />)}                       
                 </div>          
             </div>
         </div>

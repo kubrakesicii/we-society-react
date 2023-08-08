@@ -1,10 +1,17 @@
 import moment from "moment/moment";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 
 function Article(props){
     const navigate = useNavigate();
 
-    console.log("Main ımg : ", props.mainImage);
+    const activeUser = useSelector(state => state.auth.activeUser)
+    const [isCurrentUser, setIsCurrentUser] = useState(false)
+
+    useEffect(() => {
+        if(activeUser.userProfileId === props.userProfileId) setIsCurrentUser(true)
+    },[])
 
     return(
         <>
@@ -24,8 +31,8 @@ function Article(props){
                 }}>                                
                 <article className="justify-content-between mr-0">
                     <div className="col-md-12 ">
-                        <div class="mb-1 d-flex row">
-                            <div class="entry-content col-md-8 pl-md-0">
+                        <div className="mb-1 d-flex row">
+                            <div className="entry-content col-md-8 pl-md-0">
                                 <h3 className="entry-title mb-3"><a href="single.html">{props.title}</a></h3>
                                 <div className="entry-excerpt">
                                     <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
@@ -33,18 +40,17 @@ function Article(props){
                                 </div>
                             </div>
 
-                            <figure class="col-md-4"><a href="#">
+                            <figure className="col-md-4"><a href="#">
                                 {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
                                 {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
                                 <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
                             </figure>
                         </div>
                     </div>
-                    {/* <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div> */}
                 </article>
             </div>
-            <div className="row mb-5 justify-content-start align-items-center">
-                <div className="entry-meta mr-3">
+            <div className="row mb-5 justify-content-between align-items-center">
+                <div className="entry-meta">
                     <span>{moment().format('ll',props.createdTime)}</span>
                     <span className="middotDivider"></span>
                     <span className="readingTime" title="3 min read">5 min read</span>
@@ -55,11 +61,24 @@ function Article(props){
                     </span>
                 </div>
 
-                <div className="entry-meta">
-                    <span className="">
-                        <Link to={`/new-article?action=update&updateId=${props.id}`}>Edit Article</Link>
-                    </span>       
-                </div>
+                {
+                     <div className="entry-meta">
+                        <span className="">
+                            <Link to={`/new-article?action=update&updateId=${props.id}`}>Edit Article</Link>
+                        </span>       
+                     </div>
+                    //console.log("Current user? : ", isCurrentUser)
+                    //console.log("active user? : ", activeUser.userProfileId)
+                    //console.log("Article user? : ", props.userProfile.id)
+                    // isCurrentUser ? (
+                    //     <div className="entry-meta">
+                    //         <span className="">
+                    //             <Link to={`/new-article?action=update&updateId=${props.id}`}>Edit Article</Link>
+                    //         </span>       
+                    //     </div>
+                    // ) : (<></>)
+                }
+                
             </div>
         </div>
         </>

@@ -2,29 +2,27 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { GetUserProfile } from "../services/Requests/UserProfile";
 import { Link, useNavigate } from "react-router-dom";
-import { FollowUser, UnfollowUser } from "../services/Requests/FollowRelationship";
+import { FollowUser, GetIsFollowing, UnfollowUser } from "../services/Requests/FollowRelationship";
 import EditProfileModal from "./EditProfileModal";
 
 
 const UserProfileInfo = (props) => {
-    const [isCurrentUser, setIsCurrentUser] = useState(false)
-    const [isFollowing, setIsFollowing] = useState(true)
+    const [isFollowing, setIsFollowing] = useState(false)
     const [userInfo, setUserInfo] = useState({})
     
     const navigate = useNavigate();
     const activeUser = useSelector(state => state.auth.activeUser)
 
-    // useEffect(() => {
-    //     if(activeUser.userProfileId == props.userProfileId) setIsCurrentUser(true)
-    // },[])
-
     const loadData = async() => {
         const user = await GetUserProfile(props.userProfileId)
+        const isFollowing = await GetIsFollowing(activeUser.userProfileId, props.userProfileId)
         setUserInfo(user)
+        setIsFollowing(isFollowing)
+
+        console.log("Is following : ", isFollowing);
     }
 
     useEffect(() => {
-       
         loadData()
     }, [isFollowing,props.userProfileId])
 
@@ -79,7 +77,8 @@ const UserProfileInfo = (props) => {
                                     data-toggle="modal" data-target="#edit-modal">Edit Profile</button></li>
                                 ) : 
                                 (
-                                    !isFollowing ? (
+                                    // If there is no loggedin user or Loggedin user not following this user
+                                    !isFollowing || activeUser.id === 0 ? (
                                         <li><button className="btn btn-outline-dark ml-3" 
                                     onClick={() => {
                                         if(activeUser.id == 0 ) navigate('/login')

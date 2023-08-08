@@ -4,6 +4,7 @@ import { GetAllFollowers } from '../services/Requests/FollowRelationship';
 import UserProfileInfo from './UserProfileInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PopularArticleList from './PopularArticleList';
 
 const FollowerList = (props) => {
   const [followerList, setFollowerList] = useState([])
@@ -42,7 +43,7 @@ const FollowerList = (props) => {
                             image={f.image}
                             fullName={f.fullName}
                             bio={f.bio}  />)}                   
-                </div>          
+                </div>     
             </div>
         </div>
     </div>    

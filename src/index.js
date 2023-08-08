@@ -17,6 +17,7 @@ import NewArticle from './components/NewArticle';
 import FollowerList from './components/FollowerList';
 import FollowingList from './components/FollowingList';
 import NewArticleEditor from './components/NewArticleEditor';
+import AuthRoute from './utils/AuthRoute';
 
 const router = createBrowserRouter([
   {
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
       },
       {  
         path:'/new-article',
-        element:<NewArticle/>
+        element:<AuthRoute><NewArticle/></AuthRoute>
       },
       {  
         path:'/new-article-editor',
