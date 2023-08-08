@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Form } from 'react-router-dom';
 import { UpdateUserProfile } from '../services/Requests/UserProfile';
 import { useSelector } from 'react-redux';
+import { toBase64 } from '../helpers/fileHelper';
 
 const EditProfileModal = (props) => {
     console.log("Props user : ",props);
 
     const activeUser = useSelector(state => state.auth.activeUser)
-    const [form,setForm] = useState({
-        fullName: props.userInfo.fullName,
-        bio: props.userInfo.bio,
-        image:props.userInfo.image
-    })
+    const [form,setForm] = useState({})
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -25,11 +22,12 @@ const EditProfileModal = (props) => {
         setForm({
             fullName: props.userInfo.fullName,
             bio: props.userInfo.bio,
-            image:[]})
-
-            console.log("EDIT form: ", form);
-    },[])
-
+            image:null
+        })
+    },[props.userInfo])
+    const getImage = async () => {
+        return await toBase64(form.image)
+    }
 
   return (
     <div className="modal fade" id="edit-modal" tabIndex="-1" role="dialog" aria-hidden="true">
@@ -48,9 +46,12 @@ const EditProfileModal = (props) => {
                                 <Form onSubmit={submitHandler}>
                                     <div className='row mb-4'>
                                         <div className="author-img ml-3">
-                                            <img alt="author avatar" 
-                                            src={`${props.userInfo.image !== null ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
-                                            id="edit-author-avatar" />
+                                            {/* <img alt="author avatar" 
+                                            src={`${form.image !== null ? getImage() : props.userInfo.image !== null ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
+                                            id="edit-author-avatar" /> */}
+                                                 <img alt="author avatar" 
+                                                src={`${props.userInfo.image !== null ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
+                                                id="edit-author-avatar" />
                                         </div>  
                                         <label htmlFor="updImg" 
                                             className="btn btn-outline-success d-inline mb-auto ml-2 mr-2">

@@ -16,6 +16,7 @@ import ArticleDetail from './components/ArticleDetail';
 import NewArticle from './components/NewArticle';
 import FollowerList from './components/FollowerList';
 import FollowingList from './components/FollowingList';
+import NewArticleEditor from './components/NewArticleEditor';
 
 const router = createBrowserRouter([
   {

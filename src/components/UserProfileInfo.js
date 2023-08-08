@@ -10,7 +10,6 @@ const UserProfileInfo = (props) => {
     const [isCurrentUser, setIsCurrentUser] = useState(false)
     const [isFollowing, setIsFollowing] = useState(true)
     const [userInfo, setUserInfo] = useState({})
-    const [isModal, setIsModal] = useState(false)
     
     const navigate = useNavigate();
     const activeUser = useSelector(state => state.auth.activeUser)
@@ -19,17 +18,19 @@ const UserProfileInfo = (props) => {
     //     if(activeUser.userProfileId == props.userProfileId) setIsCurrentUser(true)
     // },[])
 
+    const loadData = async() => {
+        const user = await GetUserProfile(props.userProfileId)
+        setUserInfo(user)
+    }
+
     useEffect(() => {
-        const loadData = async() => {
-            const user = await GetUserProfile(props.userProfileId)
-            setUserInfo(user)
-        }
+       
         loadData()
-    }, [isFollowing,isModal,props.userProfileId])
+    }, [isFollowing,props.userProfileId])
 
     const onModalClosedHandler = () => {
         console.log("modal close handler");
-        setIsModal(true)
+        loadData()
     }
 
     const followHandler = async () => {
@@ -47,7 +48,8 @@ const UserProfileInfo = (props) => {
         <div className="box box-author m_b_2rem">
             <div className="post-author row-flex">
                 <div className="author-img">
-                    <img alt="author avatar" src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" />
+                    <img alt="author avatar" 
+                    src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" />
                 </div>
                 <div className="author-content">
                 <div className="top-author">

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
+import Image from '@editorjs/image'; 
+
 
 const NewArticleEditor =() => {
     const ejInstance = useRef();
@@ -13,13 +13,35 @@ const NewArticleEditor =() => {
           "time": new Date().getTime(),
           "blocks": [
             {
-              "type": "heading",
-              "data": {
-                "placeholder": "Write...",
-                "level": 1
-              }
+                "type": "heading",
+                "data": {
+                    "heading": "Write...",
+                    "level": 1
+                }
             },
-          ]
+            {
+                "id": "f312osP2lf",
+                "type": "paragraph",
+                "data": {
+                    "text": "eftaerfer"
+                }
+            },
+            {
+                "id": "gzdWcT2cb9",
+                "type": "header",
+                "data": {
+                    "text": "headddsdcdvmkfdjnchheheleododldldldldldldld",
+                    "level": 2
+                }
+            },
+            {
+                "id": "xrbq5CmJE8",
+                "type": "paragraph",
+                "data": {
+                    "text": "yeni"
+                }
+            }
+        ]
         }
       }
 
@@ -30,6 +52,7 @@ const NewArticleEditor =() => {
         const editor = new EditorJS({
             holder:EDITOR_HOLDER_ID,
             logLevel: "ERROR",
+            readOnly:false,
             data:editorData,
             placeholder: 'Let`s write an awesome story!',
             onReady : () => {
@@ -43,7 +66,8 @@ const NewArticleEditor =() => {
                 console.log(content);
             },
             tools:{
-                header: Header
+                header: Header,
+                image:Image
             }
         });
     }

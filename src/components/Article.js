@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Article(props){
     const navigate = useNavigate();
@@ -32,8 +32,8 @@ function Article(props){
                     <div className="col-md-3 bgcover" style={{backgroundImage:`url(${'assets/images/thumb/thumb-512x512-2.jpg'})`}}></div>
                 </article>
             </div>
-            <div className="row  mb-5">
-                <div className="entry-meta align-items-center">
+            <div className="row mb-5 justify-content-start align-items-center">
+                <div className="entry-meta mr-3">
                     <span>{props.createdTime}</span>
                     <span className="middotDivider"></span>
                     <span className="readingTime" title="3 min read">5 min read</span>
@@ -42,6 +42,12 @@ function Article(props){
                             <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
                         </svg>
                     </span>
+                </div>
+
+                <div className="entry-meta">
+                    <span className="">
+                        <Link to={`/new-article?action=update&updateId=${props.id}`}>Edit Article</Link>
+                    </span>       
                 </div>
             </div>
         </div>

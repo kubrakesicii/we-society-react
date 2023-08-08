@@ -1,21 +1,8 @@
+import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
-import { GetAllCategories } from "../services/Requests/Category";
-import { useEffect, useState } from "react";
 
 const MainHeader = (props) => {
-    const [isLoading, setIsLoading] = useState(false)
-    const [categoryList,setCategories]  = useState([])
-    useEffect(() => {
-        const loadData = async() => {
-                setIsLoading(true)
-                const categories = await GetAllCategories();
-                setCategories(categories)
-                setIsLoading(false)           
-        }
 
-        loadData()
-    }, [])
-       
     return (
         <>
         <div className="top-scroll-bar"></div>
@@ -29,7 +16,7 @@ const MainHeader = (props) => {
         <div className="sticky-header fixed d-lg-none d-md-block">
             <div className="text-right">
                 <div className="container mobile-menu-fixed pr-5">
-                    <h1 className="logo-small navbar-brand"><a href="index.html" className="logo">Merinda</a></h1>
+                    <h1 className="logo-small navbar-brand"><Link to='/home' className="logo">WeSociety</Link></h1>
 
                     <a className="author-avatar" href="#"><img src="assets/images/author-avata-1.jpg" alt=""/></a>
 

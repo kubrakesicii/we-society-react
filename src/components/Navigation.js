@@ -22,7 +22,7 @@ const Navigation = () => {
         <> 
           <div className="container">
                 <div className="align-items-center w-100">
-                    <h1 className="logo float-left navbar-brand"><Link to="/home" className="logo">Merinda</Link></h1>
+                    <h1 className="logo float-left navbar-brand"><Link to="/home" className="logo">WeSociety</Link></h1>
                     <div className="header-right float-right w-50">
                         <div className="d-inline-flex float-right text-right align-items-center">
                             {
