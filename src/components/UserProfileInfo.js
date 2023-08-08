@@ -83,7 +83,7 @@ const UserProfileInfo = (props) => {
                                     onClick={() => {
                                         if(activeUser.id == 0 ) navigate('/login')
                                         else {
-                                            followHandler()
+                                            //followHandler()
                                         }
                                     }}>Follow</button></li>  
                                     ): 
@@ -92,7 +92,7 @@ const UserProfileInfo = (props) => {
                                         onClick={() => {
                                             if(activeUser.id == 0 ) navigate('/login')
                                             else {
-                                                unfollowHandler()
+                                                //unfollowHandler()
                                             }
                                         }}>Following</button></li>
                                     )                      

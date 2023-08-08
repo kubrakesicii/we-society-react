@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import FollowUser from './FollowUser';
-import { GetAllFollowers } from '../services/Requests/FollowRelationship';
+import { GetAllFollowers, GetIsFollowing } from '../services/Requests/FollowRelationship';
 import UserProfileInfo from './UserProfileInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PopularArticleList from './PopularArticleList';
 
 const FollowerList = (props) => {
   const [followerList, setFollowerList] = useState([])
-  
-  const navigate = useNavigate()
 
   const { userProfileId } = useParams();
   
@@ -40,9 +37,11 @@ const FollowerList = (props) => {
                         {followerList.map((f) => <FollowUser 
                             key={f.id}
                             id={f.id}
+                            followId={f.userProfileId}
                             image={f.image}
                             fullName={f.fullName}
-                            bio={f.bio}  />)}                   
+                            bio={f.bio}  
+                            />)}                   
                 </div>     
             </div>
         </div>
