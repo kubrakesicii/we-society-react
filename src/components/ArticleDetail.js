@@ -4,6 +4,8 @@ import { GetAllArticles, GetArticleDetail } from "../services/Requests/Article";
 import UserProfileInfo from "./UserProfileInfo";
 import RelatedArticleList from "./RelatedArticleList";
 import moment from "moment";
+import NewComment from "./NewComment";
+import CommentList from "./CommentList";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -148,82 +150,9 @@ const ArticleDetail = () => {
 
           {/* <!--Begin post related--> */}
           <RelatedArticleList relatedArticles={relatedArticles} />
-
-          {/* COMMENT PART */}
-          <div className="single-comment comments_wrap">
-            <section id="comments">
-              <div className="comments-inner clr">
-                <div id="respond" className="comment-respond">
-                  <h3 id="reply-title" className="comment-reply-title">
-                    Leave a Reply
-                  </h3>
-                  <form
-                    action="#"
-                    method="post"
-                    id="commentform"
-                    className="comment-form"
-                    noValidate=""
-                  >
-                    <p className="comment-notes">
-                      <span id="email-notes">
-                        Your email address will not be published.
-                      </span>{" "}
-                      Required fields are marked{" "}
-                      <span className="required">*</span>
-                    </p>
-                    <p className="comment-form-comment">
-                      <label htmlFor="comment">Comment</label>
-                      <textarea
-                        id="comment"
-                        name="comment"
-                        cols="45"
-                        rows="8"
-                        maxLength="65525"
-                        required="required"
-                      ></textarea>
-                    </p>
-                    <div className="row">
-                      <div className="comment-form-author col-sm-12 col-md-6">
-                        <p>
-                          <label htmlFor="author">Name*</label>
-                          <input
-                            id="author"
-                            name="author"
-                            type="text"
-                            value=""
-                            size="30"
-                            aria-required="true"
-                          />
-                        </p>
-                      </div>
-                      <div className="comment-form-email col-sm-12 col-md-6">
-                        <p>
-                          <label htmlFor="email">Email*</label>
-                          <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value=""
-                            size="30"
-                            aria-required="true"
-                          />
-                        </p>
-                      </div>
-                    </div>
-                    <p className="form-submit">
-                      <input
-                        name="submit"
-                        type="submit"
-                        id="submit"
-                        className="submit btn btn-success btn-block"
-                        value="Post Comment"
-                      />
-                    </p>
-                  </form>
-                </div>
-              </div>
-            </section>
-          </div>
+          <NewComment articleId={article.id} />
+          <div class="divider"></div>
+          <CommentList articleId={article.id} />
         </div>
       )}
     </>

@@ -7,7 +7,8 @@ const RelatedArticleList = (props) => {
 
 
   return (
-    <div className="related-posts mb-5">
+    <div className='container'>
+       <div className="related-posts mb-5">
         <h4 className="spanborder text-center">
             <span>Related Posts</span>
         </h4>
@@ -17,9 +18,8 @@ const RelatedArticleList = (props) => {
                 key={a.id}
                 article={a}
              />)}
-
-
-        </div>
+          </div>
+      </div>
     </div>
   )
 }

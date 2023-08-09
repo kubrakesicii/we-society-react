@@ -26,6 +26,7 @@ function Article(props){
                 </div>
             </div>
             <div className="row mb-0"
+                id="article-row"
                 onClick={() => {
                     navigate(`/article-detail/${props.id}`)
                 }}>                                
@@ -33,7 +34,7 @@ function Article(props){
                     <div className="col-md-12 ">
                         <div className="mb-1 d-flex row">
                             <div className="entry-content col-md-8 pl-md-0">
-                                <h3 className="entry-title mb-3"><a href="single.html">{props.title}</a></h3>
+                                <h3 className="entry-title mb-3">{props.title}</h3>
                                 <div className="entry-excerpt">
                                     <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
                                     </div>
