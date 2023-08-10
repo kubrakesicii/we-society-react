@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 import { useSelector } from 'react-redux'
 import { GetIsFollowing, UnfollowUser } from '../services/Requests/FollowRelationship'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const FollowUser = (props) => {
     const [isFollowing, setIsFollowing] = useState(false)
@@ -15,12 +16,15 @@ const FollowUser = (props) => {
     }
 
     const followHandler = async () => {
-        await FollowUser(activeUser.userProfileId, props.userProfileId)
+        console.log("HERE");
+        await FollowUser(activeUser.userProfileId, props.followId)
         setIsFollowing(true)
     }
 
     const unfollowHandler = async () => {
-        await UnfollowUser(activeUser.userProfileId, props.userProfileId)
+        console.log("Follower : ",activeUser.userProfileId);
+        console.log("Following : ",props.followId);
+        await UnfollowUser(activeUser.userProfileId, props.followId)
         setIsFollowing(false)
     }
 

@@ -18,7 +18,7 @@ const MainHeader = (props) => {
                 <div className="container mobile-menu-fixed pr-5">
                     <h1 className="logo-small navbar-brand"><Link to='/home' className="logo">WeSociety</Link></h1>
 
-                    <a className="author-avatar" href="#"><img src="assets/images/author-avata-1.jpg" alt=""/></a>
+                    <a className="author-avatar" href="#"><img src="assets/images/author-avatar-1.jpg" alt=""/></a>
 
                     <ul className="social-network heading navbar-nav d-lg-flex align-items-center">
                         <li><a href="#"><i className="icon-facebook"></i></a></li>

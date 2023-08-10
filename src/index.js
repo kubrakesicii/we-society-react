@@ -18,6 +18,7 @@ import FollowerList from './components/FollowerList';
 import FollowingList from './components/FollowingList';
 import NewArticleEditor from './components/NewArticleEditor';
 import AuthRoute from './utils/AuthRoute';
+import ReadingListArticles from './components/ReadingListArticles';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         path:'/following/:userProfileId',
         element:<FollowingList/>
       },
+      // {  
+      //   path:'/lists/',
+      //   element:<ReadingListArticles/>
+      // },
       {  
         path:'/article-detail/:id',
         element:<ArticleDetail/>

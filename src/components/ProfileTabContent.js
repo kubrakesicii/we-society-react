@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GetAllArticleDraftsByUser, GetAllArticlesByUser } from '../services/Requests/Article'
 import ArticleList from './ArticleList'
+import ReadingList from './ReadingList'
 
 const ProfileTabContent = (props) => {
     const [articlesByUser,setArticles]  = useState([])
@@ -58,7 +59,7 @@ const ProfileTabContent = (props) => {
         }
         {
             selectedTab === 3 && (
-                <ArticleList articles={articlesByUser}/>
+                <ReadingList userProfileId={props.userProfileId}/>
             )
         }
 

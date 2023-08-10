@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import FollowUser from './FollowUser';
 import { GetAllFollowers, GetAllFollowings } from '../services/Requests/FollowRelationship';
 import UserProfileInfo from './UserProfileInfo';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const FollowingList = (props) => {
@@ -33,15 +33,15 @@ const FollowingList = (props) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-8">
-                    <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
+                    {/* <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} /> */}
                     
-                    <a href=''> Go back profile</a>
+                    <a onClick={() => navigate(`/user-profile/${userProfileId}?page=tabs`)}> Go back profile</a>
                         {followingList.map((f) => <FollowUser 
                             key={f.id}
                             id={f.id}
                             image={f.image}
                             fullName={f.fullName}
-                            bio={f.bio}  />)}                       
+                            bio={f.bio}  />)}       
                 </div>          
             </div>
         </div>

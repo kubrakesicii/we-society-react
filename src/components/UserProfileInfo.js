@@ -9,17 +9,22 @@ import EditProfileModal from "./EditProfileModal";
 const UserProfileInfo = (props) => {
     const [isFollowing, setIsFollowing] = useState(false)
     const [userInfo, setUserInfo] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     
     const navigate = useNavigate();
     const activeUser = useSelector(state => state.auth.activeUser)
 
+    console.log("ACTIVE USER : ",activeUser);
+
     const loadData = async() => {
+        setIsLoading(true)
         const user = await GetUserProfile(props.userProfileId)
         const isFollowing = await GetIsFollowing(activeUser.userProfileId, props.userProfileId)
         setUserInfo(user)
         setIsFollowing(isFollowing)
 
         console.log("Is following : ", isFollowing);
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -43,66 +48,75 @@ const UserProfileInfo = (props) => {
     }
 
     return(
-        <div className="box box-author m_b_2rem">
-            <div className="post-author row-flex">
-                <div className="author-img">
-                    <img alt="author avatar" 
-                    src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" />
-                </div>
-                <div className="author-content">
-                <div className="top-author">
-                    <h5 className="heading-font"><a href="author.html" title="Ryan" rel="author"> {userInfo.fullName} </a></h5></div>
-                    <p className="d-none d-md-block"> {userInfo.bio} </p>
-
-                    <div className="content-social-author">
-                        <ul className="heading navbar-nav d-lg-flex align-items-left">
-                        <div className="entry-meta align-items-center">
-                            <a onClick={() => {navigate(`/follower/${props.userProfileId}`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></a>
-                            <a onClick={() => {navigate(`/following/${props.userProfileId}`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></a>              
-                        </div>                        
-                        </ul>
+        <>
+            {
+                isLoading ? (
+                    <div></div>
+                ) : (
+                    <div className="box box-author m_b_2rem">
+                    <div className="post-author row-flex">
+                        <div className="author-img">
+                            <img alt="author avatar" 
+                            src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" 
+                            onClick={() => navigate(`/user-profile/${userInfo.id}&page=tabs`)}/>
+                        </div>
+                        <div className="author-content">
+                        <div className="top-author">
+                            <h5 className="heading-font"><a href="author.html" title="Ryan" rel="author"> {userInfo.fullName} </a></h5></div>
+                            <p className="d-none d-md-block"> {userInfo.bio} </p>
+        
+                            <div className="content-social-author">
+                                <ul className="heading navbar-nav d-lg-flex align-items-left">
+                                <div className="entry-meta align-items-center">
+                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}?page=followers`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></a>
+                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}?page=followings`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></a>              
+                                </div>                        
+                                </ul>
+                            </div>
+        
+        
+                            <div className="content-social-author">
+                                <ul className="social-network heading navbar-nav d-lg-flex align-items-center">
+                                    <li><a href="#"><i className="icon-facebook"></i></a></li>
+                                    <li><a href="#"><i className="icon-instagram"></i></a></li>
+        
+                                    <EditProfileModal userInfo={userInfo} onModalClosedHandler={onModalClosedHandler}/>
+        
+                                    {
+                                        props.isCurrentUser ? (
+                                            <li><button className="btn btn-outline-dark ml-3"
+                                            data-toggle="modal" data-target="#edit-modal">Edit Profile</button></li>
+                                        ) : 
+                                        (
+                                            // If there is no loggedin user or Loggedin user not following this user
+                                            !isFollowing || activeUser.id === 0 ? (
+                                                <li><button className="btn btn-outline-dark ml-3" 
+                                            onClick={() => {
+                                                if(activeUser.id == 0 ) navigate('/login')
+                                                else {
+                                                    followHandler()
+                                                }
+                                            }}>Follow</button></li>  
+                                            ): 
+                                            (
+                                                <li><button className="btn btn-success ml-3" 
+                                                onClick={() => {
+                                                    if(activeUser.id == 0 ) navigate('/login')
+                                                    else {
+                                                        unfollowHandler()
+                                                    }
+                                                }}>Following</button></li>
+                                            )                      
+                                        )
+                                    }                                             
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-
-
-                    <div className="content-social-author">
-                        <ul className="social-network heading navbar-nav d-lg-flex align-items-center">
-                            <li><a href="#"><i className="icon-facebook"></i></a></li>
-                            <li><a href="#"><i className="icon-instagram"></i></a></li>
-
-                            <EditProfileModal userInfo={userInfo} onModalClosedHandler={onModalClosedHandler}/>
-
-                            {
-                                props.isCurrentUser ? (
-                                    <li><button className="btn btn-outline-dark ml-3"
-                                    data-toggle="modal" data-target="#edit-modal">Edit Profile</button></li>
-                                ) : 
-                                (
-                                    // If there is no loggedin user or Loggedin user not following this user
-                                    !isFollowing || activeUser.id === 0 ? (
-                                        <li><button className="btn btn-outline-dark ml-3" 
-                                    onClick={() => {
-                                        if(activeUser.id == 0 ) navigate('/login')
-                                        else {
-                                            //followHandler()
-                                        }
-                                    }}>Follow</button></li>  
-                                    ): 
-                                    (
-                                        <li><button className="btn btn-success ml-3" 
-                                        onClick={() => {
-                                            if(activeUser.id == 0 ) navigate('/login')
-                                            else {
-                                                //unfollowHandler()
-                                            }
-                                        }}>Following</button></li>
-                                    )                      
-                                )
-                            }                                             
-                        </ul>
-                    </div>
                 </div>
-            </div>
-        </div>
+                )
+            }
+        </>
     )
 }
 

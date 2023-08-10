@@ -5,9 +5,13 @@ import { GetUserProfile } from "../services/Requests/UserProfile"
 import UserProfileInfo from "./UserProfileInfo"
 import { useSelector } from "react-redux"
 import Pagination from "./Pagination"
-import { useParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 import PopularArticleList from "./PopularArticleList"
 import ProfileTabContent from "./ProfileTabContent"
+import FollowingList from "./FollowingList"
+import ReadingList from "./ReadingList"
+import FollowerList from "./FollowerList"
+import ReadingListArticles from "./ReadingListArticles"
 
 const UserProfile = () => {
     const [popularArticles,setPopularArticles]  = useState([])
@@ -21,6 +25,10 @@ const UserProfile = () => {
 
     const activeUser = useSelector(state => state.auth.activeUser)
     const { userProfileId } = useParams();
+
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    console.log("PARAM : ", searchParams.get('page'));
 
     const viewComponentHandler = (viewingComp) =>{
         setViewComponent(viewingComp)
@@ -55,7 +63,24 @@ const UserProfile = () => {
                     <div className="col-md-8">
                         <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
 
-                        <ProfileTabContent isCurrentUser={isCurrentUser} userProfileId={userProfileId} />
+                        {
+                            searchParams.get('page') === 'tabs' ? (
+                                <ProfileTabContent isCurrentUser={isCurrentUser} userProfileId={userProfileId} />
+                            ) : searchParams.get('page') === 'followings' ?  (
+                                <FollowingList />
+                            ) : searchParams.get('page') === 'followers' ?  (
+                                <FollowerList />
+                            ) : searchParams.get('page') === 'lists' ?  (
+                                <ReadingListArticles />
+                            ) :
+                            
+                            
+                            
+                            (
+                                <></>
+                            )
+                        }
+
                         {/* <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  /> */}
                     </div> 
 

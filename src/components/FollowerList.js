@@ -16,6 +16,7 @@ const FollowerList = (props) => {
       if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
   },[])
 
+  const navigate = useNavigate()
 
   useEffect(() => {
       const loadData = async () => {
@@ -30,10 +31,10 @@ const FollowerList = (props) => {
     <div className="content-widget">
         <div className="container">
             <div className="row">
-                <div className="col-md-8">
-                    <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
+                <div className="col-md-12">
+                    {/* <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} /> */}
                     
-                    <a href=''> Go back profile</a>
+                    <a onClick={() => navigate(`/user-profile/${userProfileId}?page=tabs`)}> Go back profile</a>
                         {followerList.map((f) => <FollowUser 
                             key={f.id}
                             id={f.id}

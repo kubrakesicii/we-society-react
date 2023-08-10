@@ -20,7 +20,7 @@ function Article(props){
                 <div className="entry-meta align-items-center">
                     <a onClick={() => {
                         console.log("user prof id : ",props.userProfile.id);
-                        navigate(`/user-profile/${props.userProfile.id}`)
+                        navigate(`/user-profile/${props.userProfile.id}?page=tabs`)
                         }}>
                         {props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>                  
                 </div>
@@ -32,8 +32,8 @@ function Article(props){
                 }}>                                
                 <article className="justify-content-between mr-0">
                     <div className="col-md-12 ">
-                        <div className="mb-1 d-flex row justify-content-end">
-                            <div className="entry-content col-md-8 pl-md-0">
+                        <div className="mb-1 d-flex row justify-content-between">
+                            <div className="col-md-8 pl-md-0">
                                 <h3 className="entry-title mb-3">{props.title}</h3>
                                 <div className="entry-excerpt">
                                     <div dangerouslySetInnerHTML={{__html:props.content.substr(0,256).substr(0, Math.min(props.content.substr(0,256).length, props.content.substr(0,256).lastIndexOf(" ")))}}>
@@ -41,11 +41,13 @@ function Article(props){
                                 </div>
                             </div>
 
-                            <figure className="col-md-4 align-self-center"><a href="#">
-                                {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
-                                {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
-                                <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
-                            </figure>
+                           <div className="col-md-4">
+                                <figure className="align-self-center"><a href="#">
+                                    {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
+                                    {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
+                                    <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
+                                </figure>
+                           </div>
                         </div>
                     </div>
                 </article>

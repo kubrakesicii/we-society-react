@@ -84,17 +84,17 @@ const NewArticle = () => {
 
         if(searchParams.get('action') === 'insert'){
             var res = await InsertArticle(form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}`)
+            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
         } else if(searchParams.get('action') === 'update') {
             var res = await UpdateArticle(searchParams.get('updateId'),form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}`)
+            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
         }
     }
 
     const saveDraftHandler = async (e) => {
         e.preventDefault();
         var res = await InsertArticle(form)
-        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}`)
+        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
     }
 
     const editorConfiguration = {
@@ -128,7 +128,8 @@ const NewArticle = () => {
             {isLoading ? (
                 <div>Is Loading</div>
             ) : (
-                <div className='container p-3'>
+                <>
+            <div className='container p-3 mb-5'>
                 <div className='row d-flex justify-content-between mb-5 p-4'>
                    <div className='col-6 align-self-center'>
                         <img src={`${form.mainImage !== null ? `data:image/jpeg;base64,${form.mainImage}` : '/assets/images/default.jpg'}`}
@@ -143,8 +144,9 @@ const NewArticle = () => {
                             }} />
                    </div>
                 </div>
-    
-    
+            </div>
+
+            <div className='container p-3'>
                 <h3 className='mb-5'>Publish your article with WeSociety!</h3>
                 <div className='row'>
                         <form onSubmit={submitHandler}>
@@ -230,6 +232,7 @@ const NewArticle = () => {
                         </form>
                 </div>
             </div>
+                </>
             )
             }
         </>
