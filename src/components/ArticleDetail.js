@@ -11,7 +11,7 @@ const ArticleDetail = () => {
   const { id } = useParams();
   const [article, setArticle] = useState({});
   const [relatedArticles, setRelatedArticles] = useState([]);
-  const [comments, setcomments] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
 

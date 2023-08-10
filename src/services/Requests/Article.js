@@ -1,5 +1,6 @@
 import { BASE_URL } from "../BaseUrl";
 import { GetToken } from "../../utils/Token";
+import { redirect } from "react-router-dom";
 
 //export const GetAllArticles = async(searchKey,pageIndex,pageSize)
 // Get all articles, search and paginateion will be added.
@@ -44,20 +45,24 @@ export const InsertArticle = async (form) => {
     const token = GetToken()
     const formData = new FormData();
 
-    //formData.append('image', form.image)
+    formData.append('mainImage', form.mainImage)
     formData.append('title', form.title)
     formData.append('content', form.content)
     formData.append('userProfileId', form.userProfileId)
     formData.append('categoryId', form.categoryId)
     formData.append('isPublished', form.isPublished)
 
-    await fetch(`${BASE_URL}/Articles`, {
+    return await fetch(`${BASE_URL}/Articles`, {
         method:'POST',
         headers:{
             'Authorization': `Bearer ${token}`,
         },
         body:formData
-    });
+    })
+    .then(res => res.json())
+    .then(resData => {     
+        return resData;
+    })
 }
 
 export const UpdateArticle = async (id,form) => {
@@ -66,17 +71,21 @@ export const UpdateArticle = async (id,form) => {
 
     console.log("Form upd : ", form);
 
-    //formData.append('image', form.image)
+    formData.append('mainImage', form.mainImage)
     formData.append('title', form.title)
     formData.append('content', form.content)
     formData.append('categoryId', form.categoryId)
 
-    await fetch(`${BASE_URL}/Articles/${id}`, {
+    return await fetch(`${BASE_URL}/Articles/${id}`, {
         method:'PUT',
         headers:{
             'Authorization': `Bearer ${token}`,
         },
         body:formData
+    })   
+    .then(res => res.json())
+    .then(resData => {     
+        return resData;
     });
 }
 

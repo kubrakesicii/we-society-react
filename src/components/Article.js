@@ -32,7 +32,7 @@ function Article(props){
                 }}>                                
                 <article className="justify-content-between mr-0">
                     <div className="col-md-12 ">
-                        <div className="mb-1 d-flex row">
+                        <div className="mb-1 d-flex row justify-content-end">
                             <div className="entry-content col-md-8 pl-md-0">
                                 <h3 className="entry-title mb-3">{props.title}</h3>
                                 <div className="entry-excerpt">
@@ -41,7 +41,7 @@ function Article(props){
                                 </div>
                             </div>
 
-                            <figure className="col-md-4"><a href="#">
+                            <figure className="col-md-4 align-self-center"><a href="#">
                                 {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
                                 {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
                                 <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>

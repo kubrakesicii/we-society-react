@@ -29,6 +29,12 @@ const EditProfileModal = (props) => {
         return await toBase64(form.image)
     }
 
+    const preview = (e) => {
+        var img = document.getElementById('profile-img');
+        let imgSrc = URL.createObjectURL(e.target.files[0]);
+        img.src=imgSrc;
+    }
+
   return (
     <div className="modal fade" id="edit-modal" tabIndex="-1" role="dialog" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
@@ -51,15 +57,15 @@ const EditProfileModal = (props) => {
                                             id="edit-author-avatar" /> */}
                                                  <img alt="author avatar" 
                                                 src={`${props.userInfo.image !== null ? `data:image/jpeg;base64,${props.userInfo.image}` : '/assets/images/default.jpg'}`}
-                                                id="edit-author-avatar" />
+                                                id="profile-img" />
                                         </div>  
                                         <label htmlFor="updImg" 
                                             className="btn btn-outline-success d-inline mb-auto ml-2 mr-2">
                                             Upload 
                                         </label>
                                         <input className='d-none' type='file' name='image' id='updImg' href='#' title=''
-                                        // value={form.image}
-                                        onChange={(e) => {setForm({...form, image:e.target.files[0]}); console.log("New img upl : ",form);}}/>
+                                        onChange={(e) => {setForm({...form, image:e.target.files[0]}); 
+                                        preview(e);}}/>
 
                                         <label
                                             className="btn btn-outline-success d-inline mb-auto"
