@@ -51,7 +51,7 @@ const Navigation = () => {
                                             <ul className="sub-menu">
                                                 <li onClick={() => {
                                                     console.log("user prof id : ",activeUser.userProfileId);
-                                                    navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
+                                                    navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
                                                     }}>
                                                       <a href="#">Profile</a></li>
                                                 <li><Link to="/login" onClick={logoutHandler}>Logout</Link></li>

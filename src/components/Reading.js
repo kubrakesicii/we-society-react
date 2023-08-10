@@ -1,14 +1,14 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Reading = (props) => {
-
-    const navigate = useNavigate()
+const navigate = useNavigate()    
+const { userProfileId } = useParams()
 
   return (
     <div className="container mb-5"
         onClick={() => {
-            navigate(`/user-profile/${props.userProfileId}?listId=${props.id}&name=${props.name}&page=lists`)
+            navigate(`/user-profile/${userProfileId}/lists/${props.id}/${props.name}`)
         }}>    
        <div className='card p-3'>
             <div className='col-6'>

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Article from './Article';
 import { GetAllArticlesByReadingList } from '../services/Requests/ReadingListArticles';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const ReadingListArticles = (props) => {
     const [listArticles, setListArticles] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     const [searchParams, setSearchParams] = useSearchParams()
+    const { readingListId } = useParams()
+    const { name } = useParams()
+
 
     useEffect(() => {
         const loadData = async () => {
             setIsLoading(true)
-            const articles = await GetAllArticlesByReadingList(searchParams.get('listId'))
-
-            console.log("Articles : ", articles);
-            console.log("list id : ", searchParams.get('listId'));
+            const articles = await GetAllArticlesByReadingList(readingListId)
             setListArticles(articles)
             setIsLoading(false)
         }
@@ -29,7 +29,7 @@ const ReadingListArticles = (props) => {
             <div>Loading</div>
         ): (
            <div className='container'>
-                 <h3 className='entry-title'>{searchParams.get('name')}</h3>
+                 <h3 className='entry-title'>{name}</h3>
                 <div class="divider"></div>
 
              {

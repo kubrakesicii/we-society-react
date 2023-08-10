@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GetAllArticleDraftsByUser, GetAllArticlesByUser } from '../services/Requests/Article'
 import ArticleList from './ArticleList'
 import ReadingList from './ReadingList'
+import { useParams } from 'react-router-dom'
 
 const ProfileTabContent = (props) => {
     const [articlesByUser,setArticles]  = useState([])
@@ -10,17 +11,20 @@ const ProfileTabContent = (props) => {
 
     const [selectedTab, setSelectedTab] = useState(1)
 
+    const { userProfileId } = useParams();
+
+
     useEffect(() => {
         const loadData = async() => {
                 const [articles, userDrafts,userReadingLists] = await Promise.all([
-                    GetAllArticlesByUser(props.userProfileId,1,20),
-                    GetAllArticleDraftsByUser(props.userProfileId,1,20),
+                    GetAllArticlesByUser(userProfileId,1,20),
+                    GetAllArticleDraftsByUser(userProfileId,1,20),
                 ])
                 setArticles(articles.items)
                 setUserDrafts(userDrafts.items)
         }
         loadData()
-    }, [props.userProfileId])
+    }, [userProfileId])
 
 
   return (

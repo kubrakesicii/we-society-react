@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { GetAllReadingLists } from '../services/Requests/ReadingList'
 import Reading from './Reading'
+import { useParams } from 'react-router-dom'
 
 const ReadingList = (props) => {
     const [readingLists, setReadingLists] = useState([])
+    const { userProfileId } = useParams();
+
 
     useEffect(() => {
         const loadData = async () => {
-            const lists = await GetAllReadingLists(props.userProfileId)
+            const lists = await GetAllReadingLists(userProfileId)
             setReadingLists(lists)
         }
         loadData()

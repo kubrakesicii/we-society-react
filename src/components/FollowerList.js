@@ -32,9 +32,8 @@ const FollowerList = (props) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    {/* <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} /> */}
-                    
-                    <a onClick={() => navigate(`/user-profile/${userProfileId}?page=tabs`)}> Go back profile</a>
+                <h3 className='entry-title'><a onClick={() => navigate(`/user-profile/${userProfileId}/tabs`)}>Profile </a> / Followers</h3>
+                    <div class="divider"></div>
                         {followerList.map((f) => <FollowUser 
                             key={f.id}
                             id={f.id}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetAllArticles, GetArticleDetail } from "../services/Requests/Article";
 import UserProfileInfo from "./UserProfileInfo";
 import RelatedArticleList from "./RelatedArticleList";
@@ -14,6 +14,7 @@ const ArticleDetail = () => {
   const [comments, setComments] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate()
 
   console.log("HERE DETAIL : ", id);
 
@@ -56,7 +57,9 @@ const ArticleDetail = () => {
                     alt=""
                   />
                 </a>
-                <a href="author.html"> {article.userProfile.fullName} </a> in{" "}
+                <a onClick={() => {
+                        navigate(`/user-profile/${article.userProfile.id}/tabs`)
+                        }}> {article.userProfile.fullName} </a> in{" "}
                 <a href="archive.html"> {article.category.name} </a>
                 <br />
                 <span>{moment().format('ll',article.createdTime)} </span>

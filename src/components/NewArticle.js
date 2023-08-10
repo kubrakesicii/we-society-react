@@ -84,17 +84,17 @@ const NewArticle = () => {
 
         if(searchParams.get('action') === 'insert'){
             var res = await InsertArticle(form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
+            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
         } else if(searchParams.get('action') === 'update') {
             var res = await UpdateArticle(searchParams.get('updateId'),form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
+            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
         }
     }
 
     const saveDraftHandler = async (e) => {
         e.preventDefault();
         var res = await InsertArticle(form)
-        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}?page=tabs`)
+        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
     }
 
     const editorConfiguration = {

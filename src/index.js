@@ -19,6 +19,7 @@ import FollowingList from './components/FollowingList';
 import NewArticleEditor from './components/NewArticleEditor';
 import AuthRoute from './utils/AuthRoute';
 import ReadingListArticles from './components/ReadingListArticles';
+import ProfileTabContent from './components/ProfileTabContent';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,28 @@ const router = createBrowserRouter([
       {  
         path:'/new-article-editor',
         element:<NewArticleEditor/>
+      },
+      {
+        path:'/user-profile/:userProfileId',
+        element:<UserProfile />,
+        children: [
+          {
+            path:'/user-profile/:userProfileId/tabs',
+            element:<ProfileTabContent/>
+          },
+          {  
+            path:'/user-profile/:userProfileId/followers',
+            element:<FollowerList/>
+          },
+          {  
+            path:'/user-profile/:userProfileId/followings',
+            element:<FollowingList/>
+          },
+          {  
+            path:'/user-profile/:userProfileId/lists/:readingListId/:name',
+            element:<ReadingListArticles/>
+          },
+        ]
       }
     ]
   }

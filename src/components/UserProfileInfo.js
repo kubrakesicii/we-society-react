@@ -58,7 +58,7 @@ const UserProfileInfo = (props) => {
                         <div className="author-img">
                             <img alt="author avatar" 
                             src={`${userInfo.image !== null ? `data:image/jpeg;base64,${userInfo.image}` : '/assets/images/default.jpg'}`} className="avatar" 
-                            onClick={() => navigate(`/user-profile/${userInfo.id}&page=tabs`)}/>
+                            onClick={() => navigate(`/user-profile/${userInfo.id}/tabs`)}/>
                         </div>
                         <div className="author-content">
                         <div className="top-author">
@@ -68,8 +68,8 @@ const UserProfileInfo = (props) => {
                             <div className="content-social-author">
                                 <ul className="heading navbar-nav d-lg-flex align-items-left">
                                 <div className="entry-meta align-items-center">
-                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}?page=followers`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></a>
-                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}?page=followings`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></a>              
+                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}/followers`)}}><span className="text-success mr-3"> <b>{userInfo.followersCount}</b> followers </span></a>
+                                    <a onClick={() => {navigate(`/user-profile/${props.userProfileId}/followings`)}}><span className="text-success"> <b>{userInfo.followingsCount}</b> followings</span></a>              
                                 </div>                        
                                 </ul>
                             </div>

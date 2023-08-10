@@ -13,7 +13,7 @@ export default function PopularArticle(props) {
             <div className="entry-meta align-items-center">
                 <a onClick={() => {
                         console.log("user prof id : ",props.userProfile.id);
-                        navigate(`/user-profile/${props.userProfile.id}?page=tabs`)
+                        navigate(`/user-profile/${props.userProfile.id}/tabs`)
                         }}>{props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>
                 <span>{moment().format('ll',props.createdTime)}</span>
                 <span className="middotDivider"></span>

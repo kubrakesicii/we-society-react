@@ -20,7 +20,7 @@ function Article(props){
                 <div className="entry-meta align-items-center">
                     <a onClick={() => {
                         console.log("user prof id : ",props.userProfile.id);
-                        navigate(`/user-profile/${props.userProfile.id}?page=tabs`)
+                        navigate(`/user-profile/${props.userProfile.id}/tabs`)
                         }}>
                         {props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>                  
                 </div>

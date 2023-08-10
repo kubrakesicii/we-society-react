@@ -5,7 +5,7 @@ import { GetUserProfile } from "../services/Requests/UserProfile"
 import UserProfileInfo from "./UserProfileInfo"
 import { useSelector } from "react-redux"
 import Pagination from "./Pagination"
-import { useParams, useSearchParams } from "react-router-dom"
+import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import PopularArticleList from "./PopularArticleList"
 import ProfileTabContent from "./ProfileTabContent"
 import FollowingList from "./FollowingList"
@@ -62,8 +62,11 @@ const UserProfile = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
+                        <Outlet/>
 
-                        {
+
+
+                        {/* {
                             searchParams.get('page') === 'tabs' ? (
                                 <ProfileTabContent isCurrentUser={isCurrentUser} userProfileId={userProfileId} />
                             ) : searchParams.get('page') === 'followings' ?  (
@@ -79,7 +82,7 @@ const UserProfile = () => {
                             (
                                 <></>
                             )
-                        }
+                        } */}
 
                         {/* <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  /> */}
                     </div> 
