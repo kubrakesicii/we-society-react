@@ -6,6 +6,7 @@ import RelatedArticleList from "./RelatedArticleList";
 import moment from "moment";
 import NewComment from "./NewComment";
 import CommentList from "./CommentList";
+import { GetCommentsByArticle } from "../services/Requests/ArticleComment";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -18,10 +19,17 @@ const ArticleDetail = () => {
 
   console.log("HERE DETAIL : ", id);
 
+  const loadComments = async () => {
+    console.log("comments loaded");
+    var comments = await GetCommentsByArticle(id)
+    setComments(comments)
+  }
+
   const loadData = async () => {
     setIsLoading(true);
     const article = await GetArticleDetail(id);
     const relatedArticles = await GetAllArticles(1, 3, article.category.id);
+    loadComments()
     setArticle(article);
     setRelatedArticles(relatedArticles.items);
 
@@ -153,9 +161,10 @@ const ArticleDetail = () => {
 
           {/* <!--Begin post related--> */}
           <RelatedArticleList relatedArticles={relatedArticles} />
-          <NewComment articleId={article.id} />
+
+          <NewComment articleId={article.id} loadComments={loadComments} />
           <div class="divider"></div>
-          <CommentList articleId={article.id} />
+          <CommentList commentList={comments} />
         </div>
       )}
     </>

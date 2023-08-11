@@ -12,7 +12,7 @@ const CommentList = (props) => {
     }
     useEffect(() => {
       setIsLoading(true)
-      loadData()
+      //loadData()
 
       setIsLoading(false)
 
@@ -20,7 +20,7 @@ const CommentList = (props) => {
     }, [])
   return (
     <>
-     {isLoading && commentList.length > 0? (
+     {isLoading && props.commentList.length > 0? (
         <div>Is Loading</div>
       ) : (
         <>
@@ -28,9 +28,9 @@ const CommentList = (props) => {
             <section id="comments">       
                 <div className="comments-inner clr"> 
                   <h4 id="reply-title" className="comment-reply-title mb-2">
-                    Comments ({commentList.length})
+                    Comments ({props.commentList.length})
                   </h4>
-                  {commentList.map((c) => <Comment 
+                  {props.commentList.map((c) => <Comment 
                     key={c.id}
                     id={c.id}
                     userProfile={c.userProfile}

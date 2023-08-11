@@ -130,7 +130,7 @@ const NewArticle = () => {
             ) : (
                 <>
             <div className='container p-3 mb-5'>
-                <div className='row d-flex justify-content-between mb-5 p-4'>
+                <div className='row mb-5 p-4'>
                    <div className='col-6 align-self-center'>
                         <img src={`${form.mainImage !== null ? `data:image/jpeg;base64,${form.mainImage}` : '/assets/images/default.jpg'}`}
                         id='mainImg' />
@@ -144,93 +144,96 @@ const NewArticle = () => {
                             }} />
                    </div>
                 </div>
+
+                <h3 className='mb-5'>Publish your article with WeSociety!</h3>
+                <div className='row'>
+                    <form onSubmit={submitHandler}>
+                        <div className="form-group">
+                            <label htmlFor="title">Title</label>
+                            <input type="text" className="form-control" id="title"
+                                value={form.title}
+                                onChange={(e) => {setForm({...form, title:e.target.value})}}/>
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor="categoryId">Category  {form.categoryId}</label>
+                            <select className="form-select" aria-label="Default select example" id='categoryId' 
+                            value={form.categoryId}
+                            onChange={(e) => {setForm({...form, categoryId:e.target.value}); console.log("Selected : ",e.target.value);}}>
+                                {categories.map((c) => {
+                                    return(
+                                        <option key={c.id} value={c.id}>{c.id} {c.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="content">Content</label>
+                            <CKEditor
+                                id='content'
+                                editor={ClassicEditor}
+                                // config={editorConfiguration}
+                                config={
+                                    {
+                                        ckfinder:{
+                                            uploadUrl:'/uploads'
+                                        }
+                                    }
+                                }
+                                data={form.content}
+                                placeholder="<h2>Write...</h2>"
+                                onReady={ editor => {
+                                    // You can store the "editor" and use when it is needed.
+                                    console.log( 'Editor is ready to use!', editor );
+
+                                    editor.ui.view.editable.element.style.height="500px"
+                                } }
+                                onChange={ ( event, editor ) => {
+                                    const data = editor.getData();
+                                    setForm({...form, content:data})
+                                    console.log( { event, editor, data } );
+
+                                    if(searchParams.get('action') === 'insert'){
+                                        document.getElementById('submit-btn').removeAttribute('disabled')
+                                        document.getElementById('draft-btn').removeAttribute('disabled')
+                                    }
+
+                                    console.log("FORM : ", form);
+                                } }
+                                onBlur={ ( event, editor ) => {
+                                    console.log( 'Blur.', editor );
+                                } }
+                                onFocus={ ( event, editor ) => {
+                                    console.log( 'Focus.', editor );
+                                } }
+                                
+                            />
+                        </div>
+
+                        <div className='container'>
+                        <div className='row'>
+                                <div className="col-md-12 bg-light text-right">
+                                    {
+                                        searchParams.get('action') === 'insert' ? (
+                                            <>
+                                                <button type="submit" className="btn btn-success mr-4" id='submit-btn' disabled value="">Publish</button>             
+                                                <button type="button" onClick={saveDraftHandler} className="btn btn-outline-success" id='draft-btn' disabled value="">Save Draft</button>   
+                                            </>
+                                        ) : (
+                                            <button type="submit" className="btn btn-warning" id='submit-btn' value="">Save Changes</button>             
+                                        )
+                                    }
+                                </div>                            
+                        </div>
+                        </div>     
+                    </form>
+                </div>
+
             </div>
 
             <div className='container p-3'>
-                <h3 className='mb-5'>Publish your article with WeSociety!</h3>
-                <div className='row'>
-                        <form onSubmit={submitHandler}>
-                            <div className="form-group">
-                                <label htmlFor="title">Title</label>
-                                <input type="text" className="form-control" id="title"
-                                    value={form.title}
-                                    onChange={(e) => {setForm({...form, title:e.target.value})}}/>
-                            </div>
-    
-                            <div className='form-group'>
-                                <label htmlFor="categoryId">Category  {form.categoryId}</label>
-                                <select className="form-select" aria-label="Default select example" id='categoryId' 
-                                value={form.categoryId}
-                                onChange={(e) => {setForm({...form, categoryId:e.target.value}); console.log("Selected : ",e.target.value);}}>
-                                    {categories.map((c) => {
-                                        return(
-                                            <option key={c.id} value={c.id}>{c.id} {c.name}</option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-    
-                            <div className="form-group">
-                                <label htmlFor="content">Content</label>
-                                <CKEditor
-                                    id='content'
-                                    editor={ClassicEditor}
-                                    // config={editorConfiguration}
-                                    config={
-                                        {
-                                            ckfinder:{
-                                                uploadUrl:'/uploads'
-                                            }
-                                        }
-                                    }
-                                    data={form.content}
-                                    placeholder="<h2>Write...</h2>"
-                                    onReady={ editor => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log( 'Editor is ready to use!', editor );
-    
-                                        editor.ui.view.editable.element.style.height="500px"
-                                    } }
-                                    onChange={ ( event, editor ) => {
-                                        const data = editor.getData();
-                                        setForm({...form, content:data})
-                                        console.log( { event, editor, data } );
-    
-                                        if(searchParams.get('action') === 'insert'){
-                                            document.getElementById('submit-btn').removeAttribute('disabled')
-                                            document.getElementById('draft-btn').removeAttribute('disabled')
-                                        }
-    
-                                        console.log("FORM : ", form);
-                                    } }
-                                    onBlur={ ( event, editor ) => {
-                                        console.log( 'Blur.', editor );
-                                    } }
-                                    onFocus={ ( event, editor ) => {
-                                        console.log( 'Focus.', editor );
-                                    } }
-                                    
-                                />
-                            </div>
-    
-                            <div className='container'>
-                            <div className='row'>
-                                    <div className="col-md-12 bg-light text-right">
-                                        {
-                                            searchParams.get('action') === 'insert' ? (
-                                                <>
-                                                    <button type="submit" className="btn btn-success mr-4" id='submit-btn' disabled value="">Publish</button>             
-                                                    <button type="button" onClick={saveDraftHandler} className="btn btn-outline-success" id='draft-btn' disabled value="">Save Draft</button>   
-                                                </>
-                                            ) : (
-                                                <button type="submit" className="btn btn-warning" id='submit-btn' value="">Save Changes</button>             
-                                            )
-                                        }
-                                    </div>                            
-                            </div>
-                            </div>     
-                        </form>
-                </div>
+                
             </div>
                 </>
             )

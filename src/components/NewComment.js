@@ -15,6 +15,7 @@ const NewComment = (props) => {
         e.preventDefault()
         console.log("Form comment : ", form);
         await InsertComment(form)
+        props.loadComments()
     }
 
     return (
