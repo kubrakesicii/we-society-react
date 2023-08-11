@@ -30,10 +30,6 @@ const UserProfile = () => {
 
     console.log("PARAM : ", searchParams.get('page'));
 
-    const viewComponentHandler = (viewingComp) =>{
-        setViewComponent(viewingComp)
-    }
-
     useEffect(() => {
         if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
     },[])

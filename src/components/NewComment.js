@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { InsertComment } from '../services/Requests/ArticleComment';
 
 const NewComment = (props) => {
     const activeUser = useSelector(state => state.auth.activeUser);
+    const ref = useRef('')
 
     const [form, setForm] = useState({
         userProfileId:activeUser.userProfileId,
@@ -15,6 +16,7 @@ const NewComment = (props) => {
         e.preventDefault()
         console.log("Form comment : ", form);
         await InsertComment(form)
+        ref.current.value = '';
         props.loadComments()
     }
 
@@ -72,6 +74,7 @@ const NewComment = (props) => {
                                 <p className="comment-form-comment">
                                 <label htmlFor="comment">Comment *</label>
                                 <textarea
+                                    ref={ref}
                                     id="comment"
                                     name="comment"
                                     cols="40"

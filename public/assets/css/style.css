@@ -502,6 +502,10 @@ margin: -3px 15px 0 0;
     width: 40px;
   }
 
+  #add-list-icon :hover{
+    cursor: pointer;
+  }
+
 .middotDivider {
   padding-right: 1em;
   font-size: 16px;
@@ -1011,6 +1015,33 @@ li ul.sub-menu a {
 }
 
 .mobi-menu li.menu-item-has-children .sub-menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#save-menu-item-has-children .sub-menu-toggle{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#save-menu-item-has-children .sub-menu-toggle::after {
+  content: '\e801';
+  font-family: "fontello";
+  display: inline-block;
+  margin-left: 10px;
+}
+
+#save-menu-item-has-children .open-submenu .sub-menu-toggle::after {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+
+
+ li.menu-item-has-children .sub-menu-toggle {
   position: absolute;
   top: 20px;
   right: 20px;
