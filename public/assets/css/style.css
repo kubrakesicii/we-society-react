@@ -181,6 +181,14 @@ img {
   margin-top: 1.5rem;
   margin-bottom: 2.25rem;
 }
+
+.divider-small {
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+}
 .divider-2 {
   position: relative;
   margin-bottom: 2.25rem;
