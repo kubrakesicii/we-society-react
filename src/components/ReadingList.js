@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GetAllReadingLists } from "../services/Requests/ReadingList";
 import Reading from "./Reading";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NewReadingListModal from "./NewReadingListModal";
 import { useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ const ReadingList = (props) => {
   const activeUser = useSelector(state => state.auth.activeUser)
   const [isCurrentUser, setIsCurrentUser] = useState(false)
 
+  const navigate = useNavigate()
 
   const loadData = async () => {
     const lists = await GetAllReadingLists(userProfileId);
@@ -54,16 +55,22 @@ const ReadingList = (props) => {
 
         <NewReadingListModal onModalClosedHandler={onModalClosedHandler}/>
 
-      {readingLists.map((r) => (
-        <Reading
-          key={r.id}
-          id={r.id}
-          name={r.name}
-          image={null}
-          userProfileId={props.userProfileId}
-          articleCount={r.articleCount}
-        />
-      ))}
+        {
+           readingLists.length == 0 ? (
+            <div>You haven't written any articles yet :(</div>
+          ) : (
+            readingLists.map((r) => (
+              <Reading
+                key={r.id}
+                id={r.id}
+                name={r.name}
+                image={null}
+                userProfileId={props.userProfileId}
+                articleCount={r.articleCount}
+              />
+            ))
+          )
+        }
     </>
   );
 };

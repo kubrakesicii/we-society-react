@@ -6,14 +6,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
-//  import { EasyImage } from '@ckeditor/ckeditor5-easy-image';
-//  import { Image } from '@ckeditor/ckeditor5-image';
-// import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
-// import { Link } from '@ckeditor/ckeditor5-link';
-// import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
-// import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
-// import { Essentials } from '@ckeditor/ckeditor5-essentials';
 
 
 const NewArticle = () => {
@@ -97,26 +89,6 @@ const NewArticle = () => {
         if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
     }
 
-    const editorConfiguration = {
-        // plugins: [ Image,EasyImage, Bold, Italic, Essentials ],
-        plugins: [ Image],
-        toolbar: {
-            items:[ 'bold', 'italic','heading','|','link','bulletedList','numberedList','|','outdent','indent','|','imageUpload','blockQuote',
-            'insertTable','mediaEmbed','undo','redo','alignment','code','codeBlock','findAndReplace','fontColor','fontFamily','fontSize','fontBackgroundColor',
-            'hihglight','horizontalLine','htmlEmbed','imageInsert' ]
-        },
-        image: {
-            toolbar: [
-                'imageTextAlternative', 'toggleImageCaption', 'imageStyle:inline','imageStyle:block','imageStyle:side'
-            ]
-        },
-        table: {
-            contentToolbar: [
-                'tableColumn','tableRow','mergeTableCells'
-            ]
-        }
-    };
-
     const preview = (e) => {
         var img = document.getElementById('mainImg');
         let imgSrc = URL.createObjectURL(e.target.files[0]);
@@ -173,14 +145,6 @@ const NewArticle = () => {
                             <CKEditor
                                 id='content'
                                 editor={ClassicEditor}
-                                // config={editorConfiguration}
-                                config={
-                                    {
-                                        ckfinder:{
-                                            uploadUrl:'/uploads'
-                                        }
-                                    }
-                                }
                                 data={form.content}
                                 placeholder="<h2>Write...</h2>"
                                 onReady={ editor => {
@@ -188,6 +152,9 @@ const NewArticle = () => {
                                     console.log( 'Editor is ready to use!', editor );
 
                                     editor.ui.view.editable.element.style.height="500px"
+                                    // editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                                    //     return new UploadAdapter(loader)
+                                    // }
                                 } }
                                 onChange={ ( event, editor ) => {
                                     const data = editor.getData();
@@ -207,8 +174,9 @@ const NewArticle = () => {
                                 onFocus={ ( event, editor ) => {
                                     console.log( 'Focus.', editor );
                                 } }
-                                
                             />
+
+                            <div id='editor'></div>
                         </div>
 
                         <div className='container'>

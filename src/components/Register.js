@@ -16,6 +16,9 @@ function Register(){
     const submitHandler = async (event) => {
         event.preventDefault();
         var res = await RegisterUser(form)
+
+        console.log("RES : ", res);
+
         if(res.message == "OK"){
             navigate("/login")
         } else alert("hatalı kayıt")

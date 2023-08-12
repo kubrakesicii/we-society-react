@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Form } from 'react-router-dom';
 import { UpdateUserProfile } from '../services/Requests/UserProfile';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toBase64 } from '../helpers/fileHelper';
+import { authActions } from '../store/auth.slice';
 
 const EditProfileModal = (props) => {
     console.log("Props user : ",props);
@@ -15,8 +16,13 @@ const EditProfileModal = (props) => {
         console.log("submit handler");
         console.log("Sent form : ", form);
         var res = await UpdateUserProfile(activeUser.userProfileId,form)
+
+        console.log("Res data : ", res.data);
+        dispatch(authActions.edit(res.data))
         props.onModalClosedHandler()
     }
+
+    const dispatch = useDispatch(submitHandler)
 
     useEffect(() => {
         setForm({

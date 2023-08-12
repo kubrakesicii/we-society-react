@@ -11,7 +11,7 @@ export const GetUserProfile = async (id) => {
 export const UpdateUserProfile = async (id,form) => {
     const token = GetToken();
     const formData = new FormData();
-    //formData.append('image', form.image)
+
     formData.append('fullName', form.fullName)
     formData.append('bio', form.bio)
     formData.append('image', form.image)
@@ -23,5 +23,5 @@ export const UpdateUserProfile = async (id,form) => {
             'Authorization': `Bearer ${token}`
         },
         body:formData
-    });
+    }).then(res => res.json());
 }

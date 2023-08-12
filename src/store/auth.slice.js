@@ -9,15 +9,18 @@ const authSlice = createSlice({
     initialState:initialState,
     reducers: {
         login(state,user){
-            console.log("login action : ", user.payload);
             state.isAuthenticated=true;
             state.activeUser=user.payload;
             state.activeUser.image=user.image;
-
-            console.log("store user state: ", state.activeUser);
         },
         logout(state){
             state.isAuthenticated=false
+        },
+        edit(state,user){
+            console.log("edit dispatched : ", user);
+            state.isAuthenticated=true;
+            state.activeUser=user.payload;
+            state.activeUser.image=user.image;
         }
     }
 })

@@ -41,7 +41,7 @@ export const RegisterUser = async (form) => {
             'Content-type': 'application/json'
         },
         body:JSON.stringify(form)
-    });
+    }).then(res => res.json());
 }
 
 export const LoginUser = async (form) => {

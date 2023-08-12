@@ -11,3 +11,9 @@ export const InsertArticleClap = async (form) => {
     });
 }
 
+export const GetAllClappingUsers = async (articleId) => {
+    const response = await fetch(`${BASE_URL}/ArticleClaps?articleId=${articleId}`)
+    const resData = await response.json();
+    return resData.data;
+}
+
