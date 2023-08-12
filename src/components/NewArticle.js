@@ -3,7 +3,6 @@ import { GetArticleDetail, InsertArticle, UpdateArticle } from '../services/Requ
 import { useSelector } from 'react-redux';
 import { GetAllCategories } from '../services/Requests/Category';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
@@ -13,6 +12,7 @@ import Loader from './Loader';
 const NewArticle = () => {
     const activeUser = useSelector(state => state.auth.activeUser)
     const [categories,setCategories]  = useState([])
+    const [article,setArticle]  = useState({mainImage:null})
 
     console.log("ACTIVE USER NEW : ", activeUser);
 
@@ -30,22 +30,13 @@ const NewArticle = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     // const {action} = searchParams.get('action')
 
-    const HANDLE_IMAGE_ADDED = async(file, Editor, cursorLocation, resetUploader) => {
-        const url = await UPLOAD_IMAGE(file);
-        if (url) {
-          Editor.insertEmbed(cursorLocation, "image", url);
-          resetUploader();
-        } else {
-          this.SET_ALERT_BOX("danger", this.$t("imageCouldntUpload"));
-        }
-    }
-
     const updateLoad = async () => {
         setIsLoading(true)
         const categories = await GetAllCategories()
         setCategories(categories)
         const article = await GetArticleDetail(searchParams.get('updateId'))
 
+        setArticle(article)
         console.log("updating art : ", article);
         setForm({
             ...form,
@@ -117,7 +108,7 @@ const NewArticle = () => {
     }
 
     const preview = (e) => {
-        var img = document.getElementById('mainImg');
+        var img = document.getElementById('main-img');
         let imgSrc = URL.createObjectURL(e.target.files[0]);
         img.src=imgSrc;
     }
@@ -131,8 +122,8 @@ const NewArticle = () => {
             <div className='container p-3 mb-5'>
                 <div className='row mb-5 p-4'>
                    <div className='col-6 align-self-center'>
-                        <img src={`${form.mainImage !== null ? `data:image/jpeg;base64,${form.mainImage}` : '/assets/images/default.jpg'}`}
-                        id='mainImg' />
+                        <img src={`${article.mainImage !== null ? `data:image/png;base64,${article.mainImage}` : '/assets/images/default.jpg'}`}
+                        id='main-img' />
                    </div>
                    <div className='col-6 align-self-center'>
                         <label htmlFor="updImg" className="btn btn-success align-center"> Upload Main Image </label>

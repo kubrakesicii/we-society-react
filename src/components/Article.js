@@ -23,7 +23,9 @@ function Article(props){
                         console.log("user prof id : ",props.userProfile.id);
                         navigate(`/user-profile/${props.userProfile.id}/tabs`)
                         }}>
-                        {props.userProfile.fullName}</a> in <a href="archive.html">{props.category.name}</a><br/>                  
+                        {props.userProfile.fullName}</a> in <a  onClick={() => {
+                            navigate(`/home?categoryId=${props.category.id}&categoryName=${props.category.name}`)
+                        }}>{props.category.name}</a><br/>                  
                 </div>
             </div>
             <div className="row mb-0"
@@ -34,9 +36,9 @@ function Article(props){
                         navigate(`/article-detail/${props.id}`)
                     }
                 }}>                                
-                <article className="justify-content-between mr-0">
-                    <div className="col-md-12 ">
-                        <div className="mb-1 d-flex row justify-content-between">
+                <article className="col-12">
+                    <div className="row">
+                        <div className="mb-1 col-8">
                             <div className="col-md-8 pl-md-0">
                                 <h3 className="entry-title mb-3">{props.title}</h3>
                                 <div className="entry-excerpt">
@@ -44,14 +46,13 @@ function Article(props){
                                     </div>
                                 </div>
                             </div>
-
-                           <div className="col-md-4">
-                                <figure className="align-self-center"><a href="#">
-                                    {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
-                                    {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
-                                    <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
-                                </figure>
-                           </div>
+                        </div>
+                        <div className="col-4">
+                            <figure className="align-self-center"><a href="#">
+                                {/* <img src="/assets/images/article.jpg" alt="post-title" /></a> */}
+                                {/* <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.image}` : '/assets/images/article.jpg'}`} alt="post-title" /></a> */}
+                                <img src={`${props.mainImage !== null ? `data:image/jpeg;base64,${props.mainImage}` : '/assets/images/article.jpg'}`} alt="post-title" /></a>
+                            </figure>
                         </div>
                     </div>
                 </article>
