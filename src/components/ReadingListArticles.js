@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Article from './Article';
 import { GetAllArticlesByReadingList } from '../services/Requests/ReadingListArticles';
 import { useParams, useSearchParams } from 'react-router-dom';
+import Loader from './Loader';
 
 const ReadingListArticles = (props) => {
     const [listArticles, setListArticles] = useState([])
@@ -26,8 +27,8 @@ const ReadingListArticles = (props) => {
         <>
        {
         isLoading ? (
-            <div>Loading</div>
-        ): (
+             <Loader />
+            ): (
            <div className='container'>
                  <h3 className='entry-title'>{name}</h3>
                 <div class="divider"></div>

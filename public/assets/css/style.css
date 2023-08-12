@@ -175,6 +175,13 @@ img {
   max-width: 100%;
 }
 
+#spinner-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+}
+
 .divider {
   position: relative;
   border-bottom: 1px solid rgba(0,0,0,.15);

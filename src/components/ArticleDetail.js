@@ -10,6 +10,7 @@ import { GetCommentsByArticle } from "../services/Requests/ArticleComment";
 import { InsertArticleClap } from "../services/Requests/ArticleClap";
 import { useSelector } from "react-redux";
 import ClapListModal from "./ClapListModal";
+import Loader from "./Loader";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -63,7 +64,7 @@ const ArticleDetail = () => {
   return (
     <>
       {isLoading ? (
-        <div>Is Loading</div>
+        <Loader />
       ) : (
         <div className="container">
           {/* User and article info  */}

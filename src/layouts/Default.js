@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MainHeader from '../components/MainHeader'
 import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
+import Loader from '../components/Loader'
 
 export default function Default() {
     const [isAppLoaded,setIsAppLoaded] = useState(false)
@@ -29,8 +30,8 @@ export default function Default() {
                 </main>
             </div>  
         ) : (
-            <div>Loading</div>
-        )
+                 <Loader />
+            )
      }
           
     </>

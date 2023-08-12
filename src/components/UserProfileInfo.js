@@ -4,6 +4,7 @@ import { GetUserProfile } from "../services/Requests/UserProfile";
 import { Link, useNavigate } from "react-router-dom";
 import { FollowUser, GetIsFollowing, UnfollowUser } from "../services/Requests/FollowRelationship";
 import EditProfileModal from "./EditProfileModal";
+import Loader from "./Loader";
 
 
 const UserProfileInfo = (props) => {
@@ -54,7 +55,7 @@ const UserProfileInfo = (props) => {
         <>
             {
                 isLoading ? (
-                    <div></div>
+                    <Loader />
                 ) : (
                     <div className="box box-author m_b_2rem">
                     <div className="post-author row-flex">

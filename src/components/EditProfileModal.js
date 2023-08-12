@@ -4,6 +4,7 @@ import { UpdateUserProfile } from '../services/Requests/UserProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { toBase64 } from '../helpers/fileHelper';
 import { authActions } from '../store/auth.slice';
+import Swal from 'sweetalert2';
 
 const EditProfileModal = (props) => {
     console.log("Props user : ",props);
@@ -20,6 +21,14 @@ const EditProfileModal = (props) => {
         console.log("Res data : ", res.data);
         dispatch(authActions.edit(res.data))
         props.onModalClosedHandler()
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Your profile has been updated!',
+            showConfirmButton: false,
+            timer: 1000,
+            width:'20em'
+        })
     }
 
     const dispatch = useDispatch(submitHandler)

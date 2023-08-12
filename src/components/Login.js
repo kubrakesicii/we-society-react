@@ -3,6 +3,8 @@ import { useNavigate,  } from "react-router-dom";
 import {useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth.slice";
+import Swal from 'sweetalert2'
+
 
 const Login = () => {
     const [form,setForm] = useState({
@@ -18,6 +20,19 @@ const Login = () => {
             console.log("Dispatch user data : ", res.data);
             dispatch(authActions.login(res.data))
             navigate("/home")
+
+
+            Swal.fire({
+                title: 'Signed in successfully!',
+                icon: 'success',
+                showConfirmButton:false,
+                toast:true,
+                position:'bottom-end',
+                timer:3000,
+                timerProgressBar:true
+              })
+
+
         } else alert("yanlış giriş")
     }
     const dispatch = useDispatch(submitHandler)

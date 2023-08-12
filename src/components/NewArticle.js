@@ -6,11 +6,15 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
+import Loader from './Loader';
 
 
 const NewArticle = () => {
     const activeUser = useSelector(state => state.auth.activeUser)
     const [categories,setCategories]  = useState([])
+
+    console.log("ACTIVE USER NEW : ", activeUser);
 
     const navigate = useNavigate()
 
@@ -75,11 +79,33 @@ const NewArticle = () => {
         setForm({...form, isPublished:1})
 
         if(searchParams.get('action') === 'insert'){
+        console.log("FORM : ",form);
+
             var res = await InsertArticle(form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+            if(res.message === 'OK') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your article has been published!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+            }
         } else if(searchParams.get('action') === 'update') {
             var res = await UpdateArticle(searchParams.get('updateId'),form)
-            if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+            if(res.message === 'OK') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your article has been updated!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+            }
         }
     }
 
@@ -98,8 +124,8 @@ const NewArticle = () => {
     return(
         <>
             {isLoading ? (
-                <div>Is Loading</div>
-            ) : (
+                <Loader />
+        ) : (
                 <>
             <div className='container p-3 mb-5'>
                 <div className='row mb-5 p-4'>
