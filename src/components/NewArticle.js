@@ -21,7 +21,7 @@ const NewArticle = () => {
     const [form, setForm] = useState({
         title:'',
         content:'',
-        isPublished:1,
+        isPublished:-1,
         categoryId:-1,
         userProfileId:-1,
         mainImage:null
@@ -45,15 +45,20 @@ const NewArticle = () => {
         const categories = await GetAllCategories()
         setCategories(categories)
         const article = await GetArticleDetail(searchParams.get('updateId'))
+
+        console.log("updating art : ", article);
         setForm({
             ...form,
             userProfileId:activeUser.userProfileId, 
             title:article.title,
             content:article.content,
             categoryId:article.category.id,
-            mainImage:article.mainImage
+            mainImage:article.mainImage,
+            isPublished:article.isPublished
         })
         setIsLoading(false)
+
+        console.log("Upd form : ",form);
     }
         
     const insertLoad = async () => {
@@ -66,7 +71,6 @@ const NewArticle = () => {
 
     useEffect(() => {
         if(searchParams.get('action') === 'update') {
-            console.log("Upd load");
             updateLoad()
         }
         else{
@@ -76,12 +80,8 @@ const NewArticle = () => {
     
     const submitHandler = async (e) => {
         e.preventDefault();
-        setForm({...form, isPublished:1})
-
         if(searchParams.get('action') === 'insert'){
-        console.log("FORM : ",form);
-
-            var res = await InsertArticle(form)
+            var res = await InsertArticle({...form, isPublished:1})
             if(res.message === 'OK') {
                 Swal.fire({
                     position: 'center',
@@ -91,10 +91,11 @@ const NewArticle = () => {
                     timer: 1500
                 })
 
-                navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+                navigate(`/user-profile/${activeUser.userProfileId}/tabs#latest`)
             }
         } else if(searchParams.get('action') === 'update') {
-            var res = await UpdateArticle(searchParams.get('updateId'),form)
+            var res = await UpdateArticle(searchParams.get('updateId'),{...form, isPublished:1})
+
             if(res.message === 'OK') {
                 Swal.fire({
                     position: 'center',
@@ -104,15 +105,15 @@ const NewArticle = () => {
                     timer: 1500
                 })
 
-                navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+                navigate(`/user-profile/${activeUser.userProfileId}/tabs#latest`)
             }
         }
     }
 
     const saveDraftHandler = async (e) => {
         e.preventDefault();
-        var res = await InsertArticle(form)
-        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs`)
+        var res = await InsertArticle({...form, isPublished:-1})
+        if(res.message === 'OK') navigate(`/user-profile/${activeUser.userProfileId}/tabs#drafts`)
     }
 
     const preview = (e) => {
@@ -189,7 +190,7 @@ const NewArticle = () => {
 
                                     if(searchParams.get('action') === 'insert'){
                                         document.getElementById('submit-btn').removeAttribute('disabled')
-                                        document.getElementById('draft-btn').removeAttribute('disabled')
+                                        //document.getElementById('draft-btn').removeAttribute('disabled')
                                     }
 
                                     console.log("FORM : ", form);
@@ -212,10 +213,21 @@ const NewArticle = () => {
                                         searchParams.get('action') === 'insert' ? (
                                             <>
                                                 <button type="submit" className="btn btn-success mr-4" id='submit-btn' disabled value="">Publish</button>             
-                                                <button type="button" onClick={saveDraftHandler} className="btn btn-outline-success" id='draft-btn' disabled value="">Save Draft</button>   
+                                                <button type="button" id='draft-btn' onClick={(e) => {
+                                                    console.log("save draft clicked");
+                                                    saveDraftHandler(e)
+                                                }} className="btn btn-outline-warning">Save Draft</button>   
                                             </>
                                         ) : (
-                                            <button type="submit" className="btn btn-warning" id='submit-btn' value="">Save Changes</button>             
+                                            <>
+                                            <button type="submit" className="btn btn-outline-warning" id='submit-btn' value="">Save Changes</button>      
+                                           
+                                            {
+                                                form.isPublished === -1 ? (
+                                                <button type="submit" className="btn btn-success ml-4" id='submit-btn' value="">Publish</button>      
+                                            ) : (<div></div>)    
+                                            }
+                                            </>                                          
                                         )
                                     }
                                 </div>                            

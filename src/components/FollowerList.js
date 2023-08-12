@@ -13,7 +13,7 @@ const FollowerList = (props) => {
   const [isCurrentUser, setIsCurrentUser] = useState(false)
   const activeUser = useSelector(state => state.auth.activeUser)
   useEffect(() => {
-      if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
+      if(activeUser.userProfileId === userProfileId) setIsCurrentUser(true)
   },[])
 
   const navigate = useNavigate()
@@ -33,7 +33,7 @@ const FollowerList = (props) => {
             <div className="row">
                 <div className="col-md-12">
                 <h3 className='entry-title'><a onClick={() => navigate(`/user-profile/${userProfileId}/tabs`)}>Profile </a> / Followers</h3>
-                    <div class="divider"></div>
+                    <div className="divider"></div>
                         {followerList.map((f) => <FollowUser 
                             key={f.id}
                             id={f.id}

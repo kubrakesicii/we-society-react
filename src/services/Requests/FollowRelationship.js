@@ -20,8 +20,11 @@ export const GetIsFollowing = async (followerId, followingId) => {
     return resData.data;
 }
 
-export const FollowUser = async (followerId, followingId) => {
+export const FollowUserRequest = async (followerId, followingId) => {
     const token = GetToken()
+
+    console.log("Follow req");
+
     await fetch(`${BASE_URL}/FollowRelationships/Follow`, {
         method:'POST',
         headers:{
@@ -32,7 +35,7 @@ export const FollowUser = async (followerId, followingId) => {
     });
 }
 
-export const UnfollowUser = async (followerId, followingId) => {
+export const UnfollowUserRequest = async (followerId, followingId) => {
     const token = GetToken()
     await fetch(`${BASE_URL}/FollowRelationships/UnFollow`, {
         method:'POST',

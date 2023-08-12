@@ -31,7 +31,7 @@ const ReadingListArticles = (props) => {
             ): (
            <div className='container'>
                  <h3 className='entry-title'>{name}</h3>
-                <div class="divider"></div>
+                <div className="divider"></div>
 
              {
                 listArticles.map((a) => 

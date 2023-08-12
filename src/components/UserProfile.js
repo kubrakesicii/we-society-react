@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react"
 import { GetAllArticleDraftsByUser, GetAllArticlesByUser, GetAllPopularArticles } from "../services/Requests/Article"
-import ArticleList from "./ArticleList"
-import { GetUserProfile } from "../services/Requests/UserProfile"
 import UserProfileInfo from "./UserProfileInfo"
 import { useSelector } from "react-redux"
 import Pagination from "./Pagination"
 import { Outlet, useParams, useSearchParams } from "react-router-dom"
 import PopularArticleList from "./PopularArticleList"
-import ProfileTabContent from "./ProfileTabContent"
-import FollowingList from "./FollowingList"
-import ReadingList from "./ReadingList"
-import FollowerList from "./FollowerList"
-import ReadingListArticles from "./ReadingListArticles"
 
 const UserProfile = () => {
     const [popularArticles,setPopularArticles]  = useState([])

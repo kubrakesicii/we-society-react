@@ -28,6 +28,7 @@ function ArticleList(props){
               title={a.title} 
               content={a.content} 
               createdTime={a.createdTime}
+              isPublished={a.isPublished}
               mainImage={a.mainImage} />)
           )
         }

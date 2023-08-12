@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { GetUserProfile } from "../services/Requests/UserProfile";
 import { Link, useNavigate } from "react-router-dom";
-import { FollowUser, GetIsFollowing, UnfollowUser } from "../services/Requests/FollowRelationship";
+import { FollowUserRequest, GetIsFollowing, UnfollowUserRequest } from "../services/Requests/FollowRelationship";
 import EditProfileModal from "./EditProfileModal";
 import Loader from "./Loader";
 
@@ -41,13 +41,15 @@ const UserProfileInfo = (props) => {
     }
 
     const followHandler = async () => {
-        await FollowUser(activeUser.userProfileId, props.userProfileId)
+        console.log("Follow handler");
+
+        await FollowUserRequest(activeUser.userProfileId, props.userProfileId)
         setIsFollowing(true)
     }
 
     const unfollowHandler = async () => {
         console.log("Un Follow handler");
-        await UnfollowUser(activeUser.userProfileId, props.userProfileId)
+        await UnfollowUserRequest(activeUser.userProfileId, props.userProfileId)
         setIsFollowing(false)
     }
 

@@ -1,13 +1,10 @@
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ArticleList from "./ArticleList";
 import {GetAllArticles, GetAllPopularArticles} from '../services/Requests/Article'
 import { GetAllCategories } from "../services/Requests/Category";
-import Category from "./Category";
 import { useEffect, useState } from "react";
-import Footer from "./Footer";
 import CategoryList from "./CategoryList";
 import Pagination from "./Pagination";
-import PopularArticle from "./PopularArticleList";
 import PopularArticleList from "./PopularArticleList";
 
 const Home = () => {
@@ -90,21 +87,3 @@ const Home = () => {
 
 
 export default Home;
-
-// export const loadArticles = async () => {
-//     console.log("Loader running");
-//     setIsLoading(true)
-
-//     const [articles,categories] = await Promise.all([
-//         GetAllArticles(),
-//         GetAllCategories()
-//     ]);
-
-//     console.log("Loader done");
-//     console.log("Loader articles returnin: ",articles);
-//     console.log("Loader cates returnin: ",categories);
-
-//     setIsLoading(false)
-    
-//     return ({articles, categories})
-// }

@@ -8,7 +8,7 @@ const ArticleComment = (props) => {
   return (
     <>
         <NewComment articleId={props.articleId} />
-        <div class="divider"></div>
+        <div className="divider"></div>
         <CommentList articleId={props.articleId} />
     </>
   )

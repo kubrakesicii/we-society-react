@@ -1,11 +1,12 @@
-
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { GetIsFollowing, UnfollowUserRequest,FollowUserRequest } from '../services/Requests/FollowRelationship'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const FollowUser = (props) => {
-    const [isFollowing, setIsFollowing] = useState(false)
+
+const ClapUser = (props) => {
+  const [isFollowing, setIsFollowing] = useState(false)
     const activeUser = useSelector(state => state.auth.activeUser)
     const navigate = useNavigate()
 
@@ -43,7 +44,7 @@ const FollowUser = (props) => {
                 </div>
 
                 <div className="col-8 align-self-center">
-                <h3 className="entry-title mb-2"><a onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>{props.fullName}</a></h3>
+                    <h3 className="entry-title mb-2"><a onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>{props.fullName}</a></h3>
                     <div className="entry-excerpt">
                         <div>{props.bio}</div>
                     </div>
@@ -81,5 +82,4 @@ const FollowUser = (props) => {
 }
 
 
-
-export default FollowUser;
+export default ClapUser;

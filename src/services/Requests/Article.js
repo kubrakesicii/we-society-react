@@ -33,7 +33,6 @@ export const GetAllArticleDraftsByUser = async (userProfileId,pageIndex,pageSize
 }
 
 
-
 export const GetArticleDetail = async (id) => {
     const response = await fetch(`${BASE_URL}/Articles/${id}`)
     const resData = await response.json();
