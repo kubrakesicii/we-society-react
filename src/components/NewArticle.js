@@ -7,12 +7,30 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
 import Loader from './Loader';
-
+import { ReactCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css'
+import Cropper from 'react-easy-crop';
 
 const NewArticle = () => {
     const activeUser = useSelector(state => state.auth.activeUser)
     const [categories,setCategories]  = useState([])
     const [article,setArticle]  = useState({mainImage:null})
+    const [uploadedImage, setUploadedImage] = useState('/assets/images/noimg.jpg')
+
+    const [crop, setCrop] = useState({
+        // unit: '%', // Can be 'px' or '%'
+        // x: 25,
+        // y: 25,
+        // width: 25,
+        // height: 25,
+        // aspect:1,
+        // maxHeight:200,
+        // maWidth:270
+        // aspect:16/9
+        // minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 180
+        x:100,y:200
+    })
+
 
     console.log("ACTIVE USER NEW : ", activeUser);
 
@@ -110,7 +128,13 @@ const NewArticle = () => {
     const preview = (e) => {
         var img = document.getElementById('main-img');
         let imgSrc = URL.createObjectURL(e.target.files[0]);
-        img.src=imgSrc;
+        setUploadedImage(imgSrc)
+        //img.src=imgSrc;
+    }
+
+    const handleOnCropChange = (crop) => {
+        setCrop(crop)
+        console.log("Crop on : ",crop);
     }
 
     return(
@@ -121,9 +145,20 @@ const NewArticle = () => {
                 <>
             <div className='container p-3 mb-5'>
                 <div className='row mb-5 p-4'>
-                   <div className='col-6 align-self-center'>
-                        <img src={`${article.mainImage !== null ? `data:image/png;base64,${article.mainImage}` : '/assets/images/default.jpg'}`}
-                        id='main-img' />
+                   <div className='col-6'>
+                            {/* <img src={`${article.mainImage !== null ? `data:image/png;base64,${article.mainImage}` : '/assets/images/default.jpg'}`}
+                            id='main-img' /> */}
+
+                            <div style={{width:'300px',height:'250px'}}>
+                                 <Cropper
+                                    image={uploadedImage}
+                                    crop={crop}
+                                    onCropChange={handleOnCropChange}
+                                    aspect={16/9}
+                                    />                                                                                        
+                            </div>
+                     
+
                    </div>
                    <div className='col-6 align-self-center'>
                         <label htmlFor="updImg" className="btn btn-success align-center"> Upload Main Image </label>
@@ -136,7 +171,7 @@ const NewArticle = () => {
                 </div>
 
                 <h3 className='mb-5'>Publish your article with WeSociety!</h3>
-                <div className='row'>
+                <div>
                     <form onSubmit={submitHandler}>
                         <div className="form-group">
                             <label htmlFor="title">Title</label>

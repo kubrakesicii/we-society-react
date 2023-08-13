@@ -16,6 +16,7 @@ const SaveArticleModal = (props) => {
     const submitHandler = async (e) => {
        e.preventDefault()
        await SaveArticleToReadingList(form)
+       props.saveHandler()
     }
 
     useEffect(() => {

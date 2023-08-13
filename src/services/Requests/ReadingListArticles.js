@@ -17,3 +17,10 @@ export const GetAllArticlesByReadingList = async (readingListId) => {
     return resData.data;
 }
 
+
+export const GetIsSaved = async (userProfileId,articleId) => {
+    const response = await fetch(`${BASE_URL}/ReadingListArticles/IsSaved?userProfileId=${userProfileId}&articleId=${articleId}`)
+    const resData = await response.json();
+    return resData.data;
+}
+
