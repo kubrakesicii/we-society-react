@@ -15,6 +15,8 @@ const SaveArticleModal = (props) => {
 
     const submitHandler = async (e) => {
        e.preventDefault()
+       console.log("FORM : ", form);
+
        await SaveArticleToReadingList(form)
        props.saveHandler()
     }
@@ -30,7 +32,7 @@ const SaveArticleModal = (props) => {
 
   return (
     <div className="modal fade" id="save-article-modal" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div className="modal-content">
                 <div className="modal-header">
                     <h6 className="modal-title" id="exampleModalLongTitle">Article will be saved to the selected reading list</h6>
@@ -41,18 +43,20 @@ const SaveArticleModal = (props) => {
                 <div className="modal-body">
                     <div className="container">
                         <Form onSubmit={submitHandler}>
-                            <div className='list-group'>
-                            {
-                                readingLists.map((l) => <>
-                                 <label className='list-group-item'>
-                                    <input className='form-check-input' type="checkbox" name="field name" value={l.name}
-                                    onChange={() => console.log("check")} />
-                                    {l.name}                           
-                                 </label>
-                                </>)
-                            }
-                            </div>
-                            <div className="modal-footer">
+                              {                             
+                                  readingLists.map((l) => <>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id={`check-${l.id}`}
+                                        onChange={(e) => {
+                                            console.log("Check : ",e.target.checked)
+                                            if(e.target.checked) setForm({...form, readingListId:l.id})
+                                        }} />
+                                        <label class="form-check-label" htmlFor={`check-${l.id}`}>{l.name}</label>
+                                   </div>
+                                </>) 
+                            }       
+                                           
+                            <div className="modal-footer mt-3">
                                 <button type="submit" onClick={submitHandler} className="btn btn-warning" data-dismiss="modal">Save</button>
                             </div>
 

@@ -10,6 +10,7 @@ import Loader from './Loader';
 import { ReactCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css'
 import Cropper from 'react-easy-crop';
+import * as Yup from "yup";
 
 const NewArticle = () => {
     const activeUser = useSelector(state => state.auth.activeUser)
@@ -18,24 +19,10 @@ const NewArticle = () => {
     const [uploadedImage, setUploadedImage] = useState('/assets/images/noimg.jpg')
 
     const [crop, setCrop] = useState({
-        // unit: '%', // Can be 'px' or '%'
-        // x: 25,
-        // y: 25,
-        // width: 25,
-        // height: 25,
-        // aspect:1,
-        // maxHeight:200,
-        // maWidth:270
-        // aspect:16/9
-        // minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 180
         x:100,y:200
     })
 
-
-    console.log("ACTIVE USER NEW : ", activeUser);
-
     const navigate = useNavigate()
-
     const [form, setForm] = useState({
         title:'',
         content:'',
@@ -46,6 +33,8 @@ const NewArticle = () => {
     })
     const [isLoading,setIsLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
+    const [errors,setErrors] = useState([])
+
     // const {action} = searchParams.get('action')
 
     const updateLoad = async () => {
@@ -87,9 +76,19 @@ const NewArticle = () => {
         }
     },[])
     
+    const newArticleValidationSchema = Yup.object({
+        title: Yup.string().min("Title must longer than 10 character").required("Please enter title"),
+        content: Yup.string().required("Content is required")
+    })
     const submitHandler = async (e) => {
         e.preventDefault();
         if(searchParams.get('action') === 'insert'){
+            try{
+                await newArticleValidationSchema.validate(form,{abortEarly:false})
+            } catch(errors){
+                setErrors(errors.errors)
+            }
+    
             var res = await InsertArticle({...form, isPublished:1})
             if(res.message === 'OK') {
                 Swal.fire({
@@ -233,6 +232,19 @@ const NewArticle = () => {
                         </div>
 
                         <div className='container'>
+
+                        {/* Error Row */}
+                        <div className='row'>                          
+                            {
+                                errors.length > 0 ? (
+                                    errors.map(e => 
+                                        <p className="text-danger">{e} !</p>
+                                    )
+                                ) : (
+                                    <p></p>
+                                )
+                            }
+                        </div>
                         <div className='row'>
                                 <div className="col-md-12 bg-light text-right">
                                     {
@@ -259,7 +271,7 @@ const NewArticle = () => {
                                 </div>                            
                         </div>
                         </div>     
-                    </form>
+                    </form> 
                 </div>
 
             </div>

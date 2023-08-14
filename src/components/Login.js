@@ -4,6 +4,7 @@ import {useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth.slice";
 import Swal from 'sweetalert2'
+import * as Yup from "yup";
 
 
 const Login = () => {
@@ -11,10 +12,24 @@ const Login = () => {
         email: "",
         password: ""
     })
+    const [errors,setErrors] = useState([])
     const navigate = useNavigate();
+
+    const loginValidationSchema = Yup.object({
+        email: Yup.string().email("Please enter valid email").required("Please enter email"),
+        password: Yup.string().min(6).max(15).required()
+    })
+
 
     const submitHandler = async (event) => {
         event.preventDefault();
+
+        try{
+            await loginValidationSchema.validate(form,{abortEarly:false})
+        } catch(errors){
+            setErrors(errors.errors)
+        }
+
         var res = await LoginUser(form)
         if(res.message === "OK"){
             console.log("Dispatch user data : ", res.data);
@@ -57,7 +72,16 @@ const Login = () => {
                             value={form.password}
                             onChange={(e) => setForm({...form, password: e.target.value})}/>
 
-                        <a href="#">Forgot password?</a>
+                        {
+                            errors.length > 0 ? (
+                                errors.map(e => 
+                                    <p className="text-danger">{e} !</p>
+                                )
+                            ) : (
+                                <p></p>
+                            )
+                        }
+
                         <input type="submit" className='button' value="Login"/>
                     </form>
                 </div>

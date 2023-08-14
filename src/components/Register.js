@@ -1,6 +1,7 @@
 import { Form, redirect, useNavigate } from "react-router-dom";
 import {RegisterUser} from '../services/Requests/Auth'
 import { useState } from "react";
+import * as Yup from "yup";
 
 
 function Register(){
@@ -11,15 +12,25 @@ function Register(){
         password: ""
     })
 
+    const [errors,setErrors] = useState([])
     const navigate = useNavigate();
+
+    const registerValidationSchema = Yup.object({
+        email: Yup.string().email("Please enter valid email").required("Please enter email"),
+        password: Yup.string().min(5,"Password must longer than 5 characters").required("Password is required")
+    })
 
     const submitHandler = async (event) => {
         event.preventDefault();
+
+        try{
+            await registerValidationSchema.validate(form,{abortEarly:false})
+        } catch(errors){
+            setErrors(errors.errors)
+        }
+
         var res = await RegisterUser(form)
-
-        console.log("RES : ", res);
-
-        if(res.message == "OK"){
+        if(res.message === "OK"){
             navigate("/login")
         } else alert("hatalı kayıt")
     }
@@ -43,11 +54,22 @@ function Register(){
                         <input type="text" required name="userName" placeholder="Kullanıcı adı girin.." 
                         onChange={(e) => setForm({...form, userName: e.target.value})}
                         value={form.userName}/>
-                        <input type="password" required name="password" placeholder="Şifrenizi girin.." 
+                        <input type="password" required name="password" placeholder="Şifrenizi girin.." max={15}
                         onChange={(e) => setForm({...form, password: e.target.value})}
                         value={form.password}/>
 
-                        <input type="submit" className='button' value="Register" />
+                        {
+                            errors.length > 0 ? (
+                                errors.map(e => 
+                                    <p className="text-danger">{e} !</p>
+                                )
+                            ) : (
+                                <p></p>
+                            )
+                        }
+
+
+                        <input type="submit" className='button' value="Register" />               
                     </Form>
                 </div>
             </div>
