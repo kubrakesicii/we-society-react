@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { GetIsFollowing, UnfollowUserRequest,FollowUserRequest } from '../services/Requests/FollowRelationship'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 
 
 const ClapUser = (props) => {
@@ -44,7 +44,12 @@ const ClapUser = (props) => {
                 </div>
 
                 <div className="col-8 align-self-center">
-                    <h3 className="entry-title mb-2"><a onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>{props.fullName}</a></h3>
+                    <h3 className="entry-title mb-2">
+                        <a onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>
+                            {props.fullName}
+                        </a>
+                        <p className='badge badge-success ml-3'>{props.count} claps</p>
+                    </h3>
                     <div className="entry-excerpt">
                         <div>{props.bio}</div>
                     </div>
@@ -58,7 +63,10 @@ const ClapUser = (props) => {
                             !isFollowing || activeUser.id === 0 ? (
                                 <button className="btn btn-outline-dark ml-3" 
                             onClick={() => {
-                                if(activeUser.id === 0 ) navigate('/login')
+                                if(activeUser.id === 0 ) {
+                                    console.log("follow hand redirect");
+                                    window.location = "/login"
+                                }
                                 else {
                                     followHandler()
                                 }
@@ -67,7 +75,7 @@ const ClapUser = (props) => {
                             (
                                 <button className="btn btn-success ml-3" 
                                 onClick={() => {
-                                    if(activeUser.id === 0 ) navigate('/login')
+                                    if(activeUser.id === 0 ) window.location = "/login"
                                     else {
                                         unfollowHandler()
                                     }

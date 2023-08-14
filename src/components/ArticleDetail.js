@@ -7,7 +7,7 @@ import moment from "moment";
 import NewComment from "./NewComment";
 import CommentList from "./CommentList";
 import { GetCommentsByArticle } from "../services/Requests/ArticleComment";
-import { InsertArticleClap } from "../services/Requests/ArticleClap";
+import { GetAllClappingUsers, InsertArticleClap } from "../services/Requests/ArticleClap";
 import { useSelector } from "react-redux";
 import ClapListModal from "./ClapListModal";
 import Loader from "./Loader";
@@ -18,6 +18,7 @@ const ArticleDetail = () => {
   const [relatedArticles, setRelatedArticles] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [clapUsers, setClapUsers] = useState([])
 
   const navigate = useNavigate()
   const activeUser = useSelector(state => state.auth.activeUser)
@@ -34,12 +35,12 @@ const ArticleDetail = () => {
     setIsLoading(true);
     const article = await GetArticleDetail(id);
     const relatedArticles = await GetAllArticles(1, 3, article.category.id);
+    let users =  await GetAllClappingUsers(id)
+
     loadComments()
     setArticle(article);
     setRelatedArticles(relatedArticles.items);
-
-    console.log("ARTICLE DETAIL : ", article);
-    console.log("related : ", relatedArticles);
+    setClapUsers(users)
 
     setIsLoading(false);
   };
@@ -115,7 +116,7 @@ const ArticleDetail = () => {
                     <span data-toggle="tooltip" data-placement="top" title="View claps" className="mr-4" id="clap-cnt"> {article.clapCount} </span>
                     </a>
 
-                  <ClapListModal articleId={article.id} title={article.title} />
+                  <ClapListModal clapUsers={clapUsers} title={article.title} />
 
                   <a href="#comment_section">
                   <span className="">
