@@ -1,6 +1,7 @@
 import Category from "./Category"
 
 const CategoryList = (props) => {
+    console.log("PROPS CATS : ", props.categories);
     return(
         <nav id="main-menu" className="stick d-lg-block d-none">
             <div className="container">

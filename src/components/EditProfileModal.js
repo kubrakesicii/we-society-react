@@ -37,7 +37,9 @@ const EditProfileModal = (props) => {
         setForm({
             fullName: props.userInfo.fullName,
             bio: props.userInfo.bio,
-            image:null
+            image:null,
+            github:props.userInfo.github,
+            linkedin:props.userInfo.linkedin
         })
     },[props.userInfo])
 
@@ -98,6 +100,16 @@ const EditProfileModal = (props) => {
                                     <textarea rows={3} required name="bio" placeholder="Bio Girin.." 
                                         onChange={(e) => setForm({...form, bio: e.target.value})}
                                         value={form.bio}                                    
+                                    />
+
+                                    <input type="text" name="github" placeholder="Github hesabı giriniz.."  
+                                        onChange={(e) => setForm({...form, github: e.target.value})}
+                                        value={form.github}                                    
+                                    />
+
+                                    <input type="text" name="linkedin" placeholder="Linkedin hesabı giriniz.."  
+                                        onChange={(e) => setForm({...form, linkedin: e.target.value})}
+                                        value={form.linkedin}                                    
                                     />
 
                                     <div className="modal-footer">

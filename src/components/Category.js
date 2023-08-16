@@ -5,7 +5,7 @@ const Category = (props) => {
         <>
             <li className="menu-primary" 
             onClick={() => {props.selectedCategoryHandler(props.id)}}>
-                <a>{props.Name}</a></li>
+                <a>{props.name}</a></li>
         </>
     )
 }
