@@ -57,7 +57,9 @@ const ReadingList = (props) => {
 
         {
            readingLists.length == 0 ? (
-            <div>You haven't written any articles yet :(</div>
+            <div>
+              <img src='/assets/images/nocontent.png' />
+            </div>
           ) : (
             readingLists.map((r) => (
               <Reading

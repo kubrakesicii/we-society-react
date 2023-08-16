@@ -11,7 +11,9 @@ function ArticleList(props){
           props.articles.length == 0 ? (
             <>
             <div className='container align-items-center'>
-              <div>You haven't written any articles yet :(</div>
+              <div>
+                <img src='/assets/images/nocontent.png' />
+              </div>
                 {/* <button onClick={() => {
                   navigate('/new-article?action=insert')
                 }} className="btn btn-outline-success">Write Your First Article</button> */}

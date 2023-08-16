@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth.slice";
 import Swal from 'sweetalert2'
 import * as Yup from "yup";
+import { b64toBlob } from '../helpers/fileHelper';
 
 
 const Login = () => {
@@ -32,8 +33,11 @@ const Login = () => {
 
         var res = await LoginUser(form)
         if(res.message === "OK"){
-            console.log("Dispatch user data : ", res.data);
-            dispatch(authActions.login(res.data))
+            console.log("Dispatch user data : ", res.data);            
+            const storeImg=URL.createObjectURL(await b64toBlob(res.data.image));
+            console.log("STORED IMG : ",storeImg);
+
+            dispatch(authActions.login({...res.data, image:storeImg}))
             navigate("/home")
 
 

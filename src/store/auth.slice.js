@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { b64toBlob } from '../helpers/fileHelper';
 
 const initialState = {
     isAuthenticated:false,
-    activeUser:{id:0,userProfileId:0,fullName:'',image:new Uint8Array(1024)}
+    activeUser:{id:0,userProfileId:0,fullName:'',image:''}
 }
 const authSlice = createSlice({
     name:"auth",
     initialState:initialState,
     reducers: {
         login(state,user){
+            console.log("user : ",user);
+            console.log("user login action : ");
             state.isAuthenticated=true;
-            state.activeUser=user.payload;
-            state.activeUser.image=user.image;
+            state.activeUser = user.payload
         },
         logout(state){
             state.isAuthenticated=false
@@ -20,7 +22,6 @@ const authSlice = createSlice({
             console.log("edit dispatched : ", user);
             state.isAuthenticated=true;
             state.activeUser=user.payload;
-            state.activeUser.image=user.image;
         }
     }
 })

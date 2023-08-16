@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
-import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 
 
 const NewArticleEditor =() => {
@@ -55,15 +54,15 @@ const NewArticleEditor =() => {
             readOnly:false,
             config : {
                 uploader: {
-                    async uploadByFile(file) {
-                        const imageUrl = UPLOAD_IMAGE(file)
-                        return{
-                            success:1,
-                            file:{
-                                url:imageUrl
-                            }
-                        }
-                    }
+                    // async uploadByFile(file) {
+                    //     const imageUrl = UPLOAD_IMAGE(file)
+                    //     return{
+                    //         success:1,
+                    //         file:{
+                    //             url:imageUrl
+                    //         }
+                    //     }
+                    // }
                 }
             },
             data:editorData,

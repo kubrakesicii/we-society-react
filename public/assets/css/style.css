@@ -635,10 +635,10 @@ header .logo-wrapper {
 }
 .social-network a {
   color: rgba(0,0,0,.54);
-  border-radius: 50%;
+  /* border-radius: 50%; */
   font-size: 13px;
   margin-left: 0.2rem;
-  border: 1px solid rgba(0,0,0,.34);
+  /* border: 1px solid rgba(0,0,0,.34); */
   width: 26px;
   height: 26px;
   display: block;

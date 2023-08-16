@@ -2,13 +2,14 @@ import { GetUser, RemoveUser } from "../utils/Token";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth.slice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navigation = () => {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const activeUser = useSelector((state) => state.auth.activeUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [imageSrc,setImageSrc] = useState('')
 
   const [searchKey, setSearchKey] = useState("");
 
@@ -17,6 +18,10 @@ const Navigation = () => {
     dispatch(authActions.logout());
     RemoveUser();
   };
+
+  useEffect(() => {
+    setImageSrc(activeUser.image)
+  }, [activeUser])
 
   return (
     <>
@@ -78,7 +83,7 @@ const Navigation = () => {
                     <li className="menu-item-has-children">
                       <a className="author-avatar" href="#">
                         {/* <img src={`${activeUser.image !== '' ? `data:image/jpg;base64,${activeUser.image}` : '/assets/images/default.jpg'}`} /></a>       */}
-                        <img src="/assets/images/default.jpg" />
+                        <img src={imageSrc} />
                       </a>
                       <ul className="sub-menu">
                         <li
