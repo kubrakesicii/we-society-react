@@ -11,9 +11,9 @@ const CategoryList = (props) => {
                         <a>All</a></li>
                     {props.categories.map((c) => 
                         <Category 
-                            key={c.id} 
-                            id={c.id} 
-                            name={c.name} 
+                            key={c.Id} 
+                            id={c.Id} 
+                            name={c.Name} 
                             selectedCategoryHandler={props.selectedCategoryHandler} />)}
                 </ul>
                 <span></span>

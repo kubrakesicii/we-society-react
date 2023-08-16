@@ -45,13 +45,13 @@ const SaveArticleModal = (props) => {
                         <Form onSubmit={submitHandler}>
                               {                             
                                   readingLists.map((l) => <>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id={`check-${l.id}`}
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id={`check-${l.id}`}
                                         onChange={(e) => {
                                             console.log("Check : ",e.target.checked)
                                             if(e.target.checked) setForm({...form, readingListId:l.id})
                                         }} />
-                                        <label class="form-check-label" htmlFor={`check-${l.id}`}>{l.name}</label>
+                                        <label className="form-check-label" htmlFor={`check-${l.id}`}>{l.name}</label>
                                    </div>
                                 </>) 
                             }       

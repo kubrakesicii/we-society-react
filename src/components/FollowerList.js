@@ -30,7 +30,7 @@ const FollowerList = (props) => {
   return (
     <div className="content-widget">
         <div className="container">
-            <div className="row">
+            <div className="">
                 <div className="col-md-12">
                 <h3 className='entry-title'><a onClick={() => navigate(`/user-profile/${userProfileId}/tabs`)}>Profile </a> / Followers</h3>
                     <div className="divider"></div>

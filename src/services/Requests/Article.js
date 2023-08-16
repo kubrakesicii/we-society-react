@@ -92,18 +92,13 @@ export const UpdateArticle = async (id,form) => {
 export const DeleteArticle = async (id) => {
     const token = GetToken();
 
-    await fetch(`${BASE_URL}/Articles/${id}`, {
+    console.log("TOKEN : ",token);
+
+    return await fetch(`${BASE_URL}/Articles/${id}`, {
         method:'DELETE',
         headers:{
             'Authorization': `Bearer ${token}`,
         },
     })
-    .then(async res => {
-        const resData = await res.json();
-
-        if(resData.message != "OK"){
-            return Promise.reject(resData.message);
-        }
-    })
-    .catch(err => console.log(err));
+    .then(res => res.json())
 }

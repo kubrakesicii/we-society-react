@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
-import Image from '@editorjs/image'; 
 import { UPLOAD_IMAGE } from '../helpers/fileHelper';
 
 
@@ -80,8 +79,7 @@ const NewArticleEditor =() => {
                 console.log(content);
             },
             tools:{
-                header: Header,
-                image:Image
+                header: Header
             }
         });
     }

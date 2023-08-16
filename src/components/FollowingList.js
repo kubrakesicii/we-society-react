@@ -30,8 +30,7 @@ const FollowingList = (props) => {
   return (
     <div className="content-widget">
         <div className="container">
-            <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-12">
                 <h3 className='entry-title'><a onClick={() => navigate(`/user-profile/${userProfileId}/tabs`)}>Profile </a> / Followings</h3>
                     <div className="divider"></div>                  
                         {followingList.map((f) => <FollowUser 
@@ -42,7 +41,6 @@ const FollowingList = (props) => {
                             fullName={f.fullName}
                             bio={f.bio}  />)}       
                 </div>          
-            </div>
         </div>
     </div>    
   )

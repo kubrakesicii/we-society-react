@@ -3,14 +3,13 @@ import { GetArticleDetail, InsertArticle, UpdateArticle } from '../services/Requ
 import { useSelector } from 'react-redux';
 import { GetAllCategories } from '../services/Requests/Category';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
 import Loader from './Loader';
-import { ReactCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css'
 import Cropper from 'react-easy-crop';
 import * as Yup from "yup";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const NewArticle = () => {
     const activeUser = useSelector(state => state.auth.activeUser)
@@ -66,6 +65,48 @@ const NewArticle = () => {
         setForm({...form, userProfileId:activeUser.userProfileId})
         setIsLoading(false)
     }
+
+    // EDITOR INIT
+    // ClassicEditor.create(document.querySelector("#editor"), {
+    //     plugins: [Base64UploadAdapter],
+    //     toolbar: {
+    //       items: [
+    //         Heading,
+    //         "|",
+    //         "bold",
+    //         "italic",
+    //         "link",
+    //         "bulletedList",
+    //         "numberedList",
+    //         "|",
+    //         "indent",
+    //         "outdent",
+    //         "|",
+    //         "imageUpload",
+    //         "blockQuote",
+    //         "mediaEmbed",
+    //         "undo",
+    //         "redo",
+    //       ],
+    //     },
+    //     language: "es",
+    //     image: {
+    //       toolbar: ["imageTextAlternative", "imageStyle:full", "imageStyle:side"],
+    //     },
+    //     licenseKey: "",
+    //   })
+    //     .then((editor) => {
+    //       window.editor = editor;
+    //     })
+    //     .catch((error) => {
+    //       console.error("Oops, something went wrong!");
+    //       console.error(
+    //         "Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:"
+    //       );
+    //       console.warn("Build id: ref2goguw78q-8ghiwfe1qu83");
+    //       console.error(error);
+    //     });
+
 
     useEffect(() => {
         if(searchParams.get('action') === 'update') {
@@ -203,12 +244,13 @@ const NewArticle = () => {
                                     // You can store the "editor" and use when it is needed.
                                     console.log( 'Editor is ready to use!', editor );
 
-                                    editor.ui.view.editable.element.style.height="500px"
+                                    editor.ui.view.editable.element.style.height="700px"
                                     // editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
                                     //     return new UploadAdapter(loader)
                                     // }
                                 } }
                                 onChange={ ( event, editor ) => {
+                                    editor.ui.view.editable.element.style.height="700px"
                                     const data = editor.getData();
                                     setForm({...form, content:data})
                                     console.log( { event, editor, data } );
@@ -221,14 +263,14 @@ const NewArticle = () => {
                                     console.log("FORM : ", form);
                                 } }
                                 onBlur={ ( event, editor ) => {
+                                    // editor.ui.view.editable.element.style.height="700px"
                                     console.log( 'Blur.', editor );
                                 } }
                                 onFocus={ ( event, editor ) => {
+                                    // editor.ui.view.editable.element.style.height="700px"
                                     console.log( 'Focus.', editor );
                                 } }
                             />
-
-                            <div id='editor'></div>
                         </div>
 
                         <div className='container'>

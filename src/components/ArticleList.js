@@ -12,9 +12,9 @@ function ArticleList(props){
             <>
             <div className='container align-items-center'>
               <div>You haven't written any articles yet :(</div>
-                <button onClick={() => {
+                {/* <button onClick={() => {
                   navigate('/new-article?action=insert')
-                }} className="btn btn-outline-success">Write Your First Article</button>
+                }} className="btn btn-outline-success">Write Your First Article</button> */}
             </div>
             
             </>

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import SaveArticleModal from "./SaveArticleModal";
 import { GetIsSaved } from "../services/Requests/ReadingListArticles";
+import Swal from "sweetalert2";
+import { DeleteArticle } from "../services/Requests/Article";
 
 function Article(props){
     const navigate = useNavigate();
@@ -24,6 +26,27 @@ function Article(props){
 
     const deleteArticleHandler = () => {
         //Swal are you sure cıkar ok ise del request
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                const res = await DeleteArticle(props.id)
+                if(res.message === 'OK') {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }          
+            }
+          })
     }
 
     return(
@@ -80,7 +103,7 @@ function Article(props){
                             // Save icon
                             <span className="svgIcon svgIcon--star ml-5">
                                 <Link data-toggle="modal" data-target="#save-article-modal">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mw">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="mw">
                                         <path d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5v-2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V5.75z" fill="#000">
                                         </path>
                                     </svg>
@@ -88,7 +111,7 @@ function Article(props){
                             </span>
                         ) : (
                             /* Already saved icon */
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="aij">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="aij">
                                 <path d="M7.5 3.75a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-14a2 2 0 0 0-2-2h-9z" fill="#000">
                                 </path>
                             </svg>
@@ -112,14 +135,14 @@ function Article(props){
                                     </svg>
                                 </Link>
                             </span>  
-                            <span>
+                            {/* <span>
                                 <Link onClick={deleteArticleHandler}>
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                                     </svg>
                                 </Link>
-                            </span>     
+                            </span>      */}
                         </div>
                     )  : (
                         <div></div>
