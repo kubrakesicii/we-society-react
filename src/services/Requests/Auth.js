@@ -59,7 +59,7 @@ export const LoginUser = async (form) => {
 
         if(resData.message === 'OK'){
             console.log("message ok");
-            SetUser(resData.data.token,resData.data.fullName)
+            SetUser(resData.data.token,resData.data)
         }  
         else{
             alert("not ok")
