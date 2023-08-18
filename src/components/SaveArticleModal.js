@@ -15,13 +15,19 @@ const SaveArticleModal = (props) => {
 
     const submitHandler = async (e) => {
        e.preventDefault()
+
+       console.log("ARTC ID : ", props.articleId);
        console.log("FORM : ", form);
+       console.log("Submit handler save");
+
+       setForm({...form,articleId:props.articleId})
 
        await SaveArticleToReadingList(form)
        props.saveHandler()
     }
 
     useEffect(() => {
+        console.log("MODAL ARTICLE ID : ", props.articleId);
         const loadData = async () => {
             const lists = await GetAllReadingLists(activeUser.userProfileId);
             setReadingLists(lists)
@@ -31,7 +37,7 @@ const SaveArticleModal = (props) => {
 
 
   return (
-    <div className="modal fade" id="save-article-modal" tabIndex="-1" role="dialog" aria-hidden="true">
+    <div className="modal fade" id={`save-article-modal-${props.articleId}`} tabIndex="-1" role="dialog" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div className="modal-content">
                 <div className="modal-header">
@@ -45,7 +51,7 @@ const SaveArticleModal = (props) => {
                         <Form onSubmit={submitHandler}>
                               {                             
                                   readingLists.map((l) => <>
-                                    <div className="form-check">
+                                    <div key={l.id} className="form-check">
                                         <input className="form-check-input" type="radio" name="flexRadioDefault" id={`check-${l.id}`}
                                         onChange={(e) => {
                                             console.log("Check : ",e.target.checked)

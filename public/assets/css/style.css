@@ -650,6 +650,14 @@ header .logo-wrapper {
   margin-left: 1rem;
 }
 
+.line-clamp-3 {
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp:3 ;
+-webkit-box-orient: vertical;
+}
+
 .author-avatar img {
   border-radius: 50%;
   height: 32px;

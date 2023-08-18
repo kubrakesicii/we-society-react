@@ -37,8 +37,6 @@ const Home = () => {
                     GetAllPopularArticles(selectedCategoryId)
                 ]);
 
-                console.log("HOME CATS : ", categories);
-
                 setPageCount(Math.ceil(articles.count/pageSize))
                 setArticles(articles.items)
                 setCategories(categories)

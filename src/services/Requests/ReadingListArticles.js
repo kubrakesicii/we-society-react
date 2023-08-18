@@ -11,6 +11,15 @@ export const SaveArticleToReadingList = async (form) => {
     });
 }
 
+export const UndoSaveArticleToReadingList = async (id) => {
+    return await fetch(`${BASE_URL}/ReadingListArticles/${id}`, {
+        method:'DELETE',
+        headers:{
+            'Content-type': 'application/json'
+        }
+    });
+}
+
 export const GetAllArticlesByReadingList = async (readingListId) => {
     const response = await fetch(`${BASE_URL}/ReadingListArticles?readingListId=${readingListId}`)
     const resData = await response.json();
