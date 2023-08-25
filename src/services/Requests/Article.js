@@ -1,6 +1,5 @@
 import { BASE_URL } from "../BaseUrl";
 import { GetToken } from "../../utils/Token";
-import { redirect } from "react-router-dom";
 
 //export const GetAllArticles = async(searchKey,pageIndex,pageSize)
 // Get all articles, search and paginateion will be added.
@@ -52,6 +51,7 @@ export const InsertArticle = async (form) => {
     formData.append('isPublished', form.isPublished)
 
     return await fetch(`${BASE_URL}/Articles`, {
+    // return await fetch(`http://localhost:4000/Articles`, {
         method:'POST',
         headers:{
             'Authorization': `Bearer ${token}`,
@@ -75,7 +75,8 @@ export const UpdateArticle = async (id,form) => {
     formData.append('content', form.content)
     formData.append('categoryId', form.categoryId)
 
-    return await fetch(`${BASE_URL}/Articles/${id}`, {
+    return await fetch(`http://localhost:4000/Articles/${id}`, {
+    // return await fetch(`${BASE_URL}/Articles/${id}`, {
         method:'PUT',
         headers:{
             'Authorization': `Bearer ${token}`,

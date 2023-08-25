@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetAllArticles, GetArticleDetail } from "../services/Requests/Article";
-import UserProfileInfo from "./UserProfileInfo";
-import RelatedArticleList from "./RelatedArticleList";
+import UserProfileInfo from "../components/UserProfileInfo";
+import RelatedArticleList from "../components/RelatedArticleList";
 import moment from "moment";
-import NewComment from "./NewComment";
-import CommentList from "./CommentList";
+import NewComment from "../components/NewComment";
+import CommentList from "../components/CommentList";
 import { GetCommentsByArticle } from "../services/Requests/ArticleComment";
 import { GetAllClappingUsers, InsertArticleClap } from "../services/Requests/ArticleClap";
 import { useSelector } from "react-redux";
-import ClapListModal from "./ClapListModal";
-import Loader from "./Loader";
+import ClapListModal from "../components/ClapListModal";
+import Loader from "../components/Loader";
 
 const ArticleDetail = () => {
   const { id } = useParams();

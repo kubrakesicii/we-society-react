@@ -3,23 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import RootLayout from './components/RootLayout';
-import Login, {login as loginAction} from './components/Login';
-import Register, {register as registerAction} from './components/Register';
+import Login, {login as loginAction} from './pages/Login';
+import Register, {register as registerAction} from './pages/Register';
 import App from './App';
-import Home , {loadArticles as loader} from './components/Home';
+import Home , {loadArticles as loader} from './pages/Home';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import UserProfile from './components/UserProfile';
+import UserProfile from './pages/UserProfile';
 import Default from './layouts/Default';
-import ArticleDetail from './components/ArticleDetail';
+import ArticleDetail from './pages/ArticleDetail';
 import NewArticle from './components/NewArticle';
-import FollowerList from './components/FollowerList';
-import FollowingList from './components/FollowingList';
+import FollowerList from './pages/FollowerList';
+import FollowingList from './pages/FollowingList';
 import NewArticleEditor from './components/NewArticleEditor';
 import AuthRoute from './utils/AuthRoute';
-import ReadingListArticles from './components/ReadingListArticles';
-import ProfileTabContent from './components/ProfileTabContent';
+import ReadingListArticles from './pages/ReadingListArticles';
+import ProfileTabContent from './pages/ProfileTabContent';
 
 const router = createBrowserRouter([
   {

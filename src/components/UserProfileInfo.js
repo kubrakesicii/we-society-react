@@ -68,7 +68,8 @@ const UserProfileInfo = (props) => {
                         </div>
                         <div className="author-content">
                         <div className="top-author">
-                            <h5 className="heading-font"><a href="author.html" title="Ryan" rel="author"> {`${userInfo.fullName == null ? `Your Name` : userInfo.fullName}`} </a></h5></div>
+                            <h5 className="heading-font"><a 
+                            onClick={() => navigate(`/user-profile/${userInfo.id}/tabs`)}> {`${userInfo.fullName == null ? `Your Name` : userInfo.fullName}`} </a></h5></div>
                             <p className="d-none d-md-block"> {userInfo.bio} </p>
         
                             <div className="content-social-author">

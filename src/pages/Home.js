@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom";
-import ArticleList from "./ArticleList";
+import ArticleList from "../components/ArticleList";
 import {GetAllArticles, GetAllPopularArticles} from '../services/Requests/Article'
 import { GetAllCategories } from "../services/Requests/Category";
 import { useEffect, useState } from "react";
-import CategoryList from "./CategoryList";
-import Pagination from "./Pagination";
-import PopularArticleList from "./PopularArticleList";
+import CategoryList from "../components/CategoryList";
+import Pagination from "../components/Pagination";
+import PopularArticleList from "../components/PopularArticleList";
 
 const Home = () => {
     const [articles,setArticles]  = useState([])

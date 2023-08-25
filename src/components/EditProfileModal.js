@@ -19,6 +19,10 @@ const EditProfileModal = (props) => {
         var res = await UpdateUserProfile(activeUser.userProfileId,form)
 
         const storeImg=URL.createObjectURL(await b64toBlob(res.data.image));
+
+        console.log("IMG : ",res.data.image);
+        console.log("storeImg : ",res.data.storeImg);
+
         dispatch(authActions.edit({...res.data, image:storeImg}))
         props.onModalClosedHandler()
 

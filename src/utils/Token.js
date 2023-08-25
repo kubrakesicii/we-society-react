@@ -3,7 +3,7 @@ export const GetUser = () => {
     id:localStorage.getItem('id'),
     userProfileId:localStorage.getItem('userProfileId'),
     fullName:localStorage.getItem('fullName'),
-    image:localStorage.getItem('image'),}
+    image:localStorage.getItem('image')}
     if (user.id == null) return null;
     else return user;
   }
@@ -15,12 +15,14 @@ export const GetToken = () => {
 // remove the token and user from the session storage
 export const RemoveUser = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    localStorage.removeItem('userProfileId');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('image');
   }
    
   // set the token and user from the session storage
   export const SetUser = (token, user) => {
-    console.log("token saving..",token);
     localStorage.setItem('token', token);
     localStorage.setItem('id', user.id);
     localStorage.setItem('userProfileId', user.userProfileId);

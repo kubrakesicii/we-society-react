@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import FollowUser from './FollowUser';
+import FollowUser from '../components/FollowUser';
 import { GetAllFollowers, GetAllFollowings } from '../services/Requests/FollowRelationship';
-import UserProfileInfo from './UserProfileInfo';
+import UserProfileInfo from '../components/UserProfileInfo';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GetAllArticleDraftsByUser, GetAllArticlesByUser } from '../services/Requests/Article'
-import ArticleList from './ArticleList'
-import ReadingList from './ReadingList'
+import ArticleList from '../components/ArticleList'
+import ReadingList from '../components/ReadingList'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
