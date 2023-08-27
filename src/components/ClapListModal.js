@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { GetAllClappingUsers } from '../services/Requests/ArticleClap'
-import FollowUser from './FollowUser'
 import ClapUser from './ClapUser'
 
 const ClapListModal = (props) => {

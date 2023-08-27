@@ -18,28 +18,20 @@ const UserProfile = () => {
 
     const activeUser = useSelector(state => state.auth.activeUser)
     const { userProfileId } = useParams();
-
     const [searchParams, setSearchParams] = useSearchParams()
-
-    console.log("PARAM : ", searchParams.get('page'));
 
     useEffect(() => {
         if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
     },[])
 
     useEffect(() => {
-        console.log("VİEW COMP : ",viewComponent);
         const loadData = async() => {
-            console.log("user params id : ", userProfileId)
-
                 const [articles, userDrafts,popularArticles,userReadingLists] = await Promise.all([
                     GetAllArticlesByUser(userProfileId,pageIndex,pageSize),
                     GetAllArticleDraftsByUser(userProfileId,pageIndex,pageSize),
                     GetAllPopularArticles(0)
                 ])
                 setPageCount(Math.ceil(articles.count/pageSize))
-                // setArticles(articles.items)
-                // setUserDrafts(userDrafts.items)
                 setPopularArticles(popularArticles)
         }
         loadData()
@@ -51,29 +43,7 @@ const UserProfile = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <UserProfileInfo userProfileId={userProfileId} isCurrentUser={isCurrentUser} />
-                        <Outlet/>
-
-
-
-                        {/* {
-                            searchParams.get('page') === 'tabs' ? (
-                                <ProfileTabContent isCurrentUser={isCurrentUser} userProfileId={userProfileId} />
-                            ) : searchParams.get('page') === 'followings' ?  (
-                                <FollowingList />
-                            ) : searchParams.get('page') === 'followers' ?  (
-                                <FollowerList />
-                            ) : searchParams.get('page') === 'lists' ?  (
-                                <ReadingListArticles />
-                            ) :
-                            
-                            
-                            
-                            (
-                                <></>
-                            )
-                        } */}
-
-                        {/* <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  /> */}
+                        <Outlet/>                 
                     </div> 
 
                     <PopularArticleList popularArticles={popularArticles}/>

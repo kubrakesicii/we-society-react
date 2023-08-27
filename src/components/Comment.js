@@ -5,7 +5,7 @@ const Comment = (props) => {
     <div className='container mb-3 p-3'>    
         <div className='row d-flex justify-content-start'>
             <div className="col-2 align-self-center">
-                <img style={{borderRadius:'50%',height:'64px',width:'64px'}} alt="follow avatar" 
+                <img style={{borderRadius:'50%',height:'64px',width:'64px'}} 
                 src={`${props.userProfile.image !== null ? `data:image/jpg;base64,${props.userProfile.image}` : '/assets/images/default.jpg'}`} className="avatar" />
             </div>
 

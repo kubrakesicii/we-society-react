@@ -14,7 +14,6 @@ const NewComment = (props) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log("Form comment : ", form);
         await InsertComment(form)
         ref.current.value = '';
         props.loadComments()
@@ -33,36 +32,7 @@ const NewComment = (props) => {
                                     <h4 id="reply-title" className="comment-reply-title mb-2">
                                         Leave a Reply
                                     </h4>
-                                    <div className="row">
-                                        <div className="comment-form-author col-sm-12 col-md-6">
-                                            <p>
-                                            <label htmlFor="author">Name*</label>
-                                            <input
-                                                id="author"
-                                                disabled
-                                                style={{backgroundColor:'#dddf'}}
-                                                name="author"
-                                                type="text"
-                                                value={activeUser.fullName}
-                                                size="30"
-                                                aria-required="true"
-                                            />
-                                            </p>
-                                        </div>
-                                        {/* <div className="comment-form-email col-sm-12 col-md-6">
-                                            <p>
-                                            <label htmlFor="email">Email*</label>
-                                            <input
-                                                id="email"
-                                                name="email"
-                                                type="email"
-                                                value=""
-                                                size="30"
-                                                aria-required="true"
-                                            />
-                                            </p>
-                                        </div> */}
-                                    </div>
+                           
                                     <div>
                                         <form
                                             id="commentform"
@@ -70,12 +40,24 @@ const NewComment = (props) => {
                                             noValidate=""
                                             onSubmit={submitHandler}
                                         >
-                                            {/* <p className="comment-notes">
-                                                <span className='text-danger' id="email-notes">
-                                                </span>{" "}
-                                                Required fields are marked{" "}
-                                                <span className="required">*</span>
-                                                </p> */}
+                                            <div className="row">
+                                                <div className="comment-form-author col-sm-12 col-md-6">
+                                                    <p className="comment-form-comment">
+                                                    <label htmlFor="author">Name*</label>
+                                                    <input
+                                                        id="author"
+                                                        disabled
+                                                        style={{backgroundColor:'#dddf'}}
+                                                        name="author"
+                                                        type="text"
+                                                        value={activeUser.fullName}
+                                                        size="30"
+                                                        aria-required="true"
+                                                    />
+                                                    </p>
+                                                </div>
+                                            </div>
+
                                             <p className="comment-form-comment">
                                             <label htmlFor="comment">Comment *</label>
                                             <textarea

@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux'
 const ProfileTabContent = (props) => {
     const [articlesByUser,setArticles]  = useState([])
     const [userDrafts,setUserDrafts]  = useState([])
-    const [userReadingLists,setUserReadingLists]  = useState([])
-
     const [selectedTab, setSelectedTab] = useState(1)
 
     const { userProfileId } = useParams();

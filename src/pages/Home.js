@@ -20,11 +20,13 @@ const Home = () => {
     const [searchKey, setSearchKey] = useState(null)
 
     const [isLoading, setIsLoading] = useState(false)
-    const [isError, setError] = useState(null)  //try catch ile err yakala ve set et
     const [searchParams, setSearchParams] = useSearchParams()
 
     const pageIndexHandler = (pageInd) => setPageIndex(pageInd)
-    const selectedCategoryHandler = (categoryId) => setSelectedCategoryId(categoryId)
+    const selectedCategoryHandler = (categoryId) => {
+        setSelectedCategoryId(categoryId)
+        setPageIndex(1)
+    }
 
     useEffect(() => {
         if(searchParams.get('categoryId') != null) setSelectedCategoryId(searchParams.get('categoryId'))
@@ -48,41 +50,24 @@ const Home = () => {
     }, [pageIndex,selectedCategoryId])
 
     return(
-        <>          
-            <div className="section-featured featured-style-1">
-                <div className="content-widget">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-8">
-                            <CategoryList categories={categories} selectedCategoryHandler={selectedCategoryHandler} />
-
-                                <h2 className="spanborder h4">
-                                    <span>Most Recent</span>
-                                </h2>
- 
-                                <ArticleList articles={articles}/> 
-                                <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
-
-                            </div>
-
-                            <PopularArticleList popularArticles={popularArticles}/>
-                            
-                        </div>
+        <div className="section-featured featured-style-1">
+        <div className="content-widget">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-8">
+                    <CategoryList categories={categories} selectedCategoryHandler={selectedCategoryHandler} />
+                        <h2 className="spanborder h4">
+                            <span>Most Recent</span>
+                        </h2>
+                        <ArticleList articles={articles}/> 
+                        <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
                     </div>
+
+                    <PopularArticleList popularArticles={popularArticles}/>  
                 </div>
             </div>
-
-{/* ------ */}
-
-            <div className="content-widget">
-                <div className="container">
-                    <div className="sidebar-widget ads">
-                        <a href="#"><img src="assets/images/ads/ads-2.png" alt="ads"/></a>
-                    </div>
-                    <div className="hr"></div>
-                </div>
-            </div> 
-        </>
+        </div>
+    </div>
     )
 }
 

@@ -138,72 +138,12 @@ const ArticleDetail = () => {
           </figure>
 
           <article className="entry-wraper mb-5">
-            {/* Article Actions -- Like, Clap, Save */}
-            <div className="entry-left-col">
-              <div className="social-sticky">
-                <a href="#">
-                  <i className="icon-facebook"></i>
-                </a>
-                <a href="#">
-                  <i className="icon-twitter"></i>
-                </a>
-                <a href="#">
-                  <i className="icon-heart"></i>
-                </a>
-                <a href="#">
-                  <i className="icon-paper-plane"></i>
-                </a>
-              </div>
-            </div>
-
             {/* ARTICLE CONTENT */}
             <div className="entry-main-content dropcap">
               <p dangerouslySetInnerHTML={{ __html: article.content }}></p>
             </div>
-
-            {/* ARTICLE TAGS */}
-            <div className="entry-bottom">
-              <div className="tags-wrap heading">
-                <span className="tags">
-                  <a href="#" rel="tag">
-                    fashion
-                  </a>
-                  <a href="#" rel="tag">
-                    lifestyle
-                  </a>
-                  <a href="#" rel="tag">
-                    news
-                  </a>
-                  <a href="#" rel="tag">
-                    style
-                  </a>
-                </span>
-              </div>
-            </div>
-
-            {/* AUTHOR BOX */}
-            {/* {
-            article.userProfile !== undefined && (
-                <UserProfileInfo userProfileId={article.userProfile.id}/>
-            )
-        } */}
-            {/* <div className="box box-author m_b_2rem">
-            <div className="post-author row-flex">
-                <div className="author-img">
-                    <img alt="author avatar" src="assets/images/author-avata-1.jpg" className="avatar"/>
-                </div>
-                <div className="author-content">
-                <div className="top-author">
-                    <h5 className="heading-font"><a href="author.html" title="Ryan" rel="author">Ryan Mark</a></h5></div>
-                    <p className="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p>
-                    <div className="content-social-author">
-                        <a target="_blank" className="author-social" href="#">Facebook </a>
-                        <a target="_blank" className="author-social" href="#">Twitter </a>
-                        <a target="_blank" className="author-social" href="#"> Google + </a>
-                    </div>
-                </div>
-            </div>
-        </div> */}
+            <div className="divider"></div>
+            <UserProfileInfo userProfileId={article.userProfile.id}/>
           </article>
 
           {/* <!--Begin post related--> */}

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { b64toBlob } from '../helpers/fileHelper';
 
 const initialState = {
     isAuthenticated:false,

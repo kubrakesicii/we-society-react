@@ -1,25 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Article from './Article';
+import Loader from './Loader';
 
 function ArticleList(props){
     const navigate = useNavigate()
-
-    console.log("Article list Props : ", props.articles);
     return(
         <>
         {
           props.articles.length == 0 ? (
-            <>
-            <div className='container align-items-center'>
-              <div>
-                <img src='/assets/images/nocontent.png' />
-              </div>
-                {/* <button onClick={() => {
-                  navigate('/new-article?action=insert')
-                }} className="btn btn-outline-success">Write Your First Article</button> */}
-            </div>
-            
-            </>
+            <div>--- No Articles found! ---</div>
           ) : (
             props.articles.map((a) => 
           <Article 

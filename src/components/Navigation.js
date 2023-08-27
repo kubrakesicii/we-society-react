@@ -20,6 +20,7 @@ const Navigation = () => {
   };
 
   useEffect(() => {
+    if(activeUser.image == null) setImageSrc("/assets/images/default.jpg")
     setImageSrc(activeUser.image)
   }, [activeUser])
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MainHeader from '../components/MainHeader'
 import Footer from '../components/Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, redirect } from 'react-router-dom'
 import Loader from '../components/Loader'
 import { b64toBlob } from '../helpers/fileHelper'
 import { GetUser } from '../utils/Token'
@@ -13,8 +13,14 @@ export default function Default() {
     const [isAppLoaded,setIsAppLoaded] = useState(false)
     const loadUser = async () => {
         const curUser = GetUser()
-        const storeImg=URL.createObjectURL(await b64toBlob(curUser.image));
-        dispatch(authActions.login({...curUser, image:storeImg}))
+        if(curUser == null) {
+            redirect("/login")
+        }
+        else {
+            const storeImg=URL.createObjectURL(await b64toBlob(curUser.image));
+            dispatch(authActions.login({...curUser, image:storeImg}))
+            redirect("/home")
+        }
     }
     const dispatch = useDispatch(loadUser)
 
