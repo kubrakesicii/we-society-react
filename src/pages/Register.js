@@ -1,7 +1,8 @@
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, json, redirect, useNavigate } from "react-router-dom";
 import {RegisterUser} from '../services/Requests/Auth'
 import { useState } from "react";
 import * as Yup from "yup";
+import Swal from 'sweetalert2'
 
 
 function Register(){
@@ -31,8 +32,28 @@ function Register(){
 
         var res = await RegisterUser(form)
         if(res.message === "OK"){
+            Swal.fire({
+                title: 'Registered successfully! Lets Login to WeSociety!',
+                icon: 'success',
+                showConfirmButton:false,
+                toast:true,
+                position:'bottom-end',
+                timer:2000,
+                timerProgressBar:true
+              })
             navigate("/login")
-        } else alert("hatalı kayıt")
+        } else if(res.message === undefined){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                showConfirmButton:false,
+                toast:true,
+                position:'bottom-end',
+                text: 'Please enter different mail address',
+                timer:3000,
+                timerProgressBar:true
+              })
+        }
     }
 
     return (

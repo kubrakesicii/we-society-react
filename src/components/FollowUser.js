@@ -20,29 +20,26 @@ const FollowUser = (props) => {
     }, [isFollowing,props.userProfileId])
 
     const followHandler = async () => {
-        console.log("HERE");
-        console.log("active user : ", activeUser.userProfileId);
-        console.log("props user : ", props.followId);
         await FollowUserRequest(activeUser.userProfileId, props.followId)
         setIsFollowing(true)
     }
 
     const unfollowHandler = async () => {
-        console.log("Follower : ",activeUser.userProfileId);
-        console.log("Following : ",props.followId);
         await UnfollowUserRequest(activeUser.userProfileId, props.followId)
         setIsFollowing(false)
     }
 
   return (
-        <div className='container mb-3 p-3'>    
+        <div className='container mb-3 p-3'>
             <div className='d-flex justify-content-start'>
-                <div className="col-2 align-self-center">
+                <div className="col-2 align-self-center" 
+                onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>
                     <img style={{borderRadius:'50%',height:'64px',width:'64px'}} alt="follow avatar" 
-                    src={`${props.image !== null ? `data:image/jpg;base64,${props.image}` : '/assets/images/default.jpg'}`} className="avatar" />
+                    src={`${props.image !== null ? `data:image/jpg;base64,${props.image}` : '/assets/images/person.png'}`} className="avatar" />
                 </div>
 
-                <div className="col-8 align-self-center">
+                <div className="col-8 align-self-center"
+                onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>
                 <h3 className="entry-title mb-2"><a onClick={() => navigate(`/user-profile/${props.followId}/tabs`)}>{props.fullName}</a></h3>
                     <div className="entry-excerpt">
                         <div>{props.bio}</div>

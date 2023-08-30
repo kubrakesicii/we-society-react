@@ -1,9 +1,9 @@
 FROM node:18-alpine
-WORKDIR /reactappnode
-COPY ./package.json /reactappnode
+WORKDIR /reactapp
+COPY ./package.json /reactapp
 
 RUN npm install
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3000
 CMD ["npm","start"]

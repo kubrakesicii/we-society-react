@@ -21,7 +21,9 @@ const Navigation = () => {
 
   useEffect(() => {
     if(activeUser.image == null) setImageSrc("/assets/images/default.jpg")
-    setImageSrc(activeUser.image)
+    else {
+      setImageSrc(activeUser.image)
+    }
   }, [activeUser])
 
   return (
@@ -117,7 +119,11 @@ const Navigation = () => {
               className="search-form d-lg-flex float-right"
             >
               {/* <a href="#" className="searh-toggle"> */}
-              <a className="searh-toggle">
+              <a className="searh-toggle" onClick={() => {
+                   navigate(`/search?key=${searchKey}`)
+                   setSearchKey("")
+                }               
+              }>
                 <i className="icon-search"></i>
               </a>
               <input
@@ -127,7 +133,7 @@ const Navigation = () => {
                 onChange={(e) => {
                   setSearchKey(e.target.value);
                 }}
-                value=""
+                value={searchKey}
                 name="s"
               />
             </form>

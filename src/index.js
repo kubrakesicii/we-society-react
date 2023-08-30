@@ -19,6 +19,7 @@ import NewArticleEditor from './components/NewArticleEditor';
 import AuthRoute from './utils/AuthRoute';
 import ReadingListArticles from './pages/ReadingListArticles';
 import ProfileTabContent from './pages/ProfileTabContent';
+import SearchResult from './pages/SearchResult';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {  
         path:'/new-article-editor',
         element:<NewArticleEditor/>
+      },
+      {  
+        path:'/search',
+        element:<SearchResult/>
       },
       {
         path:'/user-profile/:userProfileId',

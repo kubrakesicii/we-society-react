@@ -266,6 +266,14 @@ hr.section-divider::before {
   background-color: #03a87c;
   border-color: #03a87c;
 }
+
+.notAllowed{
+  cursor: not-allowed;
+}
+.notAllowed :hover{
+  cursor: not-allowed;
+}
+
 .small-text {
   font-size: 0.875em;
 }

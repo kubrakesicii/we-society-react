@@ -32,13 +32,17 @@ const FollowingList = (props) => {
                 <div className="col-md-12">
                 <h3 className='entry-title'><a onClick={() => navigate(`/user-profile/${userProfileId}/tabs`)}>Profile </a> / Followings</h3>
                     <div className="divider"></div>                  
-                        {followingList.map((f) => <FollowUser 
-                            key={f.id}
-                            id={f.id}
-                            image={f.image}
-                            followId={f.userProfileId}
-                            fullName={f.fullName}
-                            bio={f.bio}  />)}       
+                        {followingList.map((f) => 
+                            <a href=''>
+                            <FollowUser 
+                                key={f.id}
+                                id={f.id}
+                                image={f.image}
+                                followId={f.userProfileId}
+                                fullName={f.fullName}
+                                bio={f.bio}  />
+                            </a>
+                         )}       
                 </div>          
         </div>
     </div>    

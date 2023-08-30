@@ -62,6 +62,7 @@ const ReadingList = (props) => {
             </div>
           ) : (
             readingLists.map((r) => (
+              <a href="#">
               <Reading
                 key={r.id}
                 id={r.id}
@@ -70,6 +71,7 @@ const ReadingList = (props) => {
                 userProfileId={props.userProfileId}
                 articleCount={r.articleCount}
               />
+              </a>
             ))
           )
         }

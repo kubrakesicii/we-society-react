@@ -51,23 +51,23 @@ const Home = () => {
 
     return(
         <div className="section-featured featured-style-1">
-        <div className="content-widget">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8">
-                    <CategoryList categories={categories} selectedCategoryHandler={selectedCategoryHandler} />
-                        <h2 className="spanborder h4">
-                            <span>Most Recent</span>
-                        </h2>
-                        <ArticleList articles={articles}/> 
-                        <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
-                    </div>
+            <div className="content-widget">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8">
+                        <CategoryList categories={categories} selectedCategoryHandler={selectedCategoryHandler} />
+                            <h2 className="spanborder h4">
+                                <span>Most Recent</span>
+                            </h2>
+                            <ArticleList articles={articles}/> 
+                            <Pagination count={pageCount} pageIndexHandler={pageIndexHandler}  />
+                        </div>
 
-                    <PopularArticleList popularArticles={popularArticles}/>  
+                        <PopularArticleList popularArticles={popularArticles}/>  
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     )
 }
 

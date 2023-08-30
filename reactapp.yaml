@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactapp-deployment
+  labels:
+    app: reactapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactapp
+  template:
+    metadata:
+      labels:
+        app: reactapp
+    spec:
+      containers:
+      - name: reactapp
+        image: kubraakesici/react-app:1.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_BASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: react-secret
+              key: react-app-base-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactapp-service
+spec:
+  type: NodePort
+  selector:
+    app: reactapp
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30201

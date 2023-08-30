@@ -32,14 +32,12 @@ const Login = () => {
         }
 
         var res = await LoginUser(form)
+
         if(res.message === "OK"){
-            console.log("Dispatch user data : ", res.data);            
             const storeImg=URL.createObjectURL(await b64toBlob(res.data.image));
-            console.log("STORED IMG : ",storeImg);
 
             dispatch(authActions.login({...res.data, image:storeImg}))
             navigate("/home")
-
 
             Swal.fire({
                 title: 'Signed in successfully!',
@@ -50,9 +48,18 @@ const Login = () => {
                 timer:3000,
                 timerProgressBar:true
               })
-
-
-        } else alert("yanlış giriş")
+        } else if(res.message === undefined) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                showConfirmButton:false,
+                toast:true,
+                position:'bottom-end',
+                text: 'Email or Password is wrong! Try again!',
+                timer:3000,
+                timerProgressBar:true
+              })
+        }
     }
     const dispatch = useDispatch(submitHandler)
 

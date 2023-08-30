@@ -9,7 +9,7 @@ export default function PopularArticle(props) {
     <li className="d-flex">
         <div className="post-count">0{props.order}</div>
         <div className="post-content">
-            <h5 className="entry-title mb-3"><a href="single.html">{props.title}</a></h5>
+            <h5 className="entry-title mb-3">{props.title}</h5>
             <div className="entry-meta align-items-center">
                 <a onClick={() => {
                         console.log("user prof id : ",props.userProfile.id);

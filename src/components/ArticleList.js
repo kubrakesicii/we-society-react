@@ -20,7 +20,8 @@ function ArticleList(props){
               content={a.content} 
               createdTime={a.createdTime}
               isPublished={a.isPublished}
-              mainImage={a.mainImage} />)
+              mainImage={a.mainImage} />
+              )
           )
         }
       </> 
