@@ -1,4 +1,5 @@
-export const BASE_URL = process.env.REACT_APP_BASE_URL;  //FROM ENV
+// export const BASE_URL = "http://localhost:5000";  //DOTNET API
+export const BASE_URL = "http://localhost:4000";  //NODE API
 export const AUTH_URL = "http://localhost:5000";  
 
 //dotnet

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: reactapp-dotnet
-        image: kubraakesici/react-app-dotnet:1.5
+        image: kubraakesici/react-app-dotnet:1.1
         ports:
         - containerPort: 3000
 ---
