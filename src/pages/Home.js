@@ -1,11 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import ArticleList from "../components/ArticleList";
-import {GetAllArticles, GetAllPopularArticles} from '../services/Requests/Article'
-import { GetAllCategories } from "../services/Requests/Category";
 import { useEffect, useState } from "react";
 import CategoryList from "../components/CategoryList";
 import Pagination from "../components/Pagination";
 import PopularArticleList from "../components/PopularArticleList";
+
+import { categoryService } from "../services/category";
+import { articleService } from "../services/article";
+
 
 const Home = () => {
     const [articles,setArticles]  = useState([])
@@ -17,7 +19,6 @@ const Home = () => {
     const [pageIndex, setPageIndex] = useState(1)
 
     const [selectedCategoryId, setSelectedCategoryId] = useState(0)
-    const [searchKey, setSearchKey] = useState(null)
 
     const [isLoading, setIsLoading] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -33,16 +34,18 @@ const Home = () => {
 
         const loadData = async() => {
                 setIsLoading(true)
-                const [articles,categories, popularArticles] = await Promise.all([
-                    GetAllArticles(pageIndex,pageSize,selectedCategoryId,searchKey),
-                    GetAllCategories(),
-                    GetAllPopularArticles(selectedCategoryId)
+                await Promise.all([
+                    articleService.getAll(pageIndex,pageSize,selectedCategoryId).then(({data}) => {
+                        setArticles(data.items)
+                    }),
+                    categoryService.getAll().then(({data}) => {
+                        setCategories(data);
+                      }),
+                    articleService.getAllPopulars(selectedCategoryId).then(({data}) => {
+                        setPopularArticles(data)
+                    }),
                 ]);
-
                 setPageCount(Math.ceil(articles.count/pageSize))
-                setArticles(articles.items)
-                setCategories(categories)
-                setPopularArticles(popularArticles)
                 setIsLoading(false)           
         }
 

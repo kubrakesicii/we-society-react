@@ -1,4 +1,4 @@
-export const GetUser = () => {
+export const getUser = () => {
   const user = {
     id:localStorage.getItem('id'),
     userProfileId:localStorage.getItem('userProfileId'),
@@ -8,12 +8,12 @@ export const GetUser = () => {
     else return user;
   }
 
-export const GetToken = () => {
+export const getToken = () => {
     return localStorage.getItem('token') || null;
   }
 
 // remove the token and user from the session storage
-export const RemoveUser = () => {
+export const removeUser = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('userProfileId');
@@ -22,7 +22,7 @@ export const RemoveUser = () => {
   }
    
   // set the token and user from the session storage
-  export const SetUser = (token, user) => {
+  export const setUser = (token, user) => {
     localStorage.setItem('token', token);
     localStorage.setItem('id', user.id);
     localStorage.setItem('userProfileId', user.userProfileId);

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Form } from 'react-router-dom';
-import { UpdateUserProfile } from '../services/Requests/UserProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { b64toBlob } from '../helpers/fileHelper';
 import { authActions } from '../store/auth.slice';
 import Swal from 'sweetalert2';
+import {userProfileService} from "../services/userProfile"
+
 
 const EditProfileModal = (props) => {
     console.log("Props user : ",props);
@@ -14,24 +15,18 @@ const EditProfileModal = (props) => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        console.log("submit handler");
-        console.log("Sent form : ", form);
-        var res = await UpdateUserProfile(activeUser.userProfileId,form)
+        await userProfileService.update(activeUser.userProfileId, form).then(async ({data}) => {
+            const storeImg=URL.createObjectURL(await b64toBlob(data.image));
+            dispatch(authActions.edit({...data, image:storeImg}))
+            props.onModalClosedHandler() 
 
-        const storeImg=URL.createObjectURL(await b64toBlob(res.data.image));
-
-        console.log("IMG : ",res.data.image);
-        console.log("storeImg : ",res.data.storeImg);
-
-        dispatch(authActions.edit({...res.data, image:storeImg}))
-        props.onModalClosedHandler()
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Your profile has been updated!',
-            showConfirmButton: false,
-            timer: 1000,
-            width:'20em'
+            Swal.fire({
+                icon: 'success',
+                title: 'Your profile has been updated!',
+                showConfirmButton: false,
+                timer: 1000,
+                width:'20em'
+            })   
         })
     }
 

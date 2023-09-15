@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { GetAllPopularArticles } from '../services/Requests/Article'
 import PopularArticleList from '../components/PopularArticleList'
-import { GetSearchResults } from '../services/Requests/Search'
 import Loader from '../components/Loader'
 import FollowUser from '../components/FollowUser'
+import {searchService} from "../services/search"
+import {articleService} from "../services/article"
 
 const SearchResult = () => {
     const [popularArticles,setPopularArticles]  = useState([])
@@ -11,32 +11,16 @@ const SearchResult = () => {
     const [searchKey, setSearchKey] = useState()
     const [searchResults, setSearchResults] = useState({articles:[],useres:[]})
 
-
-    // useEffect(() => {
-    //     const queryParams = new URLSearchParams(window.location.search)
-    //     console.log("QUER : ",queryParams.get("key"));
-    //     setSearchKey(queryParams.get("key"))
-    // },[window.location.search])
-
     useEffect(() => {
-        // if(searchParams.get('categoryId') != null) setSelectedCategoryId(searchParams.get('categoryId'))
         const loadData = async() => {  
-            console.log("HERE: ");
             setIsLoading(true)
             const queryParams = new URLSearchParams(window.location.search)
-
-            console.log("QUER : ",queryParams.get("key"));
             setSearchKey(queryParams.get("key"))
   
-            console.log("HERE");
-            const [popularArticles,searchResults] = await Promise.all([
-                GetAllPopularArticles(0),
-                GetSearchResults(queryParams.get("key"))
+            await Promise.all([
+                articleService.getAllPopulars(0).then(({data}) => setPopularArticles(data)),
+                searchService.search(queryParams.get("key")).then(({data}) => setSearchResults(data))
             ]);
-            setPopularArticles(popularArticles)
-            setSearchResults(searchResults)
-
-            console.log("SEARCH RES : ", searchResults);
             setIsLoading(false)           
         }
 

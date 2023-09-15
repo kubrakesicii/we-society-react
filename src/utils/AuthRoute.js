@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GetToken } from "./Token";
-import { useSelector } from "react-redux";
-
+import { getToken } from "./token";
 
 const AuthRoute = ({children}) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const checkUserToken = () => {
-        const userToken = GetToken();
+        const userToken = getToken();
         if (!userToken || userToken === 'undefined' || userToken === null) {
             setIsLoggedIn(false);
             return navigate('/login');
@@ -28,7 +26,6 @@ const AuthRoute = ({children}) => {
             }
         </React.Fragment>
     )
-
 }
 
 export default AuthRoute;

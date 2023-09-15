@@ -9,8 +9,6 @@ const authSlice = createSlice({
     initialState:initialState,
     reducers: {
         login(state,user){
-            console.log("user : ",user);
-            console.log("user login action : ");
             state.isAuthenticated=true;
             state.activeUser = user.payload
         },
@@ -18,7 +16,6 @@ const authSlice = createSlice({
             state.isAuthenticated=false
         },
         edit(state,user){
-            console.log("edit dispatched : ", user);
             state.isAuthenticated=true;
             state.activeUser=user.payload;
         }

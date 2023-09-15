@@ -1,8 +1,8 @@
-import { Form, json, redirect, useNavigate } from "react-router-dom";
-import {RegisterUser} from '../services/Requests/Auth'
+import { Form,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as Yup from "yup";
 import Swal from 'sweetalert2'
+import { authService } from "../services/auth";
 
 
 function Register(){
@@ -30,30 +30,32 @@ function Register(){
             setErrors(errors.errors)
         }
 
-        var res = await RegisterUser(form)
-        if(res.message === "OK"){
-            Swal.fire({
-                title: 'Registered successfully! Lets Login to WeSociety!',
-                icon: 'success',
-                showConfirmButton:false,
-                toast:true,
-                position:'bottom-end',
-                timer:2000,
-                timerProgressBar:true
-              })
-            navigate("/login")
-        } else if(res.message === undefined){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                showConfirmButton:false,
-                toast:true,
-                position:'bottom-end',
-                text: 'Please enter different mail address',
-                timer:3000,
-                timerProgressBar:true
-              })
-        }
+        var res = await authService.register(form)
+        res.then(async r => {
+            if(r.message === "OK"){
+                Swal.fire({
+                    title: 'Registered successfully! Lets Login to WeSociety!',
+                    icon: 'success',
+                    showConfirmButton:false,
+                    toast:true,
+                    position:'bottom-end',
+                    timer:2000,
+                    timerProgressBar:true
+                  })
+                navigate("/login")
+            } else if(r.message === undefined){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    showConfirmButton:false,
+                    toast:true,
+                    position:'bottom-end',
+                    text: 'Please enter different mail address',
+                    timer:3000,
+                    timerProgressBar:true
+                  })
+            }
+        })
     }
 
     return (
@@ -101,18 +103,3 @@ function Register(){
 
 
 export default Register;
-
-export async function register({request}){
-    console.log("Register act start");
-
-    const formData = await request.formData();
-
-    console.log("FormData : ",formData);
-
-    var res = await RegisterUser(formData)
-
-    console.log("Register act end");
-    console.log("RES : ",res);
-
-    return redirect("/")
-}

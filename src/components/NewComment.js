@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { InsertComment } from '../services/Requests/ArticleComment';
+import {articleCommentService} from "../services/articleComment"
 
 const NewComment = (props) => {
     const activeUser = useSelector(state => state.auth.activeUser);
@@ -14,7 +14,7 @@ const NewComment = (props) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        await InsertComment(form)
+        await articleCommentService.insert(form)
         ref.current.value = '';
         props.loadComments()
     }

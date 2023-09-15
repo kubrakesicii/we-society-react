@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { GetAllReadingLists } from "../services/Requests/ReadingList";
 import Reading from "./Reading";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NewReadingListModal from "./NewReadingListModal";
 import { useSelector } from "react-redux";
+import {readingListService} from "../services/readingList"
+
 
 const ReadingList = (props) => {
   const [readingLists, setReadingLists] = useState([]);
@@ -11,11 +12,8 @@ const ReadingList = (props) => {
   const activeUser = useSelector(state => state.auth.activeUser)
   const [isCurrentUser, setIsCurrentUser] = useState(false)
 
-  const navigate = useNavigate()
-
   const loadData = async () => {
-    const lists = await GetAllReadingLists(userProfileId);
-    setReadingLists(lists);
+    readingListService.getAll(userProfileId).then(({data}) => setReadingLists(data))
   };
 
   const onModalClosedHandler = () => {

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GetAllArticles, GetArticleDetail } from "../services/Requests/Article";
 import UserProfileInfo from "../components/UserProfileInfo";
 import RelatedArticleList from "../components/RelatedArticleList";
 import moment from "moment";
 import NewComment from "../components/NewComment";
 import CommentList from "../components/CommentList";
-import { GetCommentsByArticle } from "../services/Requests/ArticleComment";
-import { GetAllClappingUsers, InsertArticleClap } from "../services/Requests/ArticleClap";
 import { useSelector } from "react-redux";
 import ClapListModal from "../components/ClapListModal";
 import Loader from "../components/Loader";
+import {articleClapService} from "../services/articleClap"
+import {articleCommentService} from "../services/articleComment"
+import { articleService } from "../services/article";
+
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -26,18 +27,14 @@ const ArticleDetail = () => {
   console.log("HERE DETAIL : ", id);
 
   const loadComments = async () => {
-    console.log("comments loaded");
-    var comments = await GetCommentsByArticle(id)
-    setComments(comments)
+    await articleCommentService.getAll(id).then(({data}) => setComments(data))
   }
 
   const loadData = async () => {
     setIsLoading(true);
-    const article = await GetArticleDetail(id);
-    const relatedArticles = await GetAllArticles(1, 3, article.category.id);
+    await articleService.getById(id).then(({data}) => setArticle(data))
+    await articleService.getAll(1,3,article.category.id).then(({data}) => setRelatedArticles(data.items));
     loadComments()
-    setArticle(article);
-    setRelatedArticles(relatedArticles.items);
     setIsLoading(false);
   };
 
@@ -49,11 +46,9 @@ const ArticleDetail = () => {
   const clapHandler = async () => {
     if(activeUser.userProfileId === 0) navigate("/login")
     else {
-      await InsertArticleClap({userProfileId:activeUser.userProfileId,articleId:id})
+      articleClapService.insert({userProfileId:activeUser.userProfileId,articleId:id})
       var c = document.getElementById('clap-cnt');
       c.textContent = parseInt(c.textContent)+1;
-      //clap ve comment counts ayrı cekilsin de refreslensin mi?
-      // yoksa anlık ++ mı yapılsın?
     }
   }
 

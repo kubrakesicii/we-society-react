@@ -3,12 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SaveArticleModal from "./SaveArticleModal";
-import {
-  GetIsSaved,
-  UndoSaveArticleToReadingList,
-} from "../services/Requests/ReadingListArticles";
-import Swal from "sweetalert2";
 import Loader from "./Loader";
+import {readingListArticleService} from "../services/readingListArticles"
 
 function Article(props) {
   const navigate = useNavigate();
@@ -21,7 +17,7 @@ function Article(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const undoSaveHandler = async () => {
-    await UndoSaveArticleToReadingList(savedId);
+    await readingListArticleService.undoSave(savedId)
     load();
   };
 
@@ -29,9 +25,10 @@ function Article(props) {
     setIsLoading(true);
     if (activeUser.userProfileId == props.userProfile.id) setIsOwner(true);
     setArticleId(props.id);
-    const savedData = await GetIsSaved(activeUser.userProfileId, props.id);
-    setIsSaved(savedData.isSaved);
-    setSavedId(savedData.id);
+    await readingListArticleService.getIsSaved(activeUser.userProfileId, props.id).then(({data}) => {
+      setIsSaved(data.isSaved)
+      setSavedId(data.id)
+    })
     setIsLoading(false);
   };
 

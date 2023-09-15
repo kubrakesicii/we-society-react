@@ -3,8 +3,6 @@ import NewComment from './NewComment'
 import CommentList from './CommentList'
 
 const ArticleComment = (props) => {
-    
-    
   return (
     <>
         <NewComment articleId={props.articleId} />
@@ -13,3 +11,5 @@ const ArticleComment = (props) => {
     </>
   )
 }
+
+export default ArticleComment;

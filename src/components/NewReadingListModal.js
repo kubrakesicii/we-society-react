@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Form } from 'react-router-dom';
-import { CreateReadingList } from '../services/Requests/ReadingList';
+import {readingListService} from "../services/readingList"
 
 const NewReadingListModal = (props) => {
     const activeUser = useSelector(state => state.auth.activeUser)
@@ -14,7 +14,7 @@ const NewReadingListModal = (props) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        await CreateReadingList(form)
+        await readingListService.insert(form)
         props.onModalClosedHandler()
     }
 

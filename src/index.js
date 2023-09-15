@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Login, {login as loginAction} from './pages/Login';
-import Register, {register as registerAction} from './pages/Register';
-import App from './App';
-import Home , {loadArticles as loader} from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import UserProfile from './pages/UserProfile';
@@ -15,8 +14,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import NewArticle from './components/NewArticle';
 import FollowerList from './pages/FollowerList';
 import FollowingList from './pages/FollowingList';
-import NewArticleEditor from './components/NewArticleEditor';
-import AuthRoute from './utils/AuthRoute';
+import AuthRoute from './utils/authRoute';
 import ReadingListArticles from './pages/ReadingListArticles';
 import ProfileTabContent from './pages/ProfileTabContent';
 import SearchResult from './pages/SearchResult';
@@ -28,13 +26,11 @@ const router = createBrowserRouter([
     children: [
       {
         path:'/login',
-        element:<Login/>,
-        action:loginAction
+        element:<Login/>
       },
       {
         path:'/register',
-        element:<Register/>,
-        action:registerAction
+        element:<Register/>
       },
       {  
         path:'/home',
@@ -52,10 +48,6 @@ const router = createBrowserRouter([
         path:'/following/:userProfileId',
         element:<FollowingList/>
       },
-      // {  
-      //   path:'/lists/',
-      //   element:<ReadingListArticles/>
-      // },
       {  
         path:'/article-detail/:id',
         element:<ArticleDetail/>
@@ -63,10 +55,6 @@ const router = createBrowserRouter([
       {  
         path:'/new-article',
         element:<AuthRoute><NewArticle/></AuthRoute>
-      },
-      {  
-        path:'/new-article-editor',
-        element:<NewArticleEditor/>
       },
       {  
         path:'/search',

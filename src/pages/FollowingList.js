@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import FollowUser from '../components/FollowUser';
-import { GetAllFollowings } from '../services/Requests/FollowRelationship';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { followRelationshipService } from '../services/followRelationship';
 
 const FollowingList = (props) => {
   const [followingList, setFollowingList] = useState([])
@@ -20,8 +20,7 @@ const FollowingList = (props) => {
 
   useEffect(() => {
       const loadData = async () => {
-          let users =  await GetAllFollowings(userProfileId,1,20)
-          setFollowingList(users)
+        await followRelationshipService.getAllFollowings(userProfileId,1,20).then(({data}) => setFollowingList(data.items))
       }
       loadData()
   },[])

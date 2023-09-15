@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import MainHeader from './components/MainHeader';
-import { GetToken, RemoveUser } from './utils/Token';
+import { getToken, removeUser } from './utils/token';
 import { Outlet } from 'react-router-dom';
 
 
@@ -9,7 +9,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   const logoutHandler = () => {
-      RemoveUser()
+      removeUser()
       setIsLoggedIn(false)
   }
 
@@ -18,7 +18,7 @@ function App() {
   }
 
   useEffect(() => {
-    if(GetToken() != null) setIsLoggedIn(true) 
+    if(getToken() != null) setIsLoggedIn(true) 
   }, []) 
 
   return (

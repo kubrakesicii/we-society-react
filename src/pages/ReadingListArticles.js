@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Article from '../components/Article';
-import { GetAllArticlesByReadingList } from '../services/Requests/ReadingListArticles';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Loader from '../components/Loader';
+import {readingListArticleService} from "../services/readingListArticles"
 
 const ReadingListArticles = (props) => {
     const [listArticles, setListArticles] = useState([])
@@ -16,8 +16,7 @@ const ReadingListArticles = (props) => {
     useEffect(() => {
         const loadData = async () => {
             setIsLoading(true)
-            const articles = await GetAllArticlesByReadingList(readingListId)
-            setListArticles(articles)
+            await readingListArticleService.getAllByList(readingListId).then(({data}) => setListArticles(data))
             setIsLoading(false)
         }
         loadData()

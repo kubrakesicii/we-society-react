@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  GetArticleDetail,
-  InsertArticle,
-  UpdateArticle,
-} from "../services/Requests/Article";
 import { useSelector } from "react-redux";
-import { GetAllCategories } from "../services/Requests/Category";
 import { b64toBlob } from "../helpers/fileHelper";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -15,6 +9,8 @@ import Cropper from "react-easy-crop";
 import * as Yup from "yup";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { articleService } from "../services/article";
+import { categoryService } from "../services/category";
 
 const NewArticle = () => {
   const activeUser = useSelector((state) => state.auth.activeUser);
@@ -31,7 +27,7 @@ const NewArticle = () => {
   const [form, setForm] = useState({
     title: "",
     content: "",
-    isPublished: -1,
+    isPublished: false,
     categoryId: -1,
     userProfileId: -1,
     mainImage: null,
@@ -42,12 +38,9 @@ const NewArticle = () => {
 
   const updateLoad = async () => {
     setIsLoading(true);
-    const categories = await GetAllCategories();
-    setCategories(categories);
-    const article = await GetArticleDetail(searchParams.get("updateId"));
-
+    await categoryService.getAll().then(({data}) => setCategories(data))
+    const article = articleService.getById(searchParams.get("updateId"));
     setArticle(article);
-    console.log("updating art : ", article);
     setForm({
       ...form,
       userProfileId: activeUser.userProfileId,
@@ -66,52 +59,10 @@ const NewArticle = () => {
   const insertLoad = async () => {
     setUploadedImage("/assets/images/img-upload.PNG");
     setIsLoading(true);
-    const categories = await GetAllCategories();
-    setCategories(categories);
+    await categoryService.getAll().then(({data}) => setCategories(data))
     setForm({ ...form, userProfileId: activeUser.userProfileId });
     setIsLoading(false);
   };
-
-  // EDITOR INIT
-  // ClassicEditor.create(document.querySelector("#editor"), {
-  //     plugins: [Base64UploadAdapter],
-  //     toolbar: {
-  //       items: [
-  //         Heading,
-  //         "|",
-  //         "bold",
-  //         "italic",
-  //         "link",
-  //         "bulletedList",
-  //         "numberedList",
-  //         "|",
-  //         "indent",
-  //         "outdent",
-  //         "|",
-  //         "imageUpload",
-  //         "blockQuote",
-  //         "mediaEmbed",
-  //         "undo",
-  //         "redo",
-  //       ],
-  //     },
-  //     language: "es",
-  //     image: {
-  //       toolbar: ["imageTextAlternative", "imageStyle:full", "imageStyle:side"],
-  //     },
-  //     licenseKey: "",
-  //   })
-  //     .then((editor) => {
-  //       window.editor = editor;
-  //     })
-  //     .catch((error) => {
-  //       console.error("Oops, something went wrong!");
-  //       console.error(
-  //         "Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:"
-  //       );
-  //       console.warn("Build id: ref2goguw78q-8ghiwfe1qu83");
-  //       console.error(error);
-  //     });
 
   useEffect(() => {
     if (searchParams.get("action") === "update") {
@@ -126,17 +77,6 @@ const NewArticle = () => {
       .min(2, "Title must longer than 10 character")
       .required("Please enter title"),
     content: Yup.string().required("Content is required"),
-    mainImage: Yup.object().shape({
-      file: Yup.mixed()
-        .nonNullable(
-          null,
-          "Image is required. Please upload main image for your article"
-        )
-        .required(
-          null,
-          "Image is required. Please upload main image for your article"
-        ),
-    }),
   });
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -147,7 +87,7 @@ const NewArticle = () => {
         setErrors(errors.errors);
       }
 
-      var res = await InsertArticle({ ...form, isPublished: 1 });
+      var res = articleService.insert({ ...form, isPublished: true});
       if (res.message === "OK") {
         Swal.fire({
           position: "center",
@@ -160,9 +100,9 @@ const NewArticle = () => {
         navigate(`/user-profile/${activeUser.userProfileId}/tabs#latest`);
       }
     } else if (searchParams.get("action") === "update") {
-      var res = await UpdateArticle(searchParams.get("updateId"), {
+      var res = articleService.update(searchParams.get("updateId"), {
         ...form,
-        isPublished: 1,
+        isPublished: true,
       });
 
       if (res.message === "OK") {
@@ -181,7 +121,7 @@ const NewArticle = () => {
 
   const saveDraftHandler = async (e) => {
     e.preventDefault();
-    var res = await InsertArticle({ ...form, isPublished: -1 });
+    var res = articleService.insert({ ...form, isPublished: false });
     if (res.message === "OK")
       navigate(`/user-profile/${activeUser.userProfileId}/tabs#drafts`);
   };
@@ -205,9 +145,6 @@ const NewArticle = () => {
           <div className="container p-3 mb-5">
             <div className="row mb-5 p-4">
               <div className="col-6">
-                {/* <img src={`${article.mainImage !== null ? `data:image/png;base64,${article.mainImage}` : '/assets/images/default.jpg'}`}
-                            id='main-img' /> */}
-
                 <div style={{ width: "300px", height: "250px" }}>
                   <Cropper
                     image={uploadedImage}
@@ -284,36 +221,20 @@ const NewArticle = () => {
                     data={form.content}
                     placeholder="<h2>Write...</h2>"
                     onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
                       console.log("Editor is ready to use!", editor);
-
                       editor.ui.view.editable.element.style.height = "700px";
-                      // editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-                      //     return new UploadAdapter(loader)
-                      // }
                     }}
                     onChange={(event, editor) => {
                       editor.ui.view.editable.element.style.height = "700px";
                       const data = editor.getData();
                       setForm({ ...form, content: data });
-                      console.log({ event, editor, data });
-
                       if (searchParams.get("action") === "insert") {
                         document
                           .getElementById("submit-btn")
                           .removeAttribute("disabled");
-                        //document.getElementById('draft-btn').removeAttribute('disabled')
                       }
 
                       console.log("FORM : ", form);
-                    }}
-                    onBlur={(event, editor) => {
-                      // editor.ui.view.editable.element.style.height="700px"
-                      console.log("Blur.", editor);
-                    }}
-                    onFocus={(event, editor) => {
-                      // editor.ui.view.editable.element.style.height="700px"
-                      console.log("Focus.", editor);
                     }}
                   />
                 </div>
@@ -367,7 +288,7 @@ const NewArticle = () => {
                             Save Changes
                           </button>
 
-                          {form.isPublished === -1 ? (
+                          {form.isPublished === false ? (
                             <button
                               type="submit"
                               className="btn btn-success ml-4"

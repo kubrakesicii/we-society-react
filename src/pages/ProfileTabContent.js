@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { GetAllArticleDraftsByUser, GetAllArticlesByUser } from '../services/Requests/Article'
 import ArticleList from '../components/ArticleList'
 import ReadingList from '../components/ReadingList'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { articleService } from "../services/article";
 
 const ProfileTabContent = (props) => {
     const [articlesByUser,setArticles]  = useState([])
     const [userDrafts,setUserDrafts]  = useState([])
     const [selectedTab, setSelectedTab] = useState(1)
-
     const { userProfileId } = useParams();
     const [isCurrentUser, setIsCurrentUser] = useState(false)
     const activeUser = useSelector(state => state.auth.activeUser)
-
+    
     useEffect(() => {
         if(activeUser.userProfileId == userProfileId) setIsCurrentUser(true)
         const loadData = async() => {
-                const [articles, userDrafts,userReadingLists] = await Promise.all([
-                    GetAllArticlesByUser(userProfileId,1,20),
-                    GetAllArticleDraftsByUser(userProfileId,1,20),
-                ])
-                setArticles(articles.items)
-                setUserDrafts(userDrafts.items)
+            await Promise.all([
+                articleService.getAllByUser(1,20,userProfileId).then(({data}) => setArticles(data.items)),
+                articleService.getAllDraftsByUser(1,20,userProfileId).then(({data}) => setUserDrafts(data.items)),
+            ])
         }
         loadData()
     }, [userProfileId])

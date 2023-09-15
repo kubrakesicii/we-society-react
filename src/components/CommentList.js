@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { GetCommentsByArticle } from '../services/Requests/ArticleComment'
+import React from 'react'
 import Comment from './Comment'
 
 const CommentList = (props) => {

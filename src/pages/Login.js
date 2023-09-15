@@ -1,4 +1,3 @@
-import {LoginUser} from '../services/Requests/Auth'
 import { useNavigate,  } from "react-router-dom";
 import {useState } from "react";
 import { useDispatch } from "react-redux";
@@ -6,6 +5,8 @@ import { authActions } from "../store/auth.slice";
 import Swal from 'sweetalert2'
 import * as Yup from "yup";
 import { b64toBlob } from '../helpers/fileHelper';
+import { authService } from "../services/auth";
+import { setUser } from "../utils/token";
 
 
 const Login = () => {
@@ -31,35 +32,36 @@ const Login = () => {
             setErrors(errors.errors)
         }
 
-        var res = await LoginUser(form)
+        var res = authService.login(form)
+        res.then(async r => {
+            if(r.message === "OK"){
+                const storeImg=URL.createObjectURL(await b64toBlob(r.data.image));
+                dispatch(authActions.login({...r.data, image:storeImg}))
+                navigate("/home")
+                setUser(r.data.token,r.data)
 
-        if(res.message === "OK"){
-            const storeImg=URL.createObjectURL(await b64toBlob(res.data.image));
-
-            dispatch(authActions.login({...res.data, image:storeImg}))
-            navigate("/home")
-
-            Swal.fire({
-                title: 'Signed in successfully!',
-                icon: 'success',
-                showConfirmButton:false,
-                toast:true,
-                position:'bottom-end',
-                timer:3000,
-                timerProgressBar:true
-              })
-        } else if(res.message === undefined) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                showConfirmButton:false,
-                toast:true,
-                position:'bottom-end',
-                text: 'Email or Password is wrong! Try again!',
-                timer:3000,
-                timerProgressBar:true
-              })
-        }
+                Swal.fire({
+                    title: 'Signed in successfully!',
+                    icon: 'success',
+                    showConfirmButton:false,
+                    toast:true,
+                    position:'bottom-end',
+                    timer:3000,
+                    timerProgressBar:true
+                  })
+            } else if(r.message === undefined) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    showConfirmButton:false,
+                    toast:true,
+                    position:'bottom-end',
+                    text: 'Email or Password is wrong! Try again!',
+                    timer:3000,
+                    timerProgressBar:true
+                  })
+            }
+        });    
     }
     const dispatch = useDispatch(submitHandler)
 
@@ -103,13 +105,3 @@ const Login = () => {
 }
 
 export default Login;
-
-export async function login({request}){
-    console.log("Login action start");
-    const formData = await request.formData();
-    return await LoginUser(formData)
-
-    //const dispatch = useDispatch(dispatch({type:'LOGIN'}))
-   // return redirect("/home")
-}
-

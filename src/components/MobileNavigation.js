@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../store/auth.slice';
-import { RemoveUser } from '../utils/Token';
+import { removeUser } from '../utils/token';
 
 const MobileNavigation = () => {
     const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -16,7 +16,7 @@ const MobileNavigation = () => {
     // Store'da logout action tetikleniyor, burada da global auth verisi false yapılıyor
     const logoutHandler = () => {
       dispatch(authActions.logout());
-      RemoveUser();
+      removeUser();
     };
   
     useEffect(() => {

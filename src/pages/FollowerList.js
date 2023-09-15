@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import FollowUser from '../components/FollowUser';
-import { GetAllFollowers, GetIsFollowing } from '../services/Requests/FollowRelationship';
-import UserProfileInfo from '../components/UserProfileInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { followRelationshipService } from '../services/followRelationship';
 
 const FollowerList = (props) => {
   const [followerList, setFollowerList] = useState([])
-
   const { userProfileId } = useParams();
-  
   const [isCurrentUser, setIsCurrentUser] = useState(false)
   const activeUser = useSelector(state => state.auth.activeUser)
   useEffect(() => {
@@ -20,8 +17,7 @@ const FollowerList = (props) => {
 
   useEffect(() => {
       const loadData = async () => {
-          let users =  await GetAllFollowers(userProfileId,1,20)
-          setFollowerList(users)
+            await followRelationshipService.getAllFollowers(userProfileId,1,20).then(({data}) => setFollowerList(data.items))
       }
       loadData()
   },[])

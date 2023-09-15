@@ -1,33 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { GetUserProfile } from "../services/Requests/UserProfile";
-import { Link, useNavigate } from "react-router-dom";
-import { FollowUserRequest, GetIsFollowing, UnfollowUserRequest } from "../services/Requests/FollowRelationship";
+import { useNavigate } from "react-router-dom";
 import EditProfileModal from "./EditProfileModal";
 import Loader from "./Loader";
+import {followRelationshipService} from "../services/followRelationship"
+import {userProfileService} from "../services/userProfile"
+import useFollowStatus from "../customHooks/useFollowStatus";
 
 
 const UserProfileInfo = (props) => {
-    const [isFollowing, setIsFollowing] = useState(false)
     const [userInfo, setUserInfo] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    
     const navigate = useNavigate();
     const activeUser = useSelector(state => state.auth.activeUser)
-
-    console.log("ACTIVE USER : ",activeUser);
+    const [isFollowing,setIsFollowing] = useFollowStatus(activeUser.userProfileId, props.userProfileId);
 
     const loadData = async() => {
         setIsLoading(true)
-        const user = await GetUserProfile(props.userProfileId)
-        const isFollowing = await GetIsFollowing(activeUser.userProfileId, props.userProfileId)
-        setUserInfo(user)
-        setIsFollowing(isFollowing)
-
-        console.log("USER INFO : ", user);
-
-
-        console.log("Is following : ", isFollowing);
+        await userProfileService.getById(props.userProfileId).then(({data}) => setUserInfo(data))
         setIsLoading(false)
     }
 
@@ -36,20 +26,16 @@ const UserProfileInfo = (props) => {
     }, [isFollowing,props.userProfileId])
 
     const onModalClosedHandler = () => {
-        console.log("modal close handler");
         loadData()
     }
 
     const followHandler = async () => {
-        console.log("Follow handler");
-
-        await FollowUserRequest(activeUser.userProfileId, props.userProfileId)
+        await followRelationshipService.follow({followerId:activeUser.userProfileId,followingId:props.userProfileId})
         setIsFollowing(true)
     }
 
     const unfollowHandler = async () => {
-        console.log("Un Follow handler");
-        await UnfollowUserRequest(activeUser.userProfileId, props.userProfileId)
+        await followRelationshipService.unfollow({followerId:activeUser.userProfileId,followingId:props.userProfileId})
         setIsFollowing(false)
     }
 

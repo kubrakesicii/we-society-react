@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { GetAllClappingUsers } from '../services/Requests/ArticleClap'
 import ClapUser from './ClapUser'
+
+import {articleClapService} from "../services/articleClap"
 
 const ClapListModal = (props) => {
     const [clapUsers, setClapUsers] = useState([])
@@ -9,17 +10,18 @@ const ClapListModal = (props) => {
 
     const loadData = async () => {
         setIsLoading(true)
-        let users =  await GetAllClappingUsers(props.articleId)
-        setClapUsers(users)
+        // let users =  await GetAllClappingUsers(props.articleId)
+        // setClapUsers(users)
 
-        let total=0;
-        users.map(c => {
-            total += c.count;
-            setTotalClaps(total)
-        }) 
-        console.log("Clap users : ",clapUsers);
+        await articleClapService.getAll(props.articleId).then(({data}) => {
+            setClapUsers(data)
+            let total=0;
+            data.map(c => {
+                total += c.count;
+                setTotalClaps(total)
+            }) 
+        })
         setIsLoading(false)
-       
     }
     
     useEffect(() => {

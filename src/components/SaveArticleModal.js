@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Form } from "react-router-dom";
-import { GetAllReadingLists } from "../services/Requests/ReadingList";
-import { SaveArticleToReadingList } from "../services/Requests/ReadingListArticles";
+import {readingListService} from "../services/readingList"
+import {readingListArticleService} from "../services/readingListArticles"
 
 const SaveArticleModal = (props) => {
   const [readingLists, setReadingLists] = useState([]);
@@ -16,15 +16,13 @@ const SaveArticleModal = (props) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setForm({ ...form, articleId: props.articleId });
-    await SaveArticleToReadingList(form);
+    await readingListArticleService.saveArticle(form)
     props.saveHandler();
   };
 
   useEffect(() => {
-    console.log("MODAL ARTICLE ID : ", props.articleId);
     const loadData = async () => {
-      const lists = await GetAllReadingLists(activeUser.userProfileId);
-      setReadingLists(lists);
+      readingListService.getAll(activeUser.userProfileId).then(({data}) => setReadingLists(data))
     };
     loadData();
   }, []);

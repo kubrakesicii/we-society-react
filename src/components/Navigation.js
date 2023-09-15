@@ -1,4 +1,4 @@
-import { GetUser, RemoveUser } from "../utils/Token";
+import { removeUser } from "../utils/token";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth.slice";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const Navigation = () => {
   // Store'da logout action tetikleniyor, burada da global auth verisi false yapılıyor
   const logoutHandler = () => {
     dispatch(authActions.logout());
-    RemoveUser();
+    removeUser();
   };
 
   useEffect(() => {
